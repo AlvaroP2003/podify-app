@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --main-bg : #1a1a1a;
+  --scnd-bg : #333333;
+  --trim : #969696;
+  --accent : #ff4499;
+  --text-clr : #F2F2F2;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--scnd-bg);
+}
+
+
+/* Global Styling */
+
+section {
+  padding: 2rem 4rem;
+}
+
+h1 {
+  font-size: 2rem;
+  color: var(--text-clr);
+}
+
+/* --- --- --- --- --- */
+
+
+
+/* Header Section */
+
+header {
+  background-color: var(--main-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+}
+
+header img {
+  width: 200px;
+}
+
+header nav ul {
+  display: flex;
+  gap: 4rem;
+}
+
+header nav ul .link {
+  text-decoration: none;
+  color: var(--text-clr);
+}
+
+header nav ul .link:hover {
+  color: var(--accent);
+  cursor: pointer;
+}
+
+/* --- --- --- --- --- */
+
+
+
+/* Home Page */
+
+.search-filter-sec {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 4rem;
+}
+
+.search-filter-sec > div {
+  display: flex;
+  gap: .5rem;
+}
+
+.search-filter-sec > div input {
+  background-color: transparent;
+  border: solid var(--trim) 2px;
+  border-radius: 40px;
+  color: var(--text-clr);
+
+  height: 40px;
+  width: 250px;
+  padding: 0 1.25rem;
+}
+
+.search-filter-sec > div input::placeholder {
+  color: var(--trim);
+}
+
+.search-filter-sec > div button {
+  background-color: transparent;
+  border: solid var(--trim) 2px;
+  border-radius: 50%;
+  color: var(--text-clr);
+
+  width: 40px;
+}
+
+.search-filter-sec > div button svg {
+  stroke: var(--trim);
+}
+
+.search-filter-sec select {
+  background: transparent;
+  border: solid var(--trim) 2px;
+  border-radius: 40px;
+  color: var(--text-clr);
+  width: 150px;
+  padding: 0 1.25rem;
+}
+
+.search-filter-sec select:focus {
+  outline: none;
+}
+
+.search-filter-sec select option {
+  background-color: var(--scnd-bg);
+}
+
+/* --- --- --- --- --- */
