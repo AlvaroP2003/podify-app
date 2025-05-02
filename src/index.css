@@ -66,16 +66,25 @@ header nav ul .link:hover {
   cursor: pointer;
 }
 
+header nav ul .link.active {
+  color: var(--accent);
+}
+
 /* --- --- --- --- --- */
 
 
 
 /* Home Page */
 
+.home-sec {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .search-sort-sec {
   display: flex;
   justify-content: space-between;
-  padding: 1rem 4rem;
 }
 
 .search-sort-sec > div {
@@ -120,11 +129,11 @@ header nav ul .link:hover {
   padding: 0 1.25rem;
 }
 
-.search-filter-sec select:focus {
+.search-sort-sec select:focus {
   outline: none;
 }
 
-.search-filter-sec select option {
+.search-sort-sec select option {
   background-color: var(--scnd-bg);
 }
 
@@ -132,8 +141,6 @@ header nav ul .link:hover {
   display: grid;
   grid-template-columns: repeat(5,1fr);
   gap: 1rem;
-
-  margin-top: 2rem;
 }
 
 /* Filter Sec */
@@ -148,11 +155,23 @@ header nav ul .link:hover {
   padding: 1rem 2rem;
   border-radius: 50px;
   background-color: var(--main-bg);
+  border: solid var(--main-bg) 2px;
+}
+
+.filter-sec > div.active {
+  border: solid var(--accent) 2px;
+  color: var(--accent);
+}
+.filter-sec > div.active:hover {
+  background-color: var(--accent);
+  border: solid var(--accent) 2px;
+  color: var(--main-bg);
 }
 
 .filter-sec > div:hover {
   transition: .3s;
   background-color: var(--higlight);
+  border: solid var(--higlight) 2px;
   cursor: pointer;
 }
 
