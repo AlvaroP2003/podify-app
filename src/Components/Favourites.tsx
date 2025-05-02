@@ -1,4 +1,4 @@
-import SearchFilter from "./SearchFilter"
+import SearchFilter from "./SearchSort"
 
 export default function Favourites() {
     return (

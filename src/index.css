@@ -7,10 +7,12 @@
 
 :root {
   --main-bg : #1a1a1a;
-  --scnd-bg : #333333;
+  --scnd-bg : #242424;
   --trim : #969696;
   --accent : #ff4499;
   --text-clr : #F2F2F2;
+  --text-scnd : #bebebe;
+  --higlight : #313131;
 }
 
 body {
@@ -70,18 +72,18 @@ header nav ul .link:hover {
 
 /* Home Page */
 
-.search-filter-sec {
+.search-sort-sec {
   display: flex;
   justify-content: space-between;
   padding: 1rem 4rem;
 }
 
-.search-filter-sec > div {
+.search-sort-sec > div {
   display: flex;
   gap: .5rem;
 }
 
-.search-filter-sec > div input {
+.search-sort-sec > div input {
   background-color: transparent;
   border: solid var(--trim) 2px;
   border-radius: 40px;
@@ -92,11 +94,11 @@ header nav ul .link:hover {
   padding: 0 1.25rem;
 }
 
-.search-filter-sec > div input::placeholder {
+.search-sort-sec > div input::placeholder {
   color: var(--trim);
 }
 
-.search-filter-sec > div button {
+.search-sort-sec > div button {
   background-color: transparent;
   border: solid var(--trim) 2px;
   border-radius: 50%;
@@ -105,11 +107,11 @@ header nav ul .link:hover {
   width: 40px;
 }
 
-.search-filter-sec > div button svg {
+.search-sort-sec > div button svg {
   stroke: var(--trim);
 }
 
-.search-filter-sec select {
+.search-sort-sec select {
   background: transparent;
   border: solid var(--trim) 2px;
   border-radius: 40px;
@@ -124,6 +126,93 @@ header nav ul .link:hover {
 
 .search-filter-sec select option {
   background-color: var(--scnd-bg);
+}
+
+.podcasts-container {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: 1rem;
+
+  margin-top: 2rem;
+}
+
+/* Filter Sec */
+
+.filter-sec {
+  display: flex;
+  gap: 1rem;
+}
+
+.filter-sec > div {
+  color: var(--text-clr);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  background-color: var(--main-bg);
+}
+
+.filter-sec > div:hover {
+  transition: .3s;
+  background-color: var(--higlight);
+  cursor: pointer;
+}
+
+.podcasts-container .card {
+  position: relative;
+
+  color: white;
+  background-color: var(--main-bg);
+  text-decoration: none;
+  border: solid var(--trim) 2px;
+  border-radius: 15px;
+
+  overflow: hidden;
+
+  height: 400px;
+  width: 100%;
+
+  box-shadow: 5px 5px 20px black;
+  transition: .3s;
+}
+
+.podcasts-container .card:hover {
+  background-color: var(--accent);
+  transform: scale(1.025);
+}
+
+
+
+.card > div {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: .5rem;
+
+  height: 50%;
+  transition: .3s;
+}
+
+.podcasts-container .card h1 {
+  font-size: 1.25rem;
+}
+
+.podcasts-container .card h2 {
+  font-size: .8rem;
+  color: var(--text-scnd);
+}
+
+.podcasts-container .card h3 {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: .8rem;
+  color: var(--text-scnd);
+}
+
+
+.podcasts-container img {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
 }
 
 /* --- --- --- --- --- */
