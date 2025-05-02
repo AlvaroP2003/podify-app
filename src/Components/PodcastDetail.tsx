@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { NavLink, useParams } from "react-router-dom"
 import Loading from "./Loading";
 
 
@@ -12,13 +12,14 @@ type Season = {
     season : number;
     title : string;
     image : string ;
-    episde : Episodes[];
+    episodes : Episodes[];
 }
 
 type PodcastData = {
     id:number;
     title:string;
     image:string;
+    genres:string[];
     description:string;
     seasons: Season[];
     updated:string;
@@ -32,6 +33,7 @@ export default function PodcastDetail() {
     const { id } = useParams<{id:string}>()
 
 
+    // Fetch podcast detail
     useEffect(()=> {
         if(!id) {
             return
@@ -65,21 +67,49 @@ export default function PodcastDetail() {
     },[])
 
     console.log(podcast);
-    
+
+
+    const totalEpisodes = podcast?.seasons.map(season => (
+        season.episodes.length
+     ))
+
+     const sumEpisodes = totalEpisodes?.reduce((acc, num) => acc + num, 0);
 
     return (
         <>
         {podcast ?
             <section className="podcast-detail">
+
+                <NavLink to={'/'}>back</NavLink>
+
                 <div className="main">
                     <h1>{podcast.title}</h1>
                     <h2>{podcast.genres.join(' · ')}</h2>
+
                     <div className="main-content">
                         <img src={podcast.image}/>
-                        <div className="content">
-                            <span><h3>{podcast.seasons.length}</h3></span>
+                        <div className="detail">
+                            <span>
+                                <h3>{`${podcast.seasons.length} Seasons  · ${sumEpisodes} Episodes`}</h3>
+                            </span>
+                            <p>{podcast.description}</p>
                         </div>
                     </div>
+                    <p>{podcast.updated.slice(0,10)}</p>
+                </div>
+
+                <div className="seasons-episodes-sec">
+                    <div className="summary">
+                    <select>
+                        {podcast.seasons.map((season,index) => (
+                            <option key={index}>
+                                {`Season ${season.season}`}
+                            </option>
+                        ))}
+                    </select>
+                    <div>Episodes</div>
+                    </div>
+                    
                 </div>
             </section>
             : null

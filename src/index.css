@@ -235,3 +235,42 @@ header nav ul .link.active {
 }
 
 /* --- --- --- --- --- */
+
+
+
+
+/* Podcast Detail */
+
+.podcast-detail {
+  display: flex;
+}
+
+.podcast-detail img {
+  width: 200px;
+}
+
+.main-content {
+  border: solid red;
+
+  display: flex;
+  gap: 1rem;
+}
+
+.main-content .detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: solid green;
+}
+
+.seasons-episodes-sec {
+  border: solid yellow;
+}
+
+.seasons-episodes-sec .summary {
+  border: solid orange;
+
+  display: flex;
+  gap: 1rems;
+}
+/* --- --- --- --- --- */
