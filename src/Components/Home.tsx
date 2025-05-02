@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { NavLink, useSearchParams } from "react-router-dom";
+import Loading from "./Loading";
 
 type PodcastData = {
     id:string;
@@ -121,8 +122,9 @@ export default function Home() {
     ))
 
     return (
-        <section className="home-sec">
-
+        <>
+            {loading ? <Loading/> : error ? <h1>Error</h1> :
+            <section className="home-sec">
                 <div className="search-sort-sec">
                     <div>
                         <input 
@@ -135,7 +137,7 @@ export default function Home() {
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search-icon lucide-search"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.3-4.3" /></svg>
                         </button>
                     </div>
-                        <select>
+                        <select >
                             <option>A - Z</option>
                             <option>Z - A</option>
                             <option>Old to New</option>
@@ -149,8 +151,11 @@ export default function Home() {
 
                     <h1>{genreFilter ? genreFilter : 'All Podcasts'}</h1>
                     <div className="podcasts-container">
-                        {loading ? <h1>Loading...</h1> : error ? <h1>{error}</h1> : displayedPodcasts}
+                        {displayedPodcasts}
                     </div>
-        </section>
+            </section>
+        }
+        </>
+        
     )
 }
