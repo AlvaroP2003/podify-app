@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useContext } from "react";
 
 // Define the shape of the context
 type PodcastContextType = {
@@ -21,8 +21,8 @@ type PodcastProviderProps = {
 
 export const PodcastProvider = ({children}:PodcastProviderProps) => {
     const [podcastId, setPodcastId] = useState<number | null>(null);
-    const [season, setSeason] = useState<number | null>(null);
-    const [episode, setEpisode] = useState<number | null>(null);
+    const [season, setSeason] = useState<number | null>(1);
+    const [episode, setEpisode] = useState<number | null>(1);
 
     return (
         <PodcastContext.Provider
@@ -39,3 +39,5 @@ export const PodcastProvider = ({children}:PodcastProviderProps) => {
         </PodcastContext.Provider>
     )
 }
+
+export const usePodcast = () => useContext(PodcastContext)
