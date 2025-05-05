@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { NavLink, useParams } from "react-router-dom"
-import { usePodcast } from "./PodcastContext"
-
+import { usePodcast } from "../Components/PodcastContext"
 
 type Episodes = {
     title: string;
@@ -80,9 +79,10 @@ export default function PodcastDetail() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSeason(e.target.value);
+        console.log(e.target.value);
     }
 
-    const displayedEpisodes = podcast && season ? podcast.seasons[season].episodes.map((episode,index) => (
+    const displayedEpisodes = podcast ? podcast.seasons[season].episodes.map((episode,index) => (
         <div key={index} className="episode">
             <img src={podcast.seasons[season].image}/>
 
@@ -122,12 +122,12 @@ export default function PodcastDetail() {
                     <div className="summary">
                         <select onChange={handleChange}>
                             {podcast.seasons.map((season,index) => (
-                                <option key={index} value={Number(season.season)}>
+                                <option key={index} value={index}>
                                     {`Season ${season.season}`}
                                 </option>
                             ))}
                         </select>
-                            <div>{`${sumEpisodes} Episodes`}</div>
+                            <div>{`${podcast ? podcast.seasons[season].episodes.length : null} Episodes`}</div>
                     </div>
 
                     <div className="episodes-container">

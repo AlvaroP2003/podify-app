@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useSearchParams, SetURLSearchParams } from "react-router-dom";
 
 type PodcastData = {
     id:string;
@@ -12,14 +13,25 @@ type PodcastData = {
 interface FiltersProps {
     podcast : PodcastData[];
     genres : string[];
-    setGenres : (value:string) => void
+    setGenres : (value:string) => void;
+    genreFilter : string;
+    setSearchParams : (SetURLSearchParams)
 }
 
-export default function Filters({podcast,genres,setGenres}:FiltersProps) {
-
-    const [searchParams, setSearchParams] = useSearchParams()
+export default function Filters({podcast,genres,setGenres, genreFilter, setSearchParams}:FiltersProps) {
     
-    const genreFilter = searchParams.get("genre") || ''    
+    const onGenreClick = (genre: string) => {
+        if(genre === genreFilter) {
+            setSearchParams(new URLSearchParams());
+            return
+        }
+
+        setSearchParams(prev => {
+            const newParams = new URLSearchParams(prev);
+            newParams.set("genre", genre);
+            return newParams;
+        });
+    };
 
      // Fetches all Genres for display
      useEffect(() => {

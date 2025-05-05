@@ -104,6 +104,7 @@ export default function Home() {
                     genres = {genres}
                     setGenres = {setGenres}
                     genreFilter = {genreFilter}
+                    setSearchParams = {setSearchParams}
                 />
                   
 

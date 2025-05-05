@@ -21,8 +21,8 @@ type PodcastProviderProps = {
 
 export const PodcastProvider = ({children}:PodcastProviderProps) => {
     const [podcastId, setPodcastId] = useState<number | null>(null);
-    const [season, setSeason] = useState<number | null>(1);
-    const [episode, setEpisode] = useState<number | null>(1);
+    const [season, setSeason] = useState<number | null>(0);
+    const [episode, setEpisode] = useState<number | null>(0);
 
     return (
         <PodcastContext.Provider

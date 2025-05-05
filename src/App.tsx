@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import MainLayout from "./Components/MainLayout"
 import Home from "./Pages/Home"
 import Favourites from "./Components/Favourites"
-import User from "./Components/User"
-import PodcastDetail from "./Components/PodcastDetail"
+import User from "./Pages/User"
+import PodcastDetail from "./Pages/PodcastDetail"
 import { PodcastProvider } from "./Components/PodcastContext"
 
 export default function App() {
