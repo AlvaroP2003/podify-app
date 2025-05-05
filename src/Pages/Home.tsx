@@ -26,7 +26,7 @@ export default function Home() {
 
     const filteredPodcasts = podcast.filter(item => {
         const matchesSearch = item.title.toLowerCase().includes(searchValue.toLowerCase());
-        const matchesGenre = genreFilter === "" || item.genres.includes(genreFilter);
+        const matchesGenre = genreFilter === "" || item.genres.includes(genreFilter); // check out if this actually works on searching for genres
         return matchesSearch && matchesGenre;
     });
     

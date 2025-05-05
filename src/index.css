@@ -70,6 +70,11 @@ header nav ul .link.active {
   color: var(--accent);
 }
 
+header nav .hamburger {
+  color: var(--text-clr);
+  display: none;
+}
+
 /* --- --- --- --- --- */
 
 
@@ -151,6 +156,12 @@ header nav ul .link.active {
 .filter-sec {
   display: flex;
   gap: 1rem;
+  overflow-x: scroll;
+  padding: 1rem 0;
+}
+
+.filter-sec::-webkit-scrollbar {
+  display: none;
 }
 
 .filter-sec > div {
@@ -159,6 +170,7 @@ header nav ul .link.active {
   border-radius: 50px;
   background-color: var(--main-bg);
   border: solid var(--main-bg) 2px;
+  white-space: nowrap;
 }
 
 .filter-sec > div.active {

@@ -1,17 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-interface PodcastData {
-    title: string;
-    updated: string
-  }
   
   interface SearchSortProps {
     searchValue: string;
     setSearchValue: (value: string) => void;
     sortValue: string;
-    setSortValue: (value: string) => void;
-    searchedPodcast: PodcastData[];
-    setSortedPodcast: (sorted: PodcastData[]) => void;
   }
   
 
@@ -23,9 +16,7 @@ export default function SearchSort ({searchValue,setSearchValue, podcast, setPod
         setSearchValue(e.target.value)
     }
     
-    function handleSortChange(value: string) {
-        console.log('sort');
-        
+    function handleSortChange(value: string) {        
         setSortValue(value); // Update selected sort state
         let sorted = [...podcast];
       
@@ -48,6 +39,11 @@ export default function SearchSort ({searchValue,setSearchValue, podcast, setPod
       
         setPodcast(sorted);
       }
+
+
+      useEffect(() => {
+        handleSortChange('A - Z')
+      },[])
 
     return (
         <div className="search-sort-sec">

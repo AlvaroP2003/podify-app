@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { NavLink, useParams } from "react-router-dom"
 import { usePodcast } from "../Components/PodcastContext"
+import EpisodeModal from "../Components/EpisodeModal"
 
 type Episodes = {
     title: string;
@@ -69,6 +70,10 @@ export default function PodcastDetail() {
 
     console.log(podcast);
 
+    const toggleModal = (show) => {
+
+    }
+
 
     // Code used to display total episodes
     const totalEpisodes = podcast?.seasons.map(season => (
@@ -83,7 +88,7 @@ export default function PodcastDetail() {
     }
 
     const displayedEpisodes = podcast ? podcast.seasons[season].episodes.map((episode,index) => (
-        <div key={index} className="episode">
+        <div key={index} className="episode" onClick={() => {toggleModal(true)}}>
             <img src={podcast.seasons[season].image}/>
 
             <div className="detail">
@@ -104,7 +109,7 @@ export default function PodcastDetail() {
 
                 <div className="main">
                     <h1>{podcast.title}</h1>
-                    <h2>{podcast.genres.join(' · ')}</h2>
+                    <h2>{podcast.genres ? podcast.genres.join(' · ') : ''}</h2>
 
                     <div className="main-content">
                         <img src={podcast.image}/>
@@ -135,6 +140,8 @@ export default function PodcastDetail() {
                     </div>
                     
                 </div>
+
+                <EpisodeModal />
             </section>
             : null
         }

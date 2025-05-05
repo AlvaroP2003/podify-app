@@ -1,0 +1,23 @@
+@media (max-width: 900px) {
+
+    section {
+        padding: 1rem;
+    }
+
+    header img {
+        width: 100px;
+    }
+
+    header nav ul {
+        display: none;
+    }
+
+    header nav .hamburger {
+        display: block;
+    }
+
+    .podcasts-container {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+}
