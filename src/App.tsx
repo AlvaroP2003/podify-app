@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import MainLayout from "./Components/MainLayout"
-import Home from "./Components/Home"
+import Home from "./Pages/Home"
 import Favourites from "./Components/Favourites"
 import User from "./Components/User"
 import PodcastDetail from "./Components/PodcastDetail"

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { NavLink, useSearchParams } from "react-router-dom";
-import Loading from "./Loading";
-import SearchSort from "./SearchSort";
-import Filters from "./Filters";
+import Loading from "../Components/Loading";
+import SearchSort from "../Components/SearchSort";
+import Filters from "../Components/Filters";
 
 type PodcastData = {
     id:string;
@@ -32,10 +32,6 @@ export default function Home() {
         return matchesSearch && matchesGenre;
     });
     
-
-  
-
-
     const searchedPodcast = filteredPodcasts.filter(cast => cast.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()))
 
     // Initial Data Fetch
