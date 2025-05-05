@@ -24,8 +24,6 @@ export default function Home() {
 
     const genreFilter = searchParams.get("genre") || ''    
 
-   
-
     const filteredPodcasts = podcast.filter(item => {
         const matchesSearch = item.title.toLowerCase().includes(searchValue.toLowerCase());
         const matchesGenre = genreFilter === "" || item.genres.includes(genreFilter);
@@ -76,9 +74,6 @@ export default function Home() {
         fetchData()
     }, [])
 
-
-   
-
     const displayedPodcasts = searchedPodcast.map(item => (
         <NavLink to={item.id} key={item.id} className={'card'}>
             <img src={item.image}/>
@@ -91,6 +86,8 @@ export default function Home() {
         </NavLink>
     ))
 
+
+
     return (
         <>
             {loading ? <Loading/> : error ? <h1>Error</h1> :
@@ -98,7 +95,10 @@ export default function Home() {
                 <SearchSort
                     searchValue = {searchValue}
                     setSearchValue = {setSearchValue}
+                    podcast = {podcast}
+                    setPodcast = {setPodcast}
                 />
+
                 <Filters
                     podcast = {podcast}
                     genres = {genres}
@@ -106,15 +106,14 @@ export default function Home() {
                     genreFilter = {genreFilter}
                     setSearchParams = {setSearchParams}
                 />
-                  
 
-                    <h1>{genreFilter ? genreFilter : 'All Podcasts'}</h1>
+                <h1>{genreFilter ? genreFilter : 'All Podcasts'}</h1>
                     <div className="podcasts-container">
                         {displayedPodcasts}
                     </div>
+
             </section>
         }
-        </>
-        
+        </>    
     )
 }

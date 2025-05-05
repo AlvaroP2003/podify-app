@@ -94,8 +94,8 @@ header nav ul .link.active {
 
 .search-sort-sec > div input {
   background-color: transparent;
-  border: solid var(--trim) 2px;
-  border-radius: 40px;
+  border: solid var(--text-scnd) 2px;
+  border-radius: 20px;
   color: var(--text-clr);
 
   height: 40px;
@@ -103,21 +103,24 @@ header nav ul .link.active {
   padding: 0 1.25rem;
 }
 
+.search-sort-sec > div input:focus {
+  outline: none;
+  border: solid var(--accent) 2px;
+}
+
 .search-sort-sec > div input::placeholder {
   color: var(--trim);
 }
 
 .search-sort-sec > div button {
-  background-color: transparent;
-  border: solid var(--trim) 2px;
+  background-color:transparent;
+  border: solid var(--text-scnd) 2px;
   border-radius: 50%;
-  color: var(--text-clr);
-
   width: 40px;
 }
 
 .search-sort-sec > div button svg {
-  stroke: var(--trim);
+  stroke: var(--text-clr);
 }
 
 .search-sort-sec select {
