@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { NavLink, useSearchParams } from "react-router-dom";
 import Loading from "./Loading";
+import SearchSort from "./SearchSort";
+import Filters from "./Filters";
 
 type PodcastData = {
     id:string;
@@ -22,18 +24,7 @@ export default function Home() {
 
     const genreFilter = searchParams.get("genre") || ''    
 
-    const onGenreClick = (genre: string) => {
-        if(genre === genreFilter) {
-            setSearchParams(new URLSearchParams());
-            return
-        }
-
-        setSearchParams(prev => {
-            const newParams = new URLSearchParams(prev);
-            newParams.set("genre", genre);
-            return newParams;
-        });
-    };
+   
 
     const filteredPodcasts = podcast.filter(item => {
         const matchesSearch = item.title.toLowerCase().includes(searchValue.toLowerCase());
@@ -42,9 +33,7 @@ export default function Home() {
     });
     
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(e.target.value)
-    }
+  
 
 
     const searchedPodcast = filteredPodcasts.filter(cast => cast.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()))
@@ -92,22 +81,7 @@ export default function Home() {
     }, [])
 
 
-    // Fetches all Genres for display
-    useEffect(() => {
-        const allGenres = podcast.flatMap(cast => cast.genres);
-        const uniqueGenres = [...new Set(allGenres)];
-        setGenres(uniqueGenres);
-    }, [podcast]);
-    
-    const displayedGenres = genres.map((genre,index) => (
-        <div
-            key={index}
-            className={`genre-el ${genre === genreFilter ? "active" : ""}`}
-            onClick={() => onGenreClick(genre)}
-            >
-            {genre}
-        </div>
-    ))
+   
 
     const displayedPodcasts = searchedPodcast.map(item => (
         <NavLink to={item.id} key={item.id} className={'card'}>
@@ -125,29 +99,17 @@ export default function Home() {
         <>
             {loading ? <Loading/> : error ? <h1>Error</h1> :
             <section className="home-sec">
-                <div className="search-sort-sec">
-                    <div>
-                        <input 
-                            type="text"
-                            placeholder="Search podcast..."
-                            onChange={handleChange}
-                            value={searchValue}
-                            />
-                        <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search-icon lucide-search"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.3-4.3" /></svg>
-                        </button>
-                    </div>
-                        <select >
-                            <option>A - Z</option>
-                            <option>Z - A</option>
-                            <option>Old to New</option>
-                            <option>New to Old</option>
-                        </select>
-                    </div>
-
-                    <div className="filter-sec">
-                        {displayedGenres}
-                    </div>
+                <SearchSort
+                    searchValue = {searchValue}
+                    setSearchValue = {setSearchValue}
+                />
+                <Filters
+                    podcast = {podcast}
+                    genres = {genres}
+                    setGenres = {setGenres}
+                    genreFilter = {genreFilter}
+                />
+                  
 
                     <h1>{genreFilter ? genreFilter : 'All Podcasts'}</h1>
                     <div className="podcasts-container">
