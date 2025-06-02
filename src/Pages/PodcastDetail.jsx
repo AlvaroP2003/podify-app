@@ -3,6 +3,8 @@
  
  export default function PodcastDetail() {
     return (
-        <>Podcast Detail</>
+        <section>
+            Podcast Detail
+        </section>
     )
  }
