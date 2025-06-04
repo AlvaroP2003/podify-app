@@ -3,7 +3,7 @@
  
  export default function Favourites() {
     return (
-        <section>
+        <section className="p-5">
             Favourites
         </section>
     )

@@ -3,6 +3,6 @@
 
 export default function User() {
     return (
-        <section>User</section>
+        <section className="p-5">User</section>
     )
 }
