@@ -31,24 +31,19 @@ import { NavLink } from "react-router-dom"
         fetchData()
     },[])
 
-    console.log(data);
-    
-
 
    const displayedData = data.map(item => (
     <NavLink className="overflow-hidden" key={item.id} to={item.id}>
         <img 
-            className="w-full rounded transition-transform duration-300 ease-in-out transform hover:scale-105"
+            className="rounded transition-transform duration-300 ease-in-out transform hover:scale-105"
             src={item.image}
             alt=""
         />
     </NavLink>
 ));
 
-
-
     return (
-        <section className="p-10 overflow-y-scroll">
+        <section className="p-10 overflow-y-scroll w-full scrollbar-none">
             <div className="relative grid grid-cols-5 gap-2">
                 {displayedData}
             </div>
