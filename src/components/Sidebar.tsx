@@ -8,9 +8,9 @@ export default function Sidebar() {
     const [sidebarOpen, setSidebarOpen] = useState(true)
     
     return (
-        <div className={`flex flex-col gap-10 py-10 px-5 border-r-2 border-gray-400 h-screen transition-all duration-300 ease-in-out ${sidebarOpen ? 'w-[250px]' : 'w-fit'}`}>
+        <div className={`flex flex-col gap-10 py-10 px-5 border-r-2 border-gray-400 h-screen transition-all duration-300 ease-in-out ${sidebarOpen ? 'w-[250px]' : 'w-[80px]'}`}>
             <div className="flex justify-between items-center">
-                {sidebarOpen ? <h1 className="text-xl">Navigation</h1> : ''}
+                {sidebarOpen ? <h1 className="text-xl">Navigation</h1> : null}
                 <ChevronRight
                     className="cursor-pointer"
                     onClick={() => setSidebarOpen(!sidebarOpen)}/>

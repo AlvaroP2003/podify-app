@@ -7,7 +7,7 @@ export default function MainLayout() {
     return (
         <div className="text-white">
             <Header/>
-            <main className="flex">
+            <main className="flex h-screen">
                 <Sidebar/>
                 <Outlet/>
             </main>
