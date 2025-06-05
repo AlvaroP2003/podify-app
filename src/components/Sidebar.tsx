@@ -8,9 +8,9 @@ export default function Sidebar() {
     const [sidebarOpen, setSidebarOpen] = useState(true)
     
     return (
-        <div className={`flex flex-col gap-10 py-10 px-5 border-r-2 border-neutral-600 h-screen transition-all duration-300 ease-in-out ${sidebarOpen ? 'min-w-[250px]' : 'w-[80px]'}`}>
-            <div className="flex justify-between items-center">
-                {sidebarOpen ? <h1 className="text-xl">Navigation</h1> : null}
+        <div className={`flex flex-col gap-10 py-10 px-5 border-r-2 border-neutral-600 h-screen transition-all duration-300 ease-in-out overflow-hidden ${sidebarOpen ? 'min-w-[250px]' : 'min-w-[80px]'}`}>
+            <div className={`flex ${ sidebarOpen ? 'justify-between' : 'justify-center' } items-center`}>
+                {sidebarOpen ? <h1 className="text-xl">Navigation</h1> : ''}
                 <ChevronRight
                     className="cursor-pointer"
                     onClick={() => setSidebarOpen(!sidebarOpen)}/>
@@ -24,7 +24,7 @@ export default function Sidebar() {
                 }
                 >
                 <House size={20} />
-                {sidebarOpen ? <p>Home</p> : ''}
+                {sidebarOpen ? <p className="whitespace-nowrap">Home</p> : ''}
             </NavLink>
 
             <NavLink
@@ -34,7 +34,7 @@ export default function Sidebar() {
                 }
                 >
                 <Star size={20} />
-                {sidebarOpen ? <p>Favourites</p> : ''}
+                {sidebarOpen ? <p className="whitespace-nowrap">Favourites</p> : ''}
             </NavLink>
 
             <NavLink
@@ -44,7 +44,7 @@ export default function Sidebar() {
                 }
                 >
                 <User size={20} />
-                {sidebarOpen ? <p>Account Settings</p> : ''}
+                {sidebarOpen ? <p className="whitespace-nowrap">Account Settings</p> : ''}
             </NavLink>
 
             </ul>
