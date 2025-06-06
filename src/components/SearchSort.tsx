@@ -1,5 +1,5 @@
 import { Search, X, ArrowDownAZ,ArrowDownZA, ClockArrowDown, ClockArrowUp} from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 export default function SearchSort({searchQuery, setSearchQuery,updateValue, setUpdateValue, letterSort, setLetterSort}) {
@@ -8,15 +8,15 @@ export default function SearchSort({searchQuery, setSearchQuery,updateValue, set
 
 
     const toggleLetter = () => {
-        setLetterSort(letterSort === 'a_z' ? 'z_a' : 'a_z')
+        setLetterSort(letterSort === 'a_z' ? 'z_a' : 'a_z')        
     }
 
       const toggleUpdate = () => {
-        setUpdateValue(updateValue === 'old_new' ? 'new_old' : 'old_new')
+        setUpdateValue(updateValue === 'old_new' ? 'new_old' : 'old_new')        
     }
 
     return (
-        <div className="flex justify-between px-5 mb-5">
+        <div className="p-10 flex justify-between">
             <h1 className="text-2xl">All Podcasts</h1>
 
             <div className="flex">

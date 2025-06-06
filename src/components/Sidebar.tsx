@@ -20,31 +20,31 @@ export default function Sidebar() {
              <NavLink
                 to="/"
                 className={({ isActive }) =>
-                    `flex items-center gap-2 p-2 rounded hover:bg-neutral-800 ${isActive ? "font-smeibold text-white" : "text-neutral-400"}`
+                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-smeibold text-white" : "text-neutral-400"}`
                 }
                 >
                 <House size={20} />
-                {sidebarOpen ? <p className="whitespace-nowrap">Home</p> : ''}
+                {sidebarOpen ? <p>Home</p> : ''}
             </NavLink>
 
             <NavLink
                 to="/favourites"
                 className={({ isActive }) =>
-                    `flex items-center gap-2 p-2 rounded hover:bg-neutral-800 ${isActive ? "font-semibold text-white" : "text-neutral-400"}`
+                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-white" : "text-neutral-400"}`
                 }
                 >
                 <Star size={20} />
-                {sidebarOpen ? <p className="whitespace-nowrap">Favourites</p> : ''}
+                {sidebarOpen ? <p>Favourites</p> : ''}
             </NavLink>
 
             <NavLink
                 to="/user"
                 className={({ isActive }) =>
-                    `flex items-center gap-2 p-2 rounded hover:bg-neutral-800 ${isActive ? "font-semibold text-white" : "text-neutral-400"}`
+                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-white" : "text-neutral-400"}`
                 }
                 >
                 <User size={20} />
-                {sidebarOpen ? <p className="whitespace-nowrap">Account Settings</p> : ''}
+                {sidebarOpen ? <p>Account Settings</p> : ''}
             </NavLink>
 
             </ul>
