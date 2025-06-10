@@ -1,5 +1,5 @@
-import { useEffect, useState, useMemo } from "react"
-import { NavLink } from "react-router-dom"
+import { useEffect, useState, useMemo, use } from "react"
+import { NavLink,useSearchParams } from "react-router-dom"
 
 import Loading from "../components/Loading"
 import SearchSort from "../components/SearchSort"
@@ -10,18 +10,25 @@ type LetterSort = 'a_z' | 'z_a'
 type PodcastItem = {
   id: string
   title: string
+  genre:string[]
   image: string
   updated: string
 }
 
 export default function Home() {
   const [data, setData] = useState<PodcastItem[]>([])
+  const [genreData,setGenreData] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
 
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [updateValue, setUpdateValue] = useState<UpdateValue>('new_old')
   const [letterSort, setLetterSort] = useState<LetterSort>('a_z')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const typeFilter = searchParams.get('type')
+  const [activeGenre,setActiveGenre] = useState('all')
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,26 +55,70 @@ export default function Home() {
   useEffect(() => {
     console.log(data);
   },[data])
+
+  useEffect(() => {
+    console.log(genreData);
+  },[genreData])
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const requests = [];
+
+      for (let count = 1; count < 10; count++) {
+        requests.push(fetch(`https://podcast-api.netlify.app/genre/${count}`).then(res => res.json()));
+      }
+
+      const genreRes = await Promise.all(requests);
+      setGenreData(genreRes);
+    } catch (error) {
+      console.error('Failed to fetch genres:', error);
+      // handle error as needed
+    }
+  };
+
+  fetchData();
+}, []);
+
+
+  // Combined data for data and genre
+const podcastData = data.map(podcast => {
+    return {
+        id: podcast.id,
+        title: podcast.title,
+        image: podcast.image,
+        genre: genreData
+            .map(item => item.shows.includes(podcast.id) ? item.title : null)
+            .filter(title => title !== null)
+            .join(', ')
+    };
+});
+
+
+  useEffect(() => {
+    console.log(podcastData)
+  },[podcastData])
   
 
   const sortedAndFilteredData = useMemo(() => {
-  let filtered = [...data];
+  let filtered = [...podcastData];
 
-  // Filter by search query
   if (searchQuery.trim()) {
     filtered = filtered.filter(item =>
       item.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
 
-  // Sort by date
+  if(typeFilter) {
+      filtered = filtered.filter(item => item.genre === typeFilter);
+    }
+
   filtered.sort((a, b) => {
     const timeA = new Date(a.updated).getTime();
     const timeB = new Date(b.updated).getTime();
     return updateValue === 'new_old' ? timeB - timeA : timeA - timeB;
   });
 
-  // Then sort by title
   filtered.sort((a, b) =>
     letterSort === 'a_z'
       ? a.title.localeCompare(b.title)
@@ -75,7 +126,7 @@ export default function Home() {
   );
 
   return filtered;
-}, [data, searchQuery, updateValue, letterSort]);
+}, [data, searchQuery, updateValue, letterSort,typeFilter]);
 
 
   const displayedData = sortedAndFilteredData.map(item => (
@@ -97,6 +148,10 @@ export default function Home() {
         setUpdateValue={setUpdateValue}
         letterSort={letterSort}
         setLetterSort={setLetterSort}
+        genreData = {genreData}
+        typefilter = {typeFilter}
+        setActiveGenre = {setActiveGenre}
+        setSearchParams = {setSearchParams}
       />
 
       {loading && <Loading />}

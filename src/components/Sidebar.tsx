@@ -20,7 +20,7 @@ export default function Sidebar() {
              <NavLink
                 to="/"
                 className={({ isActive }) =>
-                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-smeibold text-white" : "text-neutral-400"}`
+                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-smeibold text-amber-200" : "text-neutral-400"}`
                 }
                 >
                 <House size={20} />
@@ -30,7 +30,7 @@ export default function Sidebar() {
             <NavLink
                 to="/favourites"
                 className={({ isActive }) =>
-                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-white" : "text-neutral-400"}`
+                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-200" : "text-neutral-400"}`
                 }
                 >
                 <Star size={20} />
@@ -40,7 +40,7 @@ export default function Sidebar() {
             <NavLink
                 to="/user"
                 className={({ isActive }) =>
-                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-white" : "text-neutral-400"}`
+                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-200" : "text-neutral-400"}`
                 }
                 >
                 <User size={20} />
