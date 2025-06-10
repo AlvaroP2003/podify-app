@@ -4,6 +4,7 @@ import { NavLink,useSearchParams } from "react-router-dom"
 import Loading from "../components/Loading"
 import SearchSort from "../components/SearchSort"
 
+type SortValue = 'letter' | 'date'
 type UpdateValue = 'old_new' | 'new_old'
 type LetterSort = 'a_z' | 'z_a'
 
@@ -23,11 +24,11 @@ export default function Home() {
 
 
   const [searchQuery, setSearchQuery] = useState<string>('')
+  const [sortValue,setSortValue] = useState<SortValue>('date')
   const [updateValue, setUpdateValue] = useState<UpdateValue>('new_old')
   const [letterSort, setLetterSort] = useState<LetterSort>('a_z')
   const [searchParams, setSearchParams] = useSearchParams()
   const typeFilter = searchParams.get('type')
-  const [activeGenre,setActiveGenre] = useState('all')
 
 
   useEffect(() => {
@@ -82,22 +83,25 @@ useEffect(() => {
 
 
   // Combined data for data and genre
-const podcastData = data.map(podcast => {
-    return {
-        id: podcast.id,
-        title: podcast.title,
-        image: podcast.image,
-        genre: genreData
-            .map(item => item.shows.includes(podcast.id) ? item.title : null)
-            .filter(title => title !== null)
-            .join(', ')
-    };
-});
+const podcastData = useMemo(() => {
+  return data.map(podcast => ({
+    id: podcast.id,
+    title: podcast.title,
+    image: podcast.image,
+    updated: podcast.updated,
+    genre: genreData
+      .map(item => item.shows.includes(podcast.id) ? item.title : null)
+      .filter((title): title is string => title !== null)
+  }));
+}, [data, genreData]);
+
 
 
   useEffect(() => {
     console.log(podcastData)
-  },[podcastData])
+    console.log(genreData);
+    
+  },[podcastData,genreData])
   
 
   const sortedAndFilteredData = useMemo(() => {
@@ -110,22 +114,27 @@ const podcastData = data.map(podcast => {
   }
 
   if(typeFilter) {
-      filtered = filtered.filter(item => item.genre === typeFilter);
-    }
+      filtered = filtered.filter(item => item.genre.includes(typeFilter));
+  }
 
-  filtered.sort((a, b) => {
-    const timeA = new Date(a.updated).getTime();
-    const timeB = new Date(b.updated).getTime();
-    return updateValue === 'new_old' ? timeB - timeA : timeA - timeB;
-  });
+  if(sortValue === 'date') {
+    filtered.sort((a, b) => {
+      const timeA = new Date(a.updated).getTime();
+      const timeB = new Date(b.updated).getTime();
+      return updateValue === 'new_old' ? timeB - timeA : timeA - timeB;
+    });
+  }
+  
+  if(sortValue === 'letter') {
+    filtered.sort((a, b) =>
+      letterSort === 'a_z'
+        ? a.title.localeCompare(b.title)
+        : b.title.localeCompare(a.title)
+    );
+  }
 
-  filtered.sort((a, b) =>
-    letterSort === 'a_z'
-      ? a.title.localeCompare(b.title)
-      : b.title.localeCompare(a.title)
-  );
+  return filtered; // <-- you missed this return in your original code
 
-  return filtered;
 }, [data, searchQuery, updateValue, letterSort,typeFilter]);
 
 
@@ -146,11 +155,12 @@ const podcastData = data.map(podcast => {
         setSearchQuery={setSearchQuery}
         updateValue={updateValue}
         setUpdateValue={setUpdateValue}
+        sortValue={sortValue}
+        setSortValue={setSortValue}
         letterSort={letterSort}
         setLetterSort={setLetterSort}
         genreData = {genreData}
         typefilter = {typeFilter}
-        setActiveGenre = {setActiveGenre}
         setSearchParams = {setSearchParams}
       />
 

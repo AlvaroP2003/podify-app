@@ -2,27 +2,37 @@ import { Search, X, ArrowDownAZ,ArrowDownZA, ClockArrowDown, ClockArrowUp} from 
 import { useEffect, useState } from "react"
 
 
-export default function SearchSort({searchQuery, setSearchQuery,updateValue, setUpdateValue, letterSort, setLetterSort, genreData,typefilter, setSearchParams}) {
+export default function SearchSort(
+    {
+    searchQuery,
+    setSearchQuery,
+    updateValue,
+    setUpdateValue,
+    sortValue,
+    setSortValue,
+    letterSort,
+    setLetterSort,
+    genreData,
+    typefilter,
+    setSearchParams}) {
 
     const [searchOpen,setSearchOpen] = useState(false)
 
-
     const toggleLetter = () => {
-        setLetterSort(letterSort === 'a_z' ? 'z_a' : 'a_z')
-        console.log('letter sort');
-              
+        setSortValue('letter')
+        setLetterSort(letterSort === 'a_z' ? 'z_a' : 'a_z')      
     }
 
       const toggleUpdate = () => {
+        setSortValue('date')
         setUpdateValue(updateValue === 'old_new' ? 'new_old' : 'old_new')
         console.log('time sort');
                 
     }
 
         function handleFilterChange(key, value) {
-            
         setSearchParams(prevParams => {
-            if (value === null) {
+            if (value === typefilter) {
                 prevParams.delete(key)
             } else {
                 prevParams.set(key, value)
@@ -60,20 +70,20 @@ export default function SearchSort({searchQuery, setSearchQuery,updateValue, set
                 <div className="flex gap-2">
                     <button 
                         onClick={() => {toggleLetter()}}
-                        className="hover:bg-neutral-800 p-2 rounded cursor-pointer">
+                        className={`hover:bg-neutral-800 p-2 rounded cursor-pointer ${sortValue === 'letter' ? 'text-amber-300' : ''}`}>
                         {
                             letterSort === 'a_z' ?
-                             <ArrowDownAZ size={20} className="text-neutral-300"/> :
-                            <ArrowDownZA size={20} className="text-neutral-300"/>
+                             <ArrowDownAZ size={20}/> :
+                            <ArrowDownZA size={20}/>
                         }
                     </button>
                     <button 
                         onClick={() => {toggleUpdate()}}
-                        className="hover:bg-neutral-800 p-2 rounded cursor-pointer">
+                        className={`hover:bg-neutral-800 p-2 rounded cursor-pointer ${sortValue === 'date' ?  'text-amber-300' : ''}`}>
                         {
                             updateValue === 'old_new' ?
-                            <ClockArrowDown size={20} className="text-neutral-300"/> :
-                            <ClockArrowUp size={20} className="text-neutral-300"/>
+                            <ClockArrowDown size={20}/> :
+                            <ClockArrowUp size={20}/>
                         }
                     </button>
                 </div>
@@ -84,10 +94,15 @@ export default function SearchSort({searchQuery, setSearchQuery,updateValue, set
                 <div className="flex gap-5 p-5">
                    {genreData.flat().map((genre, index) => (
                     <div
-                        onClick={() => handleFilterChange('type', genre.title)}
-                        className="whitespace-nowrap border-1 border-neutral-600 px-6 py-3 rounded-full"
+                        onClick={() => {                            
+                            handleFilterChange('type', genre.title)}
+                        }
+                        className={`cursor-pointer flex gap-2.5 items-center whitespace-nowrap border-2 px-6 py-3 rounded-full transition-all ${genre.title === typefilter ? 'border-amber-300 text-amber-300 font-medium hover:bg-amber-300 hover:text-neutral-800'  : 'bg-neutral-800 border-neutral-800 hover:bg-neutral-700 hover:border-neutral-700'}`}
                         key={index}
-                        >{genre.title}</div>
+                        >{genre.title}
+                        {genre.title === typefilter ?
+                        <span><X size={15} strokeWidth={3}/></span> : ''}
+                        </div>
                     ))}
                 </div>
 
