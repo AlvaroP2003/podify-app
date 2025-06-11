@@ -139,7 +139,7 @@ const podcastData = useMemo(() => {
 
 
   const displayedData = sortedAndFilteredData.map(item => (
-    <NavLink className="overflow-hidden" key={item.id} to={item.id}>
+    <NavLink className="overflow-hidden" key={item.id} to={`/${item.id}`}>
       <img 
         className="rounded transition-transform duration-300 ease-in-out transform hover:scale-105"
         src={item.image}
