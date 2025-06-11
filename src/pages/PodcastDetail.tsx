@@ -6,7 +6,7 @@ import { ArrowLeftFromLine } from "lucide-react"
  export default function PodcastDetail() {
 
     const {id} = useParams()    
-    const [podcast,setPodcast] = useState([])
+    const [podcast,setPodcast] = useState({})
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState(null)
 
@@ -19,6 +19,7 @@ import { ArrowLeftFromLine } from "lucide-react"
     
 
     useEffect(() => {
+        setSelectedSeason(1)
         const fetchData = async () => {
             setLoading(true)
 
@@ -50,7 +51,7 @@ import { ArrowLeftFromLine } from "lucide-react"
 
 
     return (
-        <section className="p-10 flex flex-col gap-10">
+        <section className="p-10 flex flex-col gap-10 overflow-y-scroll">
             <NavLink to='..' className='flex gap-4 items-center'>
                  <ArrowLeftFromLine size={20}/> Back to podcasts
             </NavLink>
@@ -67,7 +68,7 @@ import { ArrowLeftFromLine } from "lucide-react"
             </div>
             
             <div>
-                <div>
+                <div className="flex gap-5 items-center">
                     <select
                         value={selectedSeason} onChange={(e) => setSelectedSeason(e.target.value)}
                      className="border-2 border-neutral-500 p-2.5 rounded">
@@ -78,8 +79,31 @@ import { ArrowLeftFromLine } from "lucide-react"
                             >Season {season.season}</option>
                        ))}
                     </select>
-                    <span>{podcast.seasons[selectedSeason - 1].episodes.length}</span>
+                        {podcast.seasons && podcast.seasons[selectedSeason - 1] && (
+                            <span className="text-neutral-400">
+                                {podcast.seasons[selectedSeason - 1].episodes.length} Episodes
+                            </span>
+                        )}
                 </div>
+            </div>
+
+            <div className="flex gap-2.5 overflow-x-scroll">
+                {podcast.seasons && podcast.seasons[selectedSeason -1] && (
+                    podcast.seasons[selectedSeason - 1].episodes.map((episode,index) => (
+                        <div 
+                        className="p-2 w-[200px] flex flex-col gap-2 hover:bg-neutral-800 rounded cursor-pointer"
+                        key={index}>
+                            <img className="rounded"
+                             src={podcast.seasons[selectedSeason -1].image}/>
+                            <h3>{episode.title}</h3>
+
+                            <div className="flex gap-2.5 text-neutral-400 ">
+                                <span>{`S${selectedSeason}`}</span>
+                                <span>{`E${episode.episode}`}</span>
+                            </div>
+                        </div>
+                    ))
+                )}
             </div>
         </section>
     )
