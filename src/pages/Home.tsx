@@ -149,7 +149,7 @@ const podcastData = useMemo(() => {
   ));
 
   return (
-    <section className="overflow-y-scroll w-full scrollbar-none">
+    <section className="w-full overflow-y-scroll scrollbar-none">
       <SearchSort 
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}

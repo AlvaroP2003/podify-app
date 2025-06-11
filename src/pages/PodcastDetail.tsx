@@ -51,29 +51,33 @@ import { ArrowLeftFromLine } from "lucide-react"
 
 
     return (
-        <section className="p-10 flex flex-col gap-10 overflow-y-scroll">
-            <NavLink to='..' className='flex gap-4 items-center'>
-                 <ArrowLeftFromLine size={20}/> Back to podcasts
-            </NavLink>
+        <section className="p-10 flex justify-between overflow-y-scroll w-full h-screen">
+            <div className="flex flex-col gap-10">
+                <NavLink to='..' className='flex gap-4 items-center'>
+                    <ArrowLeftFromLine size={20}/> Back to podcasts
+                </NavLink>
 
-            <div className="flex gap-10">
-                <img src={podcast.image} className="rounded w-[400px]"/>
+                <div className="flex gap-10">
+                    <img src={podcast.image} className="rounded w-[400px]"/>
 
-                <div className="flex flex-col gap-2 max-w-[500px]">
-                    <h1 className="text-2xl font-semibold">{podcast.title}</h1>
-                    <h2 className="text-lg text-neutral-400">Genres</h2>
-                    <p className="text-md text-neutral-300">{podcast.description}</p>
-                    <h3 className="text-md italic text-neutral-400">{podcast.updated}</h3>
+                    <div className="flex flex-col gap-2 max-w-[500px]">
+                        <h1 className="text-2xl font-semibold">{podcast.title}</h1>
+                        <h2 className="text-lg text-neutral-400">Genres</h2>
+                        <p className="text-md text-neutral-300">{podcast.description}</p>
+                        <h3 className="text-md italic text-neutral-400">{podcast.updated}</h3>
+                    </div>
                 </div>
             </div>
+          
             
-            <div>
+            <div className="flex flex-col gap-10 w-100">
                 <div className="flex gap-5 items-center">
                     <select
-                        value={selectedSeason} onChange={(e) => setSelectedSeason(e.target.value)}
+                    value={selectedSeason} onChange={(e) => setSelectedSeason(e.target.value)}
                      className="border-2 border-neutral-500 p-2.5 rounded">
                        {podcast && podcast.seasons?.map((season,index) => (
                         <option
+                            className="bg-neutral-800"
                             key={index} 
                             value={season.season}
                             >Season {season.season}</option>
@@ -85,25 +89,30 @@ import { ArrowLeftFromLine } from "lucide-react"
                             </span>
                         )}
                 </div>
-            </div>
 
-            <div className="flex gap-2.5 overflow-x-scroll">
-                {podcast.seasons && podcast.seasons[selectedSeason -1] && (
-                    podcast.seasons[selectedSeason - 1].episodes.map((episode,index) => (
-                        <div 
-                        className="p-2 w-[200px] flex flex-col gap-2 hover:bg-neutral-800 rounded cursor-pointer"
-                        key={index}>
-                            <img className="rounded"
-                             src={podcast.seasons[selectedSeason -1].image}/>
-                            <h3>{episode.title}</h3>
+                <div className="flex gap-2.5 flex-col h-[80vh] w-full overflow-y-scroll">
+                    {podcast.seasons && podcast.seasons[selectedSeason -1] && (
+                        podcast.seasons[selectedSeason - 1].episodes.map((episode,index) => (
+                            <div 
+                            className="relative p-2 flex gap-2 hover:bg-neutral-800 rounded cursor-pointer"
+                            key={index}>
+                                <img className="rounded w-50"
+                                src={podcast.seasons[selectedSeason -1].image}/>
 
-                            <div className="flex gap-2.5 text-neutral-400 ">
-                                <span>{`S${selectedSeason}`}</span>
-                                <span>{`E${episode.episode}`}</span>
+                                <div className="flex flex-col gap-2">
+                                    <h3 className="text-neutral-300">{episode.title}</h3>
+
+                                    <div className="flex gap-2.5 text-neutral-400 ">
+                                        <span>{`S${selectedSeason}`}</span>
+                                        <span>{`E${episode.episode}`}</span>
+                                    </div>
+                                </div>
+                               
                             </div>
-                        </div>
-                    ))
-                )}
+                        ))
+                    )}
+                </div>
+
             </div>
         </section>
     )

@@ -5,9 +5,9 @@ import { Outlet } from "react-router-dom"
 
 export default function MainLayout() {
     return (
-        <div className="text-white h-[120vh] overflow-hidden">
+        <div className="text-white h-screen overflow-hidden">
             <Header/>
-            <main className="flex">
+            <main className="flex h-screen">
                 <Sidebar/>
                 <Outlet/>
             </main>
