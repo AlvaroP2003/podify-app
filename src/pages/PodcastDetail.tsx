@@ -54,7 +54,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
     return (
         <section className="p-10 flex justify-between overflow-y-scroll w-full h-screen">
 
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-2 flex-col gap-10">
                 <NavLink to='..' className='flex gap-4 items-center'>
                     <ArrowLeftFromLine size={20}/> Back to podcasts
                 </NavLink>
@@ -72,8 +72,8 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
             </div>
           
             
-            <div className="flex flex-col gap-10 w-100">
-                <div className="flex gap-5 items-center">
+            <div className="flex flex-1 flex-col gap-10">
+                <div className="flex gap-5 items-center justify-center">
                     <select
                     value={selectedSeason} onChange={(e) => setSelectedSeason(e.target.value)}
                      className="border-2 border-neutral-500 p-2.5 rounded">
@@ -92,24 +92,26 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                         )}
                 </div>
 
-                <div className="flex gap-2.5 flex-col w-full overflow-y-scroll">
+                <div className="flex flex-col w-full overflow-y-scroll">
                     {podcast.seasons && podcast.seasons[selectedSeason -1] && (
                         podcast.seasons[selectedSeason - 1].episodes.map((episode,index) => (
+                            
                             <div
                                 onClick={() => setSelectedEpisode(episode)}
-                                className="relative p-2 flex gap-2 hover:bg-neutral-800 rounded cursor-pointer"
-                                key={index}>
+                                className="relative p-5 flex gap-2.5 hover:bg-neutral-800 rounded cursor-pointer border-b border-neutral-700"
+                                key={index}
+                                >
 
-                                <div className="relative w-50">
-                                    <img className="rounded w-full"
+                                <div className="relative w-[150px] border-red-500">
+                                    <img className="rounded object-cover w-full"
                                         src={podcast.seasons[selectedSeason -1].image}/>
                                     <button className="absolute right-2 bottom-2 bg-amber-300 h-10 w-10 flex justify-center items-center rounded-full">
-                                        <Play/>
+                                        <Play fill="neutral-400" stroke="neutral-400"/>
                                     </button>
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <h3 className="text-neutral-00 font-medium">{episode.title}</h3>
+                                    <h3 className="text-neutral-300 font-medium">{episode.title}</h3>
 
                                     <div className="flex gap-1 text-neutral-400 ">
                                         <span>{`S${selectedSeason}`}</span>
