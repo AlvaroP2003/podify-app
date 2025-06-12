@@ -1,26 +1,30 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { useParams, NavLink } from "react-router-dom"
+import { useEpisode } from "../components/EpisodeContext"
 
 import { ArrowLeftFromLine,Play } from "lucide-react"
 
  export default function PodcastDetail() {
+    const {
+        currentSeason, setCurrentSeason,
+        currentEpisode, setCurrentEpisode,
+    } = useEpisode()
 
     const {id} = useParams()    
     const [podcast,setPodcast] = useState({})
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState(null)
 
-    const [selectedSeason,setSelectedSeason] = useState<number>(1)
-    const [selectedEpisode, setSelectedEpisode] = useState(null)
+
 
     useEffect(() => {
-        console.log(selectedSeason);
+        console.log(currentEpisode);
         
-    },[selectedSeason])
+    },[currentEpisode])
     
 
     useEffect(() => {
-        setSelectedSeason(1)
+        setCurrentSeason(1)
         const fetchData = async () => {
             setLoading(true)
 
@@ -64,7 +68,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
 
                     <div className="flex flex-col gap-2 max-w-[500px]">
                         <h1 className="text-2xl font-semibold">{podcast.title}</h1>
-                        <h2 className="text-lg text-neutral-400">Genres</h2>
+                        <h2 className="text-md text-neutral-400">Genres</h2>
                         <p className="text-md text-neutral-300">{podcast.description}</p>
                         <h3 className="text-md italic text-neutral-400">{podcast.updated}</h3>
                     </div>
@@ -75,7 +79,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
             <div className="flex flex-1 flex-col gap-10">
                 <div className="flex gap-5 items-center justify-center">
                     <select
-                    value={selectedSeason} onChange={(e) => setSelectedSeason(e.target.value)}
+                    value={currentSeason} onChange={(e) => setCurrentSeason(e.target.value)}
                      className="border-2 border-neutral-500 p-2.5 rounded">
                        {podcast && podcast.seasons?.map((season,index) => (
                         <option
@@ -85,36 +89,37 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                             >Season {season.season}</option>
                        ))}
                     </select>
-                        {podcast.seasons && podcast.seasons[selectedSeason - 1] && (
+                        {podcast.seasons && podcast.seasons[currentSeason - 1] && (
                             <span className="text-neutral-400">
-                                {podcast.seasons[selectedSeason - 1].episodes.length} Episodes
+                                {podcast.seasons[currentSeason - 1].episodes.length} Episodes
                             </span>
                         )}
                 </div>
 
                 <div className="flex flex-col w-full overflow-y-scroll">
-                    {podcast.seasons && podcast.seasons[selectedSeason -1] && (
-                        podcast.seasons[selectedSeason - 1].episodes.map((episode,index) => (
+                    {podcast.seasons && podcast.seasons[currentSeason -1] && (
+                        podcast.seasons[currentSeason - 1].episodes.map((episode,index) => (
                             
                             <div
-                                onClick={() => setSelectedEpisode(episode)}
-                                className="relative p-5 flex gap-2.5 hover:bg-neutral-800 rounded cursor-pointer border-b border-neutral-700"
+                                className="relative py-6 px-5 flex gap-4 hover:bg-neutral-800 rounded border-b border-neutral-700 group"
                                 key={index}
-                                >
+                            >
 
                                 <div className="relative min-w-[150px] max-w-[150px]">
                                     <img className="rounded object-cover w-full "
-                                        src={podcast.seasons[selectedSeason -1].image}/>
-                                    <button className="absolute right-2 bottom-2 bg-amber-300 h-10 w-10 flex justify-center items-center rounded-full">
+                                        src={podcast.seasons[currentSeason -1].image}/>
+                                    <button
+                                        onClick={() => setCurrentEpisode(episode)} 
+                                        className="cursor-pointer absolute right-2 bottom-2 bg-amber-300 h-10 w-10 justify-center items-center rounded-full hidden group-hover:flex">
                                         <Play fill="neutral-400" stroke="neutral-400"/>
                                     </button>
                                 </div>
 
-                                <div className="flex flex-col gap-2">
-                                    <h3 className="text-neutral-300 font-medium">{episode.title}</h3>
-
-                                    <div className="flex gap-1 text-neutral-400 ">
-                                        <span>{`S${selectedSeason}`}</span>
+                                <div className="flex flex-col justify-center flex-1">
+                                    <h3 className="text-lg font-semibold text-neutral-100 mb-1">{episode.title}</h3>
+                                    <p className="text-neutral-400 text-sm mb-2 line-clamp-2">{episode.description}</p>
+                                    <div className="flex gap-2 text-sm text-neutral-500 mt-auto">
+                                        <span>{`S${currentSeason}`}</span>
                                         <span>{`E${episode.episode}`}</span>
                                     </div>
                                 </div>

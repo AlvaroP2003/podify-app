@@ -4,6 +4,8 @@ import { NavLink,useSearchParams } from "react-router-dom"
 import Loading from "../components/Loading"
 import SearchSort from "../components/SearchSort"
 
+import { useEpisode } from "../components/EpisodeContext"
+
 type SortValue = 'letter' | 'date'
 type UpdateValue = 'old_new' | 'new_old'
 type LetterSort = 'a_z' | 'z_a'
@@ -17,6 +19,7 @@ type PodcastItem = {
 }
 
 export default function Home() {
+  const {currentPodcast, setCurrentPodcast} =  useEpisode()
   const [data, setData] = useState<PodcastItem[]>([])
   const [genreData,setGenreData] = useState([])
   const [loading, setLoading] = useState(false)
@@ -139,7 +142,11 @@ const podcastData = useMemo(() => {
 
 
   const displayedData = sortedAndFilteredData.map(item => (
-    <NavLink className="overflow-hidden" key={item.id} to={`/${item.id}`}>
+    <NavLink 
+      onClick={() => {setCurrentPodcast(item)}}
+      className="overflow-hidden" 
+      key={item.id} 
+      to={`/${item.id}`}>
       <img 
         className="rounded transition-transform duration-300 ease-in-out transform hover:scale-105"
         src={item.image}
