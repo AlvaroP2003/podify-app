@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, NavLink } from "react-router-dom"
 
-import { ArrowLeftFromLine } from "lucide-react"
+import { ArrowLeftFromLine,Play } from "lucide-react"
 
  export default function PodcastDetail() {
 
@@ -11,6 +11,7 @@ import { ArrowLeftFromLine } from "lucide-react"
     const [error,setError] = useState(null)
 
     const [selectedSeason,setSelectedSeason] = useState<number>(1)
+    const [selectedEpisode, setSelectedEpisode] = useState(null)
 
     useEffect(() => {
         console.log(selectedSeason);
@@ -52,6 +53,7 @@ import { ArrowLeftFromLine } from "lucide-react"
 
     return (
         <section className="p-10 flex justify-between overflow-y-scroll w-full h-screen">
+
             <div className="flex flex-col gap-10">
                 <NavLink to='..' className='flex gap-4 items-center'>
                     <ArrowLeftFromLine size={20}/> Back to podcasts
@@ -90,19 +92,26 @@ import { ArrowLeftFromLine } from "lucide-react"
                         )}
                 </div>
 
-                <div className="flex gap-2.5 flex-col h-[80vh] w-full overflow-y-scroll">
+                <div className="flex gap-2.5 flex-col w-full overflow-y-scroll">
                     {podcast.seasons && podcast.seasons[selectedSeason -1] && (
                         podcast.seasons[selectedSeason - 1].episodes.map((episode,index) => (
-                            <div 
-                            className="relative p-2 flex gap-2 hover:bg-neutral-800 rounded cursor-pointer"
-                            key={index}>
-                                <img className="rounded w-50"
-                                src={podcast.seasons[selectedSeason -1].image}/>
+                            <div
+                                onClick={() => setSelectedEpisode(episode)}
+                                className="relative p-2 flex gap-2 hover:bg-neutral-800 rounded cursor-pointer"
+                                key={index}>
+
+                                <div className="relative w-50">
+                                    <img className="rounded w-full"
+                                        src={podcast.seasons[selectedSeason -1].image}/>
+                                    <button className="absolute right-2 bottom-2 bg-amber-300 h-10 w-10 flex justify-center items-center rounded-full">
+                                        <Play/>
+                                    </button>
+                                </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <h3 className="text-neutral-300">{episode.title}</h3>
+                                    <h3 className="text-neutral-00 font-medium">{episode.title}</h3>
 
-                                    <div className="flex gap-2.5 text-neutral-400 ">
+                                    <div className="flex gap-1 text-neutral-400 ">
                                         <span>{`S${selectedSeason}`}</span>
                                         <span>{`E${episode.episode}`}</span>
                                     </div>
@@ -114,6 +123,7 @@ import { ArrowLeftFromLine } from "lucide-react"
                 </div>
 
             </div>
+
         </section>
     )
  }
