@@ -102,8 +102,8 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                                 key={index}
                                 >
 
-                                <div className="relative w-[150px] border-red-500">
-                                    <img className="rounded object-cover w-full"
+                                <div className="relative min-w-[150px] max-w-[150px]">
+                                    <img className="rounded object-cover w-full "
                                         src={podcast.seasons[selectedSeason -1].image}/>
                                     <button className="absolute right-2 bottom-2 bg-amber-300 h-10 w-10 flex justify-center items-center rounded-full">
                                         <Play fill="neutral-400" stroke="neutral-400"/>
