@@ -111,7 +111,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                         podcast.seasons[currentSeason - 1].episodes.map((episode,index) => (
                             
                             <div
-                                onClick={()=> setSelectedEpisode(episode)}
+                                onClick={() => setSelectedEpisode(episode)}
                                 className="relative py-6 px-5 flex gap-4 hover:bg-neutral-800 rounded border-b border-neutral-700 group"
                                 key={index}
                             >
@@ -120,7 +120,10 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                                     <img className="rounded object-cover w-full "
                                         src={podcast.seasons[currentSeason -1].image}/>
                                     <button
-                                        onClick={() => setCurrentEpisode(episode)} 
+                                        onClick={e => {
+                                            e.stopPropagation(); // Prevents modal from opening
+                                            setCurrentEpisode(episode); // Just play the episode
+                                        }}
                                         className="cursor-pointer absolute right-2 bottom-2 bg-amber-300 hover:bg-amber-200 h-10 w-10 justify-center items-center rounded-full hidden group-hover:flex">
                                         <Play fill="neutral-400" stroke="neutral-400"/>
                                     </button>

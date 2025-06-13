@@ -16,9 +16,10 @@ interface EpisodeContextType {
 const EpisodeContext = createContext<EpisodeContextType | undefined>(undefined);
 
 export const EpisodeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [currentPodcast, setCurrentPodcast] = useState<string | null>(null);
+  const [currentPodcast, setCurrentPodcast] = useState<string | null>(null);
   const [currentSeason, setCurrentSeason] = useState<number | null>(1);
   const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
+
 
   return (
     <EpisodeContext.Provider value={{ currentEpisode, setCurrentEpisode,currentSeason, setCurrentSeason, currentPodcast, setCurrentPodcast }}>
