@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams, NavLink } from "react-router-dom"
 import { useEpisode } from "../components/EpisodeContext"
+import EpisodeModal from "../components/EpisodeModal";
 
 import { ArrowLeftFromLine,Play } from "lucide-react"
 
  export default function PodcastDetail() {
     const {
+        currentPodcast,setCurrentPodcast,
         currentSeason, setCurrentSeason,
         currentEpisode, setCurrentEpisode,
     } = useEpisode()
@@ -16,6 +18,13 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
     const [error,setError] = useState(null)
 
 
+    const [selectedEpisode, setSelectedEpisode] = useState(null);
+
+
+    useEffect(() => {
+        console.log(selectedEpisode);
+        
+    },[selectedEpisode])
 
     useEffect(() => {
         console.log(currentEpisode);
@@ -37,6 +46,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
 
                 const data = await res.json()
                 setPodcast(data)
+                setCurrentPodcast(data)
             } catch(err) {
                 setError(err.message)
             } finally {
@@ -101,6 +111,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                         podcast.seasons[currentSeason - 1].episodes.map((episode,index) => (
                             
                             <div
+                                onClick={()=> setSelectedEpisode(episode)}
                                 className="relative py-6 px-5 flex gap-4 hover:bg-neutral-800 rounded border-b border-neutral-700 group"
                                 key={index}
                             >
@@ -110,7 +121,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                                         src={podcast.seasons[currentSeason -1].image}/>
                                     <button
                                         onClick={() => setCurrentEpisode(episode)} 
-                                        className="cursor-pointer absolute right-2 bottom-2 bg-amber-300 h-10 w-10 justify-center items-center rounded-full hidden group-hover:flex">
+                                        className="cursor-pointer absolute right-2 bottom-2 bg-amber-300 hover:bg-amber-200 h-10 w-10 justify-center items-center rounded-full hidden group-hover:flex">
                                         <Play fill="neutral-400" stroke="neutral-400"/>
                                     </button>
                                 </div>
@@ -130,6 +141,15 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                 </div>
 
             </div>
+
+            {selectedEpisode && (
+                <EpisodeModal 
+                    currentPodcast={currentPodcast}
+                    currentSeason={currentSeason}
+                    selectedEpisode={selectedEpisode}
+                    setSelectedEpisode={setSelectedEpisode}
+                    />
+            )}
 
         </section>
     )
