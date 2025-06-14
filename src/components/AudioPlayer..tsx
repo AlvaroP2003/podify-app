@@ -44,7 +44,7 @@ export default function AudioPlayer() {
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-neutral-800 px-4 py-2.5">
+        <div className="fixed bottom-0 left-0 right-0 bg-neutral-800 px-4 py-2.5 z-100 h-[15vh]">
             <audio
                 ref={audioRef}
                 src={audioSrc}
