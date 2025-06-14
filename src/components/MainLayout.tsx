@@ -15,8 +15,8 @@ export default function MainLayout() {
                 <Sidebar/>
                 <Outlet/>
                 {currentEpisode &&
-                    <AudioPlayer/>
-                }  
+                    <AudioPlayer currentEpisode={currentEpisode}/>
+                }
             </main>
         </div>
     )

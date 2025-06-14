@@ -1,7 +1,7 @@
 import { X, Play } from "lucide-react"
 
-export default function EpisodeModal({ currentPodcast, currentSeason, selectedEpisode, setSelectedEpisode }) {
-    const seasonImage = currentPodcast?.seasons?.[currentSeason - 1]?.image;
+export default function EpisodeModal({ currentPodcast, currentSeason,selectedSeason, setSelectedSeason, selectedEpisode, setSelectedEpisode }) {
+    const seasonImage = currentPodcast?.seasons?.[selectedSeason - 1]?.image;
     const isOpen = Boolean(selectedEpisode);
 
     return (

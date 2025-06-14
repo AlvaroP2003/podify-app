@@ -10,16 +10,14 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
         currentPodcast,setCurrentPodcast,
         currentSeason, setCurrentSeason,
         currentEpisode, setCurrentEpisode,
+        selectedSeason, setSelectedSeason,
+        selectedEpisode, setSelectedEpisode,
     } = useEpisode()
 
     const {id} = useParams()    
     const [podcast,setPodcast] = useState({})
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState(null)
-
-
-    const [selectedEpisode, setSelectedEpisode] = useState(null);
-
 
     useEffect(() => {
         console.log(selectedEpisode);
@@ -33,7 +31,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
     
 
     useEffect(() => {
-        setCurrentSeason(1)
+        setSelectedSeason(1)
         const fetchData = async () => {
             setLoading(true)
 
@@ -89,7 +87,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
             <div className="flex flex-1 flex-col gap-10">
                 <div className="flex gap-5 items-center justify-center">
                     <select
-                    value={currentSeason} onChange={(e) => setCurrentSeason(e.target.value)}
+                    value={selectedSeason} onChange={(e) => setSelectedSeason(e.target.value)}
                      className="border-2 border-neutral-500 p-2.5 rounded">
                        {podcast && podcast.seasons?.map((season,index) => (
                         <option
@@ -99,16 +97,16 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                             >Season {season.season}</option>
                        ))}
                     </select>
-                        {podcast.seasons && podcast.seasons[currentSeason - 1] && (
+                        {podcast.seasons && podcast.seasons[selectedSeason - 1] && (
                             <span className="text-neutral-400">
-                                {podcast.seasons[currentSeason - 1].episodes.length} Episodes
+                                {podcast.seasons[selectedSeason - 1].episodes.length} Episodes
                             </span>
                         )}
                 </div>
 
                 <div className="flex flex-col w-full overflow-y-scroll">
-                    {podcast.seasons && podcast.seasons[currentSeason -1] && (
-                        podcast.seasons[currentSeason - 1].episodes.map((episode,index) => (
+                    {podcast.seasons && podcast.seasons[selectedSeason - 1] && (
+                        podcast.seasons[selectedSeason - 1].episodes.map((episode,index) => (
                             
                             <div
                                 onClick={() => setSelectedEpisode(episode)}
@@ -118,7 +116,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
 
                                 <div className="relative min-w-[150px] max-w-[150px]">
                                     <img className="rounded object-cover w-full "
-                                        src={podcast.seasons[currentSeason -1].image}/>
+                                        src={podcast.seasons[selectedSeason -1].image}/>
                                     <button
                                         onClick={e => {
                                             e.stopPropagation(); // Prevents modal from opening
@@ -133,7 +131,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                                     <h3 className="text-lg font-semibold text-neutral-100 mb-1">{episode.title}</h3>
                                     <p className="text-neutral-400 text-sm mb-2 line-clamp-2">{episode.description}</p>
                                     <div className="flex gap-2 text-sm text-neutral-500 mt-auto">
-                                        <span>{`S${currentSeason}`}</span>
+                                        <span>{`S${selectedSeason}`}</span>
                                         <span>{`E${episode.episode}`}</span>
                                     </div>
                                 </div>
@@ -149,6 +147,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                 <EpisodeModal 
                     currentPodcast={currentPodcast}
                     currentSeason={currentSeason}
+                    selectedSeason={selectedSeason}
                     selectedEpisode={selectedEpisode}
                     setSelectedEpisode={setSelectedEpisode}
                     />

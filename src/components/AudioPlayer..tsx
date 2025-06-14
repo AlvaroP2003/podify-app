@@ -3,9 +3,15 @@ import { useEpisode } from "./EpisodeContext";
 import { SkipBack, Play, Pause, SkipForward } from "lucide-react";
 
 export default function AudioPlayer() {
-    const { currentPodcast, currentSeason, currentEpisode } = useEpisode();
-    const seasonImage = currentPodcast?.seasons?.[currentSeason - 1]?.image;
-    const audioSrc = currentEpisode?.audioUrl || "";
+    const { 
+        currentPodcast, currentSeason,
+        currentEpisode, setSelectedEpisode,
+        selectedSeason, setSelectedSeason,
+    }
+     = useEpisode();
+
+    const seasonImage = currentPodcast?.seasons?.[selectedSeason - 1]?.image;
+    const audioSrc = currentEpisode?.file || "";
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -44,7 +50,9 @@ export default function AudioPlayer() {
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-neutral-800 px-4 py-2.5 z-100 h-[15vh]">
+        <div
+        onClick={() => setSelectedEpisode(currentEpisode)}
+        className="fixed bottom-0 left-0 right-0 bg-neutral-800 px-4 py-2.5 z-100 h-[15vh]">
             <audio
                 ref={audioRef}
                 src={audioSrc}
@@ -61,17 +69,20 @@ export default function AudioPlayer() {
                         className="w-20 mr-4 rounded object-cover"
                     />
                     <div className="flex flex-col gap-1">
-                        <h3 className="text-lg font-medium text-white">{currentEpisode?.title}</h3>
-                        <p className="text-neutral-400">{currentPodcast?.title}</p>
+                        <h3 className="text-md font-medium text-neutral-200 max-w-80">{currentEpisode?.title}</h3>
+                        <p className="text-sm text-neutral-400">{currentPodcast?.title}</p>
                     </div>
                 </div>
-                <div className="flex items-center space-x-4">
+                <div className="absolute left-[50%] top-[25%] transform -translate-x-[50%] flex items-center space-x-4">
                     <button className="text-white p-2 rounded hover:bg-neutral-700 cursor-pointer">
                         <SkipBack size={20} />
                     </button>
                     <button
                         className="text-white p-2 rounded-full bg-amber-300 hover:bg-amber-200 cursor-pointer"
-                        onClick={handlePlayPause}
+                        onClick={e => {
+                            e.stopPropagation()
+                            handlePlayPause()
+                        }}
                     >
                         {isPlaying ? <Pause size={20} stroke="text-neutral-800" fill="text-neutral-800" /> : <Play size={20} stroke="text-neutral-800" fill="text-neutral-800" />}
                     </button>
