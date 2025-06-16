@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, NavLink } from "react-router-dom"
 import { useEpisode } from "../components/EpisodeContext"
 import EpisodeModal from "../components/EpisodeModal";
+import Loading from "../components/Loading";
 
 import { ArrowLeftFromLine,Play } from "lucide-react"
 
@@ -25,7 +26,6 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
         setSelectedSeason(1)
         const fetchData = async () => {
             setLoading(true)
-
             try {
                 const res = await fetch(`https://podcast-api.netlify.app/id/${id}`)
                 
@@ -60,7 +60,9 @@ const sameCast = (podcast, season, episode) => {
 
 
     return (
-        <section className="p-10 flex justify-between overflow-y-scroll w-full h-screen">
+        <>
+        {loading ? <Loading/> :
+                <section className="p-10 flex justify-between overflow-y-scroll w-full h-screen">
 
             <div className="flex flex-2 flex-col gap-10">
                 <NavLink to='..' className='flex gap-4 items-center'>
@@ -152,5 +154,7 @@ const sameCast = (podcast, season, episode) => {
             )}
 
         </section>
+        }
+        </>
     )
  }
