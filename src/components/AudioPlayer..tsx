@@ -4,13 +4,14 @@ import { SkipBack, Play, Pause, SkipForward } from "lucide-react";
 
 export default function AudioPlayer() {
     const { 
-        currentPodcast, currentSeason,
+        currentPodcast, 
+        currentSeason,
         currentEpisode, setSelectedEpisode,
         selectedSeason, setSelectedSeason,
     }
      = useEpisode();
 
-    const seasonImage = currentPodcast?.seasons?.[selectedSeason - 1]?.image;
+    const seasonImage = currentPodcast?.seasons?.[currentSeason - 1]?.image;
     const audioSrc = currentEpisode?.file || "";
 
     const [isPlaying, setIsPlaying] = useState(false);
@@ -52,7 +53,7 @@ export default function AudioPlayer() {
     return (
         <div
         onClick={() => setSelectedEpisode(currentEpisode)}
-        className="fixed bottom-0 left-0 right-0 bg-neutral-800 px-4 py-2.5 z-100 h-[15vh]">
+        className="fixed bottom-0 left-0 right-0 bg-neutral-900 px-4 py-2.5 z-100 h-[15vh] border-t-2 border-neutral-800">
             <audio
                 ref={audioRef}
                 src={audioSrc}

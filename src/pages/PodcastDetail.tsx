@@ -10,6 +10,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
         currentPodcast,setCurrentPodcast,
         currentSeason, setCurrentSeason,
         currentEpisode, setCurrentEpisode,
+        selectedPodcast,setSelectedPodcast,
         selectedSeason, setSelectedSeason,
         selectedEpisode, setSelectedEpisode,
     } = useEpisode()
@@ -19,16 +20,6 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState(null)
 
-    useEffect(() => {
-        console.log(selectedEpisode);
-        
-    },[selectedEpisode])
-
-    useEffect(() => {
-        console.log(currentEpisode);
-        
-    },[currentEpisode])
-    
 
     useEffect(() => {
         setSelectedSeason(1)
@@ -44,7 +35,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
 
                 const data = await res.json()
                 setPodcast(data)
-                setCurrentPodcast(data)
+                setSelectedPodcast(data)
             } catch(err) {
                 setError(err.message)
             } finally {
@@ -58,9 +49,14 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
     },[])
 
 
-    useEffect(() => {
-        console.log(podcast);
-    },[podcast])
+const sameCast = (podcast, season, episode) => {
+  return (
+    podcast?.id === currentPodcast?.id &&
+    Number(season) === Number(currentSeason) &&
+    episode?.episode === currentEpisode?.episode &&
+    episode?.title === currentEpisode?.title // extra safeguard
+  );
+};
 
 
     return (
@@ -120,6 +116,8 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                                     <button
                                         onClick={e => {
                                             e.stopPropagation(); // Prevents modal from opening
+                                            setCurrentPodcast(selectedPodcast)
+                                            setCurrentSeason(selectedSeason)
                                             setCurrentEpisode(episode); // Just play the episode
                                         }}
                                         className="cursor-pointer absolute right-2 bottom-2 bg-amber-300 hover:bg-amber-200 h-10 w-10 justify-center items-center rounded-full hidden group-hover:flex">
@@ -128,7 +126,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
                                 </div>
 
                                 <div className="flex flex-col justify-center flex-1">
-                                    <h3 className="text-lg font-semibold text-neutral-100 mb-1">{episode.title}</h3>
+                                    <h3 className={`text-lg font-semibold mb-1 ${sameCast(selectedPodcast,selectedSeason,episode) ? 'text-amber-300' : 'text-neutral-300'}`}>{episode.title}</h3>
                                     <p className="text-neutral-400 text-sm mb-2 line-clamp-2">{episode.description}</p>
                                     <div className="flex gap-2 text-sm text-neutral-500 mt-auto">
                                         <span>{`S${selectedSeason}`}</span>

@@ -1,4 +1,4 @@
-import { X, Play } from "lucide-react"
+import { X, Play, Heart } from "lucide-react"
 
 export default function EpisodeModal({ currentPodcast, currentSeason,selectedSeason, setSelectedSeason, selectedEpisode, setSelectedEpisode }) {
     const seasonImage = currentPodcast?.seasons?.[selectedSeason - 1]?.image;
@@ -8,41 +8,59 @@ export default function EpisodeModal({ currentPodcast, currentSeason,selectedSea
         <div
             onClick={() => setSelectedEpisode(null)}
             className={`
-                absolute inset-0 z-40 bg-black/50
+                absolute inset-0 z-40 bg-black/70
+                flex justify-center items-center
                 transition-opacity duration-300
                 ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
             `}
         >
             <div
                 className={`
-                    fixed left-0 top-1
-                    max-w-[400px] w-full h-[84vh]
+                    max-w-[850px] w-full
                     flex flex-col gap-2.5
-                    bg-neutral-800 p-5 rounded overflow-hidden shadow-lg
+                    bg-neutral-900 p-7.5 rounded overflow-hidden shadow-lg
+                    border-2 border-neutral-800
                     transition-all duration-300
                     ${isOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}
                 `}
             >
                 {/* Modal content */}
-                <div className="relative z-10 flex flex-col gap-2 h-full text-neutral-300">
-                    <div className="relative">
-                        <img 
-                        className="rounded mb-2"
+                <div className="relative z-10 flex gap-5 text-neutral-300">
+                    
+                    <div className="relative max-w-[55%] min-w-[55%]">
+
+                    <img 
+                        className="rounded"
                         src={seasonImage}
                         alt="Episode"
                     />
 
-                     <button 
-                            className="absolute bottom-5 right-5 cursor-pointer flex justify-center items-center bg-amber-300 hover:bg-amber-200 min-h-10 min-w-10 rounded-full">
-                            <Play fill="neutral-400" stroke="neutral-400"/>
-                        </button>
-
                     </div>
                     
-                     <h1 className="text-xl font-medium">{selectedEpisode?.title}</h1>
-                    <h2 className="text-lg text-neutral-400">{currentPodcast.title}</h2>
-                    <p className="text-sm text-neutral-300 leading-relaxed">{selectedEpisode?.description}</p>
+                    <div className="relative flex flex-col gap-2">
+                        <h1 className="text-2xl font-medium">{selectedEpisode?.title}</h1>
+                            <h2 className="text-md text-neutral-400">{currentPodcast.title}</h2>
+                                <p className="text-sm text-neutral-300 leading-relaxed">{selectedEpisode?.description}</p>
+
+
+                         <div className="absolute bottom-0 flex justify-between w-full p-2">
+                                <button 
+                                        className="cursor-pointer">
+                                    <Heart size={30} fill="neutral-200" stroke="white" strokeWidth={1}/>
+                                </button>
+
+                                  <button 
+                                        className="cursor-pointer flex justify-center items-center bg-amber-300 hover:bg-amber-200 min-h-10 min-w-10 rounded-full">
+                                    <Play fill="neutral-400" stroke="neutral-400"/>
+                                </button>
+                        </div>
+                    </div>
+
+                    
                 </div>
+
+               
+
             </div>
         </div>
     )
