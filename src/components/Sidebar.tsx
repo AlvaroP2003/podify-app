@@ -1,5 +1,5 @@
 
-import { ChevronRight, House, Star, User} from "lucide-react"
+import { ChevronRight, House,LibraryBig, Heart} from "lucide-react"
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
 
@@ -31,25 +31,25 @@ export default function Sidebar() {
             </NavLink>
 
             <NavLink
+                to="/libary"
+                className={({ isActive }) =>
+                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-300" : "text-neutral-400"}
+                ${sidebarOpen ? 'w-50' : 'w-10'}`
+                }
+                >
+                <LibraryBig size={20} />
+                {sidebarOpen ? <p>Library</p> : ''}
+            </NavLink>
+
+              <NavLink
                 to="/favourites"
                 className={({ isActive }) =>
                     `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-300" : "text-neutral-400"}
                 ${sidebarOpen ? 'w-50' : 'w-10'}`
                 }
                 >
-                <Star size={20} />
+                <Heart size={20} />
                 {sidebarOpen ? <p>Favourites</p> : ''}
-            </NavLink>
-
-            <NavLink
-                to="/user"
-                className={({ isActive }) =>
-                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-300" : "text-neutral-400"}
-                ${sidebarOpen ? 'w-50' : 'w-10'}`
-                }
-                >
-                <User size={20} />
-                {sidebarOpen ? <p>Account Settings</p> : ''}
             </NavLink>
 
             </ul>

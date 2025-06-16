@@ -70,7 +70,7 @@ export default function SearchSort(
                 <div className="flex gap-2">
                     <button 
                         onClick={() => {toggleLetter()}}
-                        className={`hover:bg-neutral-800 p-2 rounded cursor-pointer ${sortValue === 'letter' ? 'text-amber-300' : ''}`}>
+                        className={`hover:bg-neutral-800 p-2 rounded cursor-pointer ${sortValue === 'letter' ? 'text-amber-300' : 'text-neutral-300'}`}>
                         {
                             letterSort === 'a_z' ?
                              <ArrowDownAZ size={20}/> :
@@ -79,7 +79,7 @@ export default function SearchSort(
                     </button>
                     <button 
                         onClick={() => {toggleUpdate()}}
-                        className={`hover:bg-neutral-800 p-2 rounded cursor-pointer ${sortValue === 'date' ?  'text-amber-300' : ''}`}>
+                        className={`hover:bg-neutral-800 p-2 rounded cursor-pointer ${sortValue === 'date' ?  'text-amber-300' : 'text-neutral-300'}`}>
                         {
                             updateValue === 'old_new' ?
                             <ClockArrowDown size={20}/> :
