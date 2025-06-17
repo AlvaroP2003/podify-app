@@ -5,8 +5,9 @@ export default function Loading() {
         {`
           .loader {
             width: 20px;
+            max-width: 20px;
             aspect-ratio: 1;
-            border-radius: 9999px;
+            border-radius: 50%;
             background: #f59e0b; /* Tailwind amber-500 */
             box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.25);
             animation: l2 1.5s infinite linear;

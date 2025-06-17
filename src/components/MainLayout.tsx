@@ -24,7 +24,7 @@ export default function MainLayout() {
                 {currentEpisode &&
                     <AudioPlayer/>
                 }
-                {currentEpisode && 
+                {selectedEpisode && 
                     <EpisodeModal/>
                 }
             </main>

@@ -1,7 +1,7 @@
 import { X, Play, Heart } from "lucide-react"
 import { useEpisode } from "./EpisodeContext";
 
-export default function EpisodeModal() {
+export default function EpisodeModal({podcast,season,display}) {
     const {
         selectedPodcast,selectedSeason,selectedEpisode,setSelectedEpisode
     } = useEpisode()
@@ -11,7 +11,8 @@ export default function EpisodeModal() {
 
     return (
         <div
-            onClick={() => setSelectedEpisode(null)}
+            onClick={() =>
+                setSelectedEpisode(null)}
             className={`
                 absolute inset-0 z-40 bg-black/70
                 flex justify-center items-center
@@ -26,7 +27,7 @@ export default function EpisodeModal() {
                     bg-neutral-900 p-7.5 rounded overflow-hidden shadow-lg
                     border-2 border-neutral-800
                     transition-all duration-300
-                    ${isOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}
+                    ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
                 `}
             >
                 {/* Modal content */}
@@ -51,7 +52,7 @@ export default function EpisodeModal() {
                          <div className="absolute bottom-0 flex justify-between w-full p-2">
                                 <button 
                                         className="cursor-pointer">
-                                    <Heart size={30} fill="none" stroke="white" strokeWidth={1.5}/>
+                                    <Heart size={32} fill="none" stroke="gray" strokeWidth={1.5}/>
                                 </button>
 
                                   <button 

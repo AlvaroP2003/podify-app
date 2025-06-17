@@ -108,8 +108,12 @@ const sameCast = (podcast, season, episode) => {
                         podcast.seasons[selectedSeason - 1].episodes.map((episode,index) => (
                             
                             <div
-                                onClick={() => setSelectedEpisode(episode)}
-                                className="relative py-6 px-5 flex gap-4 hover:bg-neutral-800 rounded border-b border-neutral-700 group"
+                                onClick={() => {
+                                    setSelectedPodcast(podcast)
+                                    setSelectedSeason(selectedSeason)
+                                    setSelectedEpisode(episode)
+                                }}
+                                className="cursor-default relative py-6 px-5 flex gap-4 hover:bg-neutral-800 rounded border-b border-neutral-700 group"
                                 key={index}
                             >
 

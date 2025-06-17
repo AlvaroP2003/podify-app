@@ -1,13 +1,15 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useEpisode } from "./EpisodeContext";
-import { SkipBack, Play, Pause, SkipForward, EllipsisVertical,CirclePlus, CircleCheck } from "lucide-react";
+import { SkipBack, Play, Pause, SkipForward, EllipsisVertical,CirclePlus, CircleCheck, LocateFixed } from "lucide-react";
 
 export default function AudioPlayer() {
     const { 
         currentPodcast, 
         currentSeason,
-        currentEpisode, setSelectedEpisode,
-        selectedSeason, setSelectedSeason,
+        currentEpisode,
+        selectedPodcast,setSelectedPodcast,
+        selectedSeason,setSelectedSeason,
+        selectedEpisode,setSelectedEpisode,
     }
      = useEpisode();
 
@@ -19,8 +21,32 @@ export default function AudioPlayer() {
     const [duration, setDuration] = useState(0);
     const audioRef = useRef<HTMLAudioElement>(null);
 
+
+   
+const sameCast = (podcast, season, episode) => {
+  return (
+    podcast?.id === currentPodcast?.id &&
+    Number(season) === Number(currentSeason) &&
+    episode?.episode === currentEpisode?.episode &&
+    episode?.title === currentEpisode?.title // extra safeguard
+  );  
+};
+
+    useEffect(() => {
+        console.log('Podcast', selectedPodcast?.id === currentPodcast?.id);
+        console.log('Season', Number(selectedSeason) === Number(currentSeason));
+        console.log('Episode', selectedEpisode?.episode === currentEpisode?.episode);
+        console.log('Title', selectedEpisode?.title === currentPodcast?.title);
+        
+    },[currentPodcast, currentSeason, currentEpisode]);
+
     const handlePlayPause = () => {
-        if (!audioRef.current) return;
+        if (!sameCast(selectedPodcast,selectedSeason,selectedEpisode)) {
+            audioRef.current.currentTime = 0
+            audioRef.current.play();
+            setIsPlaying(true);
+            return
+        }
         if (isPlaying) {
             audioRef.current.pause();
         } else {
@@ -52,7 +78,10 @@ export default function AudioPlayer() {
 
     return (
         <div
-        onClick={() => setSelectedEpisode(currentEpisode)}
+        onClick={() => {
+            setSelectedPodcast(currentPodcast)
+            setSelectedSeason(currentSeason)
+            setSelectedEpisode(currentEpisode)}}
         className="fixed bottom-0 left-0 right-0 bg-neutral-900 px-4 py-2.5 z-100 h-[15vh] border-t-2 border-neutral-800">
             <audio
                 ref={audioRef}
