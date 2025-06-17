@@ -17,9 +17,9 @@ function App() {
                         <Route index element={<Home/>}></Route>
                         <Route path="libary" element={<Library/>}></Route>
                         <Route path="favourites" element={<Favourites/>}></Route>
-                        <Route path="user" element={<User/>}></Route>
                         <Route path=":id" element={<PodcastDetail/>}></Route>
                     </Route>
+                    <Route path="user" element={<User/>}></Route>
                 </Routes>
             </BrowserRouter>
         </EpisodeProvider>

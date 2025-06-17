@@ -43,7 +43,6 @@ export default function SearchSort(
 
     return (
         <div>
-
             <div className="p-10 flex justify-between">
                  <h1 className="text-2xl">{typefilter ? typefilter : 'All Podcasts'}</h1>
 

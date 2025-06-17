@@ -70,8 +70,8 @@ export default function AudioPlayer() {
                         className="w-20 mr-4 rounded object-cover"
                     />
                     <div className="flex flex-col gap-1">
-                        <h3 className="text-md font-medium text-neutral-200 max-w-80">{currentEpisode?.title}</h3>
-                        <p className="text-sm text-neutral-400">{currentPodcast?.title}</p>
+                        <h3 className="text-lg font-medium text-neutral-200 max-w-80">{currentEpisode?.title}</h3>
+                        <p className="text-md text-neutral-400">{currentPodcast?.title}</p>
                     </div>
                 </div>
                 <div className="absolute left-[50%] top-[25%] transform -translate-x-[50%] flex items-center space-x-4">

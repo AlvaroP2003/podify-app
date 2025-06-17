@@ -4,11 +4,15 @@ import { Outlet } from "react-router-dom"
 import EpisodeModal from "./EpisodeModal"
 import AudioPlayer from "./AudioPlayer."
 import { useEpisode } from "./EpisodeContext" // <-- import the hook
+import { useState } from "react"
 
 export default function MainLayout() {
+    const [modalOpen,setModalOpen] = useState(false)
 
     const { 
         selectedEpisode, setSelectedEpisode,
+        currentPodcast,setCurrentPodcast,
+        currentSeason,setCurrentSeason,
         currentEpisode, setCurrentEpisode } = useEpisode() // <-- use the hook
     
     return (
@@ -20,7 +24,7 @@ export default function MainLayout() {
                 {currentEpisode &&
                     <AudioPlayer/>
                 }
-                {selectedEpisode &&
+                {currentEpisode && 
                     <EpisodeModal/>
                 }
             </main>

@@ -1,6 +1,11 @@
 import { X, Play, Heart } from "lucide-react"
+import { useEpisode } from "./EpisodeContext";
 
-export default function EpisodeModal({ selectedPodcast,selectedSeason, selectedEpisode, setSelectedEpisode }) {
+export default function EpisodeModal() {
+    const {
+        selectedPodcast,selectedSeason,selectedEpisode,setSelectedEpisode
+    } = useEpisode()
+
     const seasonImage = selectedPodcast?.seasons?.[selectedSeason - 1]?.image;
     const isOpen = Boolean(selectedEpisode);
 
