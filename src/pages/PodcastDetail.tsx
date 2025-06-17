@@ -145,8 +145,7 @@ const sameCast = (podcast, season, episode) => {
 
             {selectedEpisode && (
                 <EpisodeModal 
-                    currentPodcast={currentPodcast}
-                    currentSeason={currentSeason}
+                    selectedPodcast={selectedPodcast}
                     selectedSeason={selectedSeason}
                     selectedEpisode={selectedEpisode}
                     setSelectedEpisode={setSelectedEpisode}

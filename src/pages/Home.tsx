@@ -143,7 +143,6 @@ const podcastData = useMemo(() => {
 
   const displayedData = sortedAndFilteredData.map(item => (
     <NavLink 
-      onClick={() => {setCurrentPodcast(item)}}
       className="overflow-hidden" 
       key={item.id} 
       to={`/${item.id}`}>
