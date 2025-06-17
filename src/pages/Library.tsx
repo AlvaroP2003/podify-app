@@ -2,6 +2,8 @@
 
 export default function Library() {
     return (
-        <h1>Library</h1>
+        <section className="p-10">
+            <h1 className="text-2xl">Your Library</h1>
+        </section>
     )
 }

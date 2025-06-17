@@ -26,7 +26,7 @@ export default function Sidebar() {
                 ${sidebarOpen ? 'w-50' : 'w-10'}`
                 }
                 >
-                <House size={20} />
+                <House size={20} strokeWidth={1.5} />
                 {sidebarOpen ? <p>Home</p> : ''}
             </NavLink>
 
@@ -37,7 +37,7 @@ export default function Sidebar() {
                 ${sidebarOpen ? 'w-50' : 'w-10'}`
                 }
                 >
-                <LibraryBig size={20} />
+                <LibraryBig size={20} strokeWidth={1.5} />
                 {sidebarOpen ? <p>Library</p> : ''}
             </NavLink>
 
@@ -48,7 +48,7 @@ export default function Sidebar() {
                 ${sidebarOpen ? 'w-50' : 'w-10'}`
                 }
                 >
-                <Heart size={20} />
+                <Heart size={20} strokeWidth={1.5}/>
                 {sidebarOpen ? <p>Favourites</p> : ''}
             </NavLink>
 

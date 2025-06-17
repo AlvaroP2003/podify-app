@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useEpisode } from "./EpisodeContext";
-import { SkipBack, Play, Pause, SkipForward } from "lucide-react";
+import { SkipBack, Play, Pause, SkipForward, EllipsisVertical,CirclePlus, CircleCheck } from "lucide-react";
 
 export default function AudioPlayer() {
     const { 
@@ -75,7 +75,7 @@ export default function AudioPlayer() {
                     </div>
                 </div>
                 <div className="absolute left-[50%] top-[25%] transform -translate-x-[50%] flex items-center space-x-4">
-                    <button className="text-white p-2 rounded hover:bg-neutral-700 cursor-pointer">
+                    <button className="text-white p-2 rounded hover:bg-neutral-800 cursor-pointer">
                         <SkipBack size={20} />
                     </button>
                     <button
@@ -87,9 +87,13 @@ export default function AudioPlayer() {
                     >
                         {isPlaying ? <Pause size={20} stroke="text-neutral-800" fill="text-neutral-800" /> : <Play size={20} stroke="text-neutral-800" fill="text-neutral-800" />}
                     </button>
-                    <button className="text-white p-2 rounded hover:bg-neutral-700 cursor-pointer">
+                    <button className="text-white p-2 rounded hover:bg-neutral-800 cursor-pointer">
                         <SkipForward size={20} />
                     </button>
+                </div>
+
+                <div className="cursor-pointer pr-10">
+                    <CirclePlus/>
                 </div>
             </div>
             {/* Seekable Progress Bar */}
