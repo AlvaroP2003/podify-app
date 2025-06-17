@@ -28,14 +28,6 @@ export const EpisodeProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [selectedSeason, setSelectedSeason] = useState<number | null>(1);
   const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
 
-  useEffect(()=> {
-    console.log("Current Podcast:", currentPodcast || "No Podcast Selected");
-    console.log("Current Season:", currentSeason || "No Season Selected");
-    console.log("Current Episode:", currentEpisode || "No Episode Selected");
-    
-
-  },[currentPodcast,currentSeason,currentEpisode])
-
   return (
     <EpisodeContext.Provider 
       value={{ 

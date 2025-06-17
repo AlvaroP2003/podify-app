@@ -27,7 +27,7 @@ export default function EpisodeModal({ selectedPodcast,selectedSeason, selectedE
                 {/* Modal content */}
                 <div className="relative z-10 flex gap-5 text-neutral-300">
                     
-                    <div className="relative max-w-[55%] min-w-[55%]">
+                    <div className="relative max-w-[45%] min-w-[45%]">
 
                     <img 
                         className="rounded"
@@ -46,7 +46,7 @@ export default function EpisodeModal({ selectedPodcast,selectedSeason, selectedE
                          <div className="absolute bottom-0 flex justify-between w-full p-2">
                                 <button 
                                         className="cursor-pointer">
-                                    <Heart size={30} fill="neutral-200" stroke="white" strokeWidth={1}/>
+                                    <Heart size={30} fill="none" stroke="white" strokeWidth={1.5}/>
                                 </button>
 
                                   <button 
