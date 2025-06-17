@@ -66,7 +66,7 @@ const sameCast = (podcast, season, episode) => {
         >
 
             <div className="flex flex-2 flex-col gap-10">
-                <NavLink to='..' className='flex gap-4 items-center'>
+                <NavLink to='..' className='flex gap-4 items-center text-neutral-300 hover:text-neutral-200'>
                     <ArrowLeftFromLine size={20}/> Back to podcasts
                 </NavLink>
 
@@ -77,7 +77,7 @@ const sameCast = (podcast, season, episode) => {
                         <h1 className="text-2xl font-semibold">{podcast.title}</h1>
                         <h2 className="text-md text-neutral-400">Genres</h2>
                         <p className="text-md text-neutral-300">{podcast.description}</p>
-                        <h3 className="text-md italic text-neutral-400">{podcast.updated}</h3>
+                        <h3 className="text-sm italic text-neutral-400">{podcast.updated}</h3>
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@ const sameCast = (podcast, season, episode) => {
 
                                 <div className="flex flex-col justify-center flex-1">
                                     <h3 className={`text-lg font-semibold mb-1 ${sameCast(selectedPodcast,selectedSeason,episode) ? 'text-amber-300' : 'text-neutral-300'}`}>{episode.title}</h3>
-                                    <p className="text-neutral-400 text-sm mb-2 line-clamp-2">{episode.description}</p>
+                                    <p className="text-neutral-400 text-sm mb-2 line-clamp-3">{episode.description}</p>
                                     <div className="flex gap-2 text-sm text-neutral-500 mt-auto">
                                         <span>{`S${selectedSeason}`}</span>
                                         <span>{`E${episode.episode}`}</span>

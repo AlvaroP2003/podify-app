@@ -14,7 +14,8 @@ export default function EpisodeModal({podcast,season,display}) {
             onClick={() =>
                 setSelectedEpisode(null)}
             className={`
-                absolute inset-0 z-40 bg-black/70
+                absolute inset-0 z-40
+                bg-black/70
                 flex justify-center items-center
                 transition-opacity duration-300
                 ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
@@ -24,7 +25,8 @@ export default function EpisodeModal({podcast,season,display}) {
                 className={`
                     max-w-[850px] w-full
                     flex flex-col gap-2.5
-                    bg-neutral-900 p-7.5 rounded overflow-hidden shadow-lg
+                    bg-neutral-/70 backdrop-blur-2xl
+                     p-7.5 rounded overflow-hidden shadow-lg
                     border-2 border-neutral-800
                     transition-all duration-300
                     ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
