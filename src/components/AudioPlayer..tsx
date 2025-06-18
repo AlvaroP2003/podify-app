@@ -125,7 +125,7 @@ const sameCast = (podcast, season, episode) => {
                     </button>
                 </div>
 
-                <div className="cursor-pointer pr-10">
+                <div className="cursor-pointer flex items-center justify-center rounded-full mr-10 hover:bg-neutral-800 w-10 h-10">
                     <CirclePlus/>
                 </div>
             </div>

@@ -15,7 +15,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<MainLayout/>}>
                         <Route index element={<Home/>}></Route>
-                        <Route path="libary" element={<Library/>}></Route>
+                        <Route path="library" element={<Library/>}></Route>
                         <Route path="favourites" element={<Favourites/>}></Route>
                         <Route path=":id" element={<PodcastDetail/>}></Route>
                     </Route>

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import Favourites from "../pages/Favourites";
 
 export interface Episode {
   // Define your episode properties here
@@ -34,16 +35,7 @@ export const EpisodeProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   
   // Favourites State
-  const [favourites,setFavourites] = useState([])
-
-  useEffect(()=> {
-    const storedFaves = localStorage.getItem('favourites')
-
-    if(storedFaves) {
-      setFavourites(JSON.parse(storedFaves))
-    }
-  },[])
-
+  const [favourites,setFavourites] = useState(JSON.parse(localStorage.getItem('favourites')) || [])
 
   useEffect(() => {
     localStorage.setItem('favourites', JSON.stringify(favourites))
