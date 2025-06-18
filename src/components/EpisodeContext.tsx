@@ -17,16 +17,37 @@ const EpisodeContext = createContext<EpisodeContextType | undefined>(undefined);
 
 export const EpisodeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
-  // Playing 
+  // Playing State
   const [currentPodcast, setCurrentPodcast] = useState<string | null>(null);
   const [currentSeason, setCurrentSeason] = useState<number | null>(1);
   const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
 
 
-  // Viewing
+  // Viewing State
   const [selectedPodcast,setSelectedPodcast] = useState<Object | null>(null)
   const [selectedSeason, setSelectedSeason] = useState<number | null>(1);
   const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
+
+
+  // Episode Modal State
+  const [modalOpen,setModalOpen] = useState(false)
+
+  
+  // Favourites State
+  const [favourites,setFavourites] = useState([])
+
+  useEffect(()=> {
+    const storedFaves = localStorage.getItem('favourites')
+
+    if(storedFaves) {
+      setFavourites(JSON.parse(storedFaves))
+    }
+  },[])
+
+
+  useEffect(() => {
+    localStorage.setItem('favourites', JSON.stringify(favourites))
+  },[favourites])
 
   return (
     <EpisodeContext.Provider 
@@ -36,7 +57,10 @@ export const EpisodeProvider: React.FC<{ children: React.ReactNode }> = ({ child
         currentPodcast, setCurrentPodcast,
         selectedPodcast,setSelectedPodcast,
         selectedSeason, setSelectedSeason,
-        selectedEpisode, setSelectedEpisode}}>
+        selectedEpisode, setSelectedEpisode,
+        favourites,setFavourites,
+        modalOpen,setModalOpen,
+        }}>
       {children}
     </EpisodeContext.Provider>
   );

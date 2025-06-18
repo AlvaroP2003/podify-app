@@ -1,18 +1,67 @@
-import { X, Play, Heart } from "lucide-react"
+import { Play, Heart } from "lucide-react"
 import { useEpisode } from "./EpisodeContext";
 
-export default function EpisodeModal({podcast,season,display}) {
+export default function EpisodeModal() {
     const {
-        selectedPodcast,selectedSeason,selectedEpisode,setSelectedEpisode
+        selectedPodcast,selectedSeason,selectedEpisode,setModalOpen,
+        favourites,setFavourites,
     } = useEpisode()
 
     const seasonImage = selectedPodcast?.seasons?.[selectedSeason - 1]?.image;
     const isOpen = Boolean(selectedEpisode);
 
+
+    // Check if selectedEpisode exists in favourites
+    const isFavourite = (podcast,season,episode) => {
+         const isFavourite = favourites.some(fav => 
+            fav.podcast.id === podcast.id &&
+            fav.season === season &&
+            fav.episode.episode === episode.episode &&
+            fav.episode.title === episode.title
+        )
+
+        if(isFavourite) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+
+    // Function to toggle favourite state
+    const toggleFavourite = (podcast,season,episode) => {
+
+        if(isFavourite(podcast,season,episode)) {
+
+            const updatedFavourites = favourites.filter(fav => 
+                !(fav.podcast.id === podcast.id &&
+                    fav.season === season &&
+                    fav.episode.episode === episode.episode &&
+                    fav.episode.title === episode.title)
+             )
+
+             console.log('Removed from favourites');
+
+             setFavourites(updatedFavourites)
+        } else {
+            const newFavourite = {
+                podcast,
+                season,
+                episode,
+            };
+
+            console.log('Added to favourites');
+            
+
+            setFavourites([...favourites,newFavourite])
+        }
+    }
+
+
     return (
         <div
             onClick={() =>
-                setSelectedEpisode(null)}
+                setModalOpen(false)}
             className={`
                 absolute inset-0 z-40
                 bg-black/70
@@ -53,8 +102,16 @@ export default function EpisodeModal({podcast,season,display}) {
 
                          <div className="absolute bottom-0 flex justify-between w-full p-2">
                                 <button 
-                                        className="cursor-pointer">
-                                    <Heart size={32} fill="none" stroke="gray" strokeWidth={1.5}/>
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                            toggleFavourite(selectedPodcast,selectedSeason,selectedEpisode)}}
+                                        className="cursor-pointer active:scale-115">
+
+                                    {isFavourite(selectedPodcast,selectedSeason,selectedEpisode) ?
+                                    <Heart size={35} fill="#fbbf24" stroke="#fbbf24" strokeWidth={1.25}/> :
+                                    <Heart size={35} fill="none" stroke="#fbbf24" strokeWidth={1.25}/>
+                                    }
+
                                 </button>
 
                                   <button 

@@ -10,6 +10,7 @@ export default function AudioPlayer() {
         selectedPodcast,setSelectedPodcast,
         selectedSeason,setSelectedSeason,
         selectedEpisode,setSelectedEpisode,
+        setModalOpen,
     }
      = useEpisode();
 
@@ -37,6 +38,7 @@ const sameCast = (podcast, season, episode) => {
         console.log('Season', Number(selectedSeason) === Number(currentSeason));
         console.log('Episode', selectedEpisode?.episode === currentEpisode?.episode);
         console.log('Title', selectedEpisode?.title === currentPodcast?.title);
+
         
     },[currentPodcast, currentSeason, currentEpisode]);
 
@@ -81,7 +83,9 @@ const sameCast = (podcast, season, episode) => {
         onClick={() => {
             setSelectedPodcast(currentPodcast)
             setSelectedSeason(currentSeason)
-            setSelectedEpisode(currentEpisode)}}
+            setSelectedEpisode(currentEpisode)
+            setModalOpen(true)
+        }}
         className="fixed bottom-0 left-0 right-0 bg-neutral-900 px-4 py-2.5 z-100 h-[15vh] border-t-2 border-neutral-800">
             <audio
                 ref={audioRef}

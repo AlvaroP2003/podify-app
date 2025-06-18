@@ -14,6 +14,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
         selectedPodcast,setSelectedPodcast,
         selectedSeason, setSelectedSeason,
         selectedEpisode, setSelectedEpisode,
+        setModalOpen,
     } = useEpisode()
 
     const {id} = useParams()    
@@ -112,6 +113,7 @@ const sameCast = (podcast, season, episode) => {
                                     setSelectedPodcast(podcast)
                                     setSelectedSeason(selectedSeason)
                                     setSelectedEpisode(episode)
+                                    setModalOpen(true)
                                 }}
                                 className="cursor-default relative py-6 px-5 flex gap-4 hover:bg-neutral-800 rounded border-b border-neutral-700 group"
                                 key={index}
