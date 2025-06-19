@@ -5,6 +5,7 @@ import Loading from "../components/Loading"
 import SearchSort from "../components/SearchSort"
 
 import { useEpisode } from "../components/EpisodeContext"
+import { SearchX } from "lucide-react"
 
 type SortValue = 'letter' | 'date'
 type UpdateValue = 'old_new' | 'new_old'
@@ -19,7 +20,7 @@ type PodcastItem = {
 }
 
 export default function Home() {
-  const {currentPodcast, setCurrentPodcast} =  useEpisode()
+  const {currentPodcast, setCurrentPodcast, currentEpisode} =  useEpisode()
   const [data, setData] = useState<PodcastItem[]>([])
   const [genreData,setGenreData] = useState([])
   const [loading, setLoading] = useState(false)
@@ -140,28 +141,30 @@ const podcastData = useMemo(() => {
   ));
 
   return (
-    <section className="w-full overflow-y-scroll scrollbar-none">
-      <SearchSort 
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        updateValue={updateValue}
-        setUpdateValue={setUpdateValue}
-        sortValue={sortValue}
-        setSortValue={setSortValue}
-        letterSort={letterSort}
-        setLetterSort={setLetterSort}
-        genreData = {genreData}
-        typefilter = {typeFilter}
-        setSearchParams = {setSearchParams}
-      />
+    <>
+        <section className="w-full overflow-y-scroll scrollbar-none">
+          <SearchSort 
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            updateValue={updateValue}
+            setUpdateValue={setUpdateValue}
+            sortValue={sortValue}
+            setSortValue={setSortValue}
+            letterSort={letterSort}
+            setLetterSort={setLetterSort}
+            genreData = {genreData}
+            typefilter = {typeFilter}
+            setSearchParams = {setSearchParams}
+          />
 
-      {loading && <Loading />}
+          {loading && <Loading />}
 
-      {error && <p className="text-red-600">Error: {error}</p>}
+          {error && <p className="text-red-600">Error: {error}</p>}
 
-      {!loading && !error && (
-        <div className="relative grid grid-cols-5 gap-1">{displayedData}</div>
-      )}
-    </section>
+          {!loading && !error && (
+            <div className="relative grid grid-cols-5 gap-1">{displayedData}</div>
+          )}
+      </section>
+    </>
   )
 }

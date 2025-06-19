@@ -63,7 +63,6 @@ const sameCast = (podcast, season, episode) => {
     return (
         <>
         {selectedEpisode && modalOpen ? <EpisodeModal/> : null}
-        {currentEpisode && <AudioPlayer/>}
         {loading ? <Loading/> :
         <section
          className="p-10 flex justify-between overflow-y-scroll w-full h-screen"

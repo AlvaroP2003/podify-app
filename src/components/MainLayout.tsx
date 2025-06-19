@@ -7,6 +7,8 @@ import { useEpisode } from "./EpisodeContext" // <-- import the hook
 import { useState } from "react"
 
 export default function MainLayout() {
+
+    const {currentEpisode} = useEpisode()
         
     return (
         <div className="text-white h-screen overflow-hidden">
@@ -15,6 +17,7 @@ export default function MainLayout() {
                 <Sidebar/>
                 <Outlet/>
             </main>
+            {currentEpisode && <AudioPlayer/>}
         </div>
     )
 }

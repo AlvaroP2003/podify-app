@@ -1,5 +1,6 @@
 
-import { ChevronRight, House,LibraryBig, Heart} from "lucide-react"
+import { ChevronRight} from "lucide-react"
+import { HomeIcon, MusicalNoteIcon,HeartIcon } from "@heroicons/react/16/solid"
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
 
@@ -29,10 +30,10 @@ export default function Sidebar() {
                     >
                     {({ isActive }) => (
                         <>
-                        <House
-                            size={20}
-                            strokeWidth={1.5}
-                            stroke={isActive ? "white" : "gray"}
+                        <HomeIcon
+                            className="max-h-5 max-w-5 min-h-5 min-w-5"
+                            strokeWidth={1}
+                            stroke={isActive ? "" : "gray"}
                             fill={isActive ? "white" : "none"}
                         />
                         {sidebarOpen ? <p>Home</p> : null}
@@ -50,13 +51,13 @@ export default function Sidebar() {
                     >
                     {({ isActive }) => (
                         <>
-                        <LibraryBig
-                            size={20}
-                            strokeWidth={1.5}
-                            stroke={isActive ? "white" : "gray"}
-                            fill={isActive ? "white" : "none"}
+                        <MusicalNoteIcon
+                            className="max-h-5 max-w-5 min-h-5 min-w-5"
+                            strokeWidth={1}
+                            stroke={isActive ? "" : "gray"}
+                            fill={isActive ? "#e5e5e5" : "none"}
                         />
-                        {sidebarOpen ? <p>Library</p> : null}
+                        {sidebarOpen ? <p>Playlists</p> : null}
                         </>
                     )}
                  </NavLink>
@@ -71,10 +72,10 @@ export default function Sidebar() {
                     >
                     {({ isActive }) => (
                         <>
-                        <Heart
-                            size={20}
-                            strokeWidth={1.5}
-                            stroke={isActive ? "white" : "gray"}
+                        <HeartIcon
+                            className="max-h-5 max-w-5 min-h-5 min-w-5"
+                            strokeWidth={1}
+                            stroke={isActive ? "" : "gray"}
                             fill={isActive ? "white" : "none"}
                         />
                         {sidebarOpen ? <p>Favourites</p> : null}
