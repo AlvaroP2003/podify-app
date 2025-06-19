@@ -1,6 +1,7 @@
+import { FolderSearch } from "lucide-react"
 import { useState,useEffect } from "react"
 import toast from "react-hot-toast"
- 
+  
  export default function Favourites() {
 
      // Favourites State
@@ -66,7 +67,9 @@ import toast from "react-hot-toast"
       <h1 className="text-2xl">Favourites</h1>
       <div className="flex flex-col py-10">
         {favourites.length === 0 ? (
-          <p>No favourites found.</p>
+          <div
+             className="absolute left-[50%] top-[50%] flex flex-col items-center justify-center gap-3 text-neutral-500">
+            <FolderSearch size={100} strokeWidth={1}/> <p className="text-xl font-semibold">No favourites added yet</p></div>
         ) : (
           displayedFavourites
         )}

@@ -20,37 +20,67 @@ export default function Sidebar() {
 
             <ul className="flex flex-col gap-1">
              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-300 bg-neutral-800" : "text-neutral-400"}
-                ${sidebarOpen ? 'w-50' : 'w-10'}`
-                }
-                >
-                <House size={20} strokeWidth={1.5} />
-                {sidebarOpen ? <p>Home</p> : ''}
-            </NavLink>
+                    to="/"
+                    className={({ isActive }) =>
+                        `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${
+                        isActive ? "font-semibold text-white bg-neutral-800" : "text-neutral-400"
+                        } ${sidebarOpen ? "w-50" : "w-9.5"}`
+                    }
+                    >
+                    {({ isActive }) => (
+                        <>
+                        <House
+                            size={20}
+                            strokeWidth={1.5}
+                            stroke={isActive ? "white" : "gray"}
+                            fill={isActive ? "white" : "none"}
+                        />
+                        {sidebarOpen ? <p>Home</p> : null}
+                        </>
+                    )}
+                 </NavLink>
 
-            <NavLink
-                to="/library"
-                className={({ isActive }) =>
-                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-300 bg-neutral-800" : "text-neutral-400"}
-                ${sidebarOpen ? 'w-50' : 'w-10'}`
-                }
-                >
-                <LibraryBig size={20} strokeWidth={1.5} />
-                {sidebarOpen ? <p>Library</p> : ''}
-            </NavLink>
+                 <NavLink
+                    to="/library"
+                    className={({ isActive }) =>
+                        `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${
+                        isActive ? "font-semibold text-white bg-neutral-800" : "text-neutral-400"
+                        } ${sidebarOpen ? "w-50" : "w9.5"}`
+                    }
+                    >
+                    {({ isActive }) => (
+                        <>
+                        <LibraryBig
+                            size={20}
+                            strokeWidth={1.5}
+                            stroke={isActive ? "white" : "gray"}
+                            fill={isActive ? "white" : "none"}
+                        />
+                        {sidebarOpen ? <p>Library</p> : null}
+                        </>
+                    )}
+                 </NavLink>
 
-              <NavLink
-                to="/favourites"
-                className={({ isActive }) =>
-                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-300 bg-neutral-800" : "text-neutral-400"}
-                ${sidebarOpen ? 'w-50' : 'w-10'}`
-                }
-                >
-                <Heart size={20} strokeWidth={1.5}/>
-                {sidebarOpen ? <p>Favourites</p> : ''}
-            </NavLink>
+                 <NavLink
+                    to="/favourites"
+                    className={({ isActive }) =>
+                        `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${
+                        isActive ? "font-semibold text-white bg-neutral-800" : "text-neutral-400"
+                        } ${sidebarOpen ? "w-50" : "w-9.5"}`
+                    }
+                    >
+                    {({ isActive }) => (
+                        <>
+                        <Heart
+                            size={20}
+                            strokeWidth={1.5}
+                            stroke={isActive ? "white" : "gray"}
+                            fill={isActive ? "white" : "none"}
+                        />
+                        {sidebarOpen ? <p>Favourites</p> : null}
+                        </>
+                    )}
+                 </NavLink>
 
             </ul>
         </div>
