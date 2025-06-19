@@ -11,11 +11,11 @@ export default function EpisodeModal() {
     const isOpen = Boolean(selectedEpisode);
 
     // Favourites State
-            const [favourites,setFavourites] = useState(JSON.parse(localStorage.getItem('favourites')) || [])
+        const [favourites,setFavourites] = useState(JSON.parse(localStorage.getItem('favourites')) || [])
     
-            useEffect(() => {
-                localStorage.setItem('favourites', JSON.stringify(favourites))
-            },[favourites])
+        useEffect(() => {
+            localStorage.setItem('favourites', JSON.stringify(favourites))
+        },[favourites])
 
 
     // Check if selectedEpisode exists in favourites

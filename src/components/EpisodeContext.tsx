@@ -32,6 +32,7 @@ export const EpisodeProvider: React.FC<{ children: React.ReactNode }> = ({ child
   // Episode Modal State
   const [modalOpen,setModalOpen] = useState(false)
 
+
   return (
     <EpisodeContext.Provider 
       value={{ 

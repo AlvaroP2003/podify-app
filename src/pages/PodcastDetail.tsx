@@ -4,6 +4,8 @@ import { useEpisode } from "../components/EpisodeContext"
 import Loading from "../components/Loading";
 
 import { ArrowLeftFromLine,Play } from "lucide-react"
+import EpisodeModal from "../components/EpisodeModal";
+import AudioPlayer from "../components/AudioPlayer.";
 
  export default function PodcastDetail() {
     const {
@@ -13,7 +15,7 @@ import { ArrowLeftFromLine,Play } from "lucide-react"
         selectedPodcast,setSelectedPodcast,
         selectedSeason, setSelectedSeason,
         selectedEpisode, setSelectedEpisode,
-        setModalOpen,
+        modalOpen,setModalOpen,
     } = useEpisode()
 
     const {id} = useParams()    
@@ -60,6 +62,8 @@ const sameCast = (podcast, season, episode) => {
 
     return (
         <>
+        {selectedEpisode && modalOpen ? <EpisodeModal/> : null}
+        {currentEpisode && <AudioPlayer/>}
         {loading ? <Loading/> :
         <section
          className="p-10 flex justify-between overflow-y-scroll w-full h-screen"

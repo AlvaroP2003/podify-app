@@ -3,30 +3,73 @@ import { useState,useEffect } from "react"
  export default function Favourites() {
 
      // Favourites State
-        const [favourites,setFavourites] = useState(JSON.parse(localStorage.getItem('favourites')) || [])
-
+    const [favourites, setFavourites] = useState([])
+     
         useEffect(() => {
-            localStorage.setItem('favourites', JSON.stringify(favourites))
-        },[favourites])
+        const storedFavs = localStorage.getItem('favourites')
+        if(storedFavs) setFavourites(JSON.parse(storedFavs))
+    },[])
+
+    useEffect(() => {
+        localStorage.setItem('favourites', JSON.stringify(favourites))
+    }, [favourites])
 
 
-    const displayedFavourites = favourites.map((cast,index) => (
-        <div key={index}>
-           <h1>{cast.title}</h1>
-        </div>
-    ))
+    const removeFavourite = (podcast,season,episode) => {
+          const updatedFavourites = favourites.filter(fav => 
+                !(fav.podcast.id === podcast.id &&
+                    fav.season === season &&
+                    fav.episode.episode === episode.episode &&
+                    fav.episode.title === episode.title)
+             )
+
+             console.log('Removed from favourites');
+
+             setFavourites(updatedFavourites)
+    }
+
+
+      const displayedFavourites = favourites.map((cast, index) => {
+    const image =
+      cast?.podcast?.seasons?.[cast.season]?.image || "/fallback-image.png";
 
     return (
-        <section className="p-10">
-            <h1 className="text-2xl">Favourites</h1>
+      <div
+        key={`${cast.podcast?.id}-${cast.season}-${cast.episode?.episode}`}
+        className="flex justify-between items-center hover:bg-neutral-800 p-3 w-full border-b border-neutral-700 transition-all"
+      >
+        <div className="flex gap-5">
+          <img className="w-[100px] rounded" src={image} alt="Season artwork" />
+          <div className="flex flex-col justify-center gap-1">
+            <h1 className="text-xl font-semibold">{cast.episode?.title || "Untitled"}</h1>
+            <h2 className="text-lg text-neutral-400">{cast.podcast?.title || "Unknown Podcast"}</h2>
+            <span className="flex gap-2 text-sm text-neutral-400">
+              <h3>S {cast.season ?? "?"}</h3>
+              <h3>E {cast.episode?.episode ?? "?"}</h3>
+            </span>
+          </div>
+        </div>
 
-            <div>
-              {favourites.length === 0 ? (
-                <p>No favourites found.</p>
-              ) : (
-                displayedFavourites
-              )}
-            </div>
-        </section>
-    )
- }
+        <button
+          onClick={() => removeFavourite(cast.podcast, cast.season, cast.episode)}
+          className="bg-neutral-700 w-[100px] h-[40px] rounded-full hover:bg-red-500 cursor-pointer transition-all"
+        >
+          Remove
+        </button>
+      </div>
+    );
+  });
+
+  return (
+    <section className="p-10 w-full">
+      <h1 className="text-2xl">Favourites</h1>
+      <div className="flex flex-col py-10">
+        {favourites.length === 0 ? (
+          <p>No favourites found.</p>
+        ) : (
+          displayedFavourites
+        )}
+      </div>
+    </section>
+  );
+}
