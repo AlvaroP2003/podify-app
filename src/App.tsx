@@ -6,12 +6,37 @@ import Library from "./pages/Library"
 import Favourites from "./pages/Favourites"
 import User from "./pages/User"
 import PodcastDetail from "./pages/PodcastDetail"
-import { EpisodeProvider } from "./components/EpisodeContext" // <-- use the provider
+import { EpisodeProvider } from "./components/EpisodeContext"
+import { Toaster } from "react-hot-toast"
 
 function App() {
     return (
             <BrowserRouter>
                 <EpisodeProvider>
+                    <Toaster
+                        position="bottom-right"
+                        reverseOrder={false}
+                        toastOptions={{
+                            style: {
+                            background: '#262626', // neutral-800
+                            color: '#fff',
+                            borderRadius: '0.5rem',
+                            padding: '1rem',
+                            },
+                            success: {
+                            iconTheme: {
+                                primary: '#fbbf24', // amber-300
+                                secondary: '#262626',
+                            },
+                            },
+                            error: {
+                            iconTheme: {
+                                primary: '#ef4444', // red-500
+                                secondary: '#262626',
+                            },
+                            },
+                        }}
+                        />
                     <Routes>
                         <Route path="/" element={<MainLayout/>}>
                             <Route index element={<Home/>}></Route>

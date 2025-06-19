@@ -1,6 +1,7 @@
 import { Play, Heart } from "lucide-react"
 import { useEpisode } from "./EpisodeContext";
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 export default function EpisodeModal() {
     const {
@@ -47,7 +48,7 @@ export default function EpisodeModal() {
                     fav.episode.title === episode.title)
              )
 
-             console.log('Removed from favourites');
+             toast.error('Removed from favourites')
 
              setFavourites(updatedFavourites)
         } else {
@@ -57,9 +58,8 @@ export default function EpisodeModal() {
                 episode,
             };
 
-            console.log('Added to favourites');
+            toast.success('Added to favourites')
             
-
             setFavourites([...favourites,newFavourite])
         }
     }

@@ -1,4 +1,5 @@
 import { useState,useEffect } from "react"
+import toast from "react-hot-toast"
  
  export default function Favourites() {
 
@@ -23,7 +24,7 @@ import { useState,useEffect } from "react"
                     fav.episode.title === episode.title)
              )
 
-             console.log('Removed from favourites');
+             toast.error('Removed from favourites')
 
              setFavourites(updatedFavourites)
     }
