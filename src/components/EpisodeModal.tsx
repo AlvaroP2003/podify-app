@@ -1,14 +1,21 @@
 import { Play, Heart } from "lucide-react"
 import { useEpisode } from "./EpisodeContext";
+import { useState, useEffect } from "react";
 
 export default function EpisodeModal() {
     const {
         selectedPodcast,selectedSeason,selectedEpisode,setModalOpen,
-        favourites,setFavourites,
     } = useEpisode()
 
     const seasonImage = selectedPodcast?.seasons?.[selectedSeason - 1]?.image;
     const isOpen = Boolean(selectedEpisode);
+
+    // Favourites State
+            const [favourites,setFavourites] = useState(JSON.parse(localStorage.getItem('favourites')) || [])
+    
+            useEffect(() => {
+                localStorage.setItem('favourites', JSON.stringify(favourites))
+            },[favourites])
 
 
     // Check if selectedEpisode exists in favourites

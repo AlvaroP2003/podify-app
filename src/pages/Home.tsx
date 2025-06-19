@@ -56,13 +56,6 @@ export default function Home() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(data);
-  },[data])
-
-  useEffect(() => {
-    console.log(genreData);
-  },[genreData])
 
 useEffect(() => {
   const fetchData = async () => {
@@ -98,14 +91,6 @@ const podcastData = useMemo(() => {
   }));
 }, [data, genreData]);
 
-
-
-  useEffect(() => {
-    console.log(podcastData)
-    console.log(genreData);
-    
-  },[podcastData,genreData])
-  
 
   const sortedAndFilteredData = useMemo(() => {
   let filtered = [...podcastData];

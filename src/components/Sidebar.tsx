@@ -22,7 +22,7 @@ export default function Sidebar() {
              <NavLink
                 to="/"
                 className={({ isActive }) =>
-                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-300" : "text-neutral-400"}
+                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-300 bg-neutral-800" : "text-neutral-400"}
                 ${sidebarOpen ? 'w-50' : 'w-10'}`
                 }
                 >
@@ -31,9 +31,9 @@ export default function Sidebar() {
             </NavLink>
 
             <NavLink
-                to="/libary"
+                to="/library"
                 className={({ isActive }) =>
-                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-300" : "text-neutral-400"}
+                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-300 bg-neutral-800" : "text-neutral-400"}
                 ${sidebarOpen ? 'w-50' : 'w-10'}`
                 }
                 >
@@ -44,7 +44,7 @@ export default function Sidebar() {
               <NavLink
                 to="/favourites"
                 className={({ isActive }) =>
-                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-300" : "text-neutral-400"}
+                    `flex items-center gap-4 p-2 rounded hover:bg-neutral-800 whitespace-nowrap ${isActive ? "font-semibold text-amber-300 bg-neutral-800" : "text-neutral-400"}
                 ${sidebarOpen ? 'w-50' : 'w-10'}`
                 }
                 >

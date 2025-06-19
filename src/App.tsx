@@ -10,19 +10,19 @@ import { EpisodeProvider } from "./components/EpisodeContext" // <-- use the pro
 
 function App() {
     return (
-        <EpisodeProvider>
             <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<MainLayout/>}>
-                        <Route index element={<Home/>}></Route>
-                        <Route path="library" element={<Library/>}></Route>
-                        <Route path="favourites" element={<Favourites/>}></Route>
-                        <Route path=":id" element={<PodcastDetail/>}></Route>
-                    </Route>
-                    <Route path="user" element={<User/>}></Route>
-                </Routes>
+                <EpisodeProvider>
+                    <Routes>
+                        <Route path="/" element={<MainLayout/>}>
+                            <Route index element={<Home/>}></Route>
+                            <Route path="library" element={<Library/>}></Route>
+                            <Route path="favourites" element={<Favourites/>}></Route>
+                            <Route path=":id" element={<PodcastDetail/>}></Route>
+                        </Route>
+                        <Route path="user" element={<User/>}></Route>
+                    </Routes>
+                </EpisodeProvider>
             </BrowserRouter>
-        </EpisodeProvider>
     )
 }
 

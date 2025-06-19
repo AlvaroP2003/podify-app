@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, NavLink } from "react-router-dom"
 import { useEpisode } from "../components/EpisodeContext"
-import EpisodeModal from "../components/EpisodeModal";
 import Loading from "../components/Loading";
 
 import { ArrowLeftFromLine,Play } from "lucide-react"

@@ -9,14 +9,13 @@ export interface Episode {
   // Add more fields as needed
 }
 
-interface EpisodeContextType {
-  currentEpisode: Episode | null;
-  setCurrentEpisode: (episode: Episode | null) => void;
-}
-
-const EpisodeContext = createContext<EpisodeContextType | undefined>(undefined);
+const EpisodeContext = createContext<any>(undefined);
 
 export const EpisodeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+
+  useEffect(() => {
+    console.log("EpisodeProvider mounted");
+  },[])
 
   // Playing State
   const [currentPodcast, setCurrentPodcast] = useState<string | null>(null);
@@ -33,14 +32,6 @@ export const EpisodeProvider: React.FC<{ children: React.ReactNode }> = ({ child
   // Episode Modal State
   const [modalOpen,setModalOpen] = useState(false)
 
-  
-  // Favourites State
-  const [favourites,setFavourites] = useState(JSON.parse(localStorage.getItem('favourites')) || [])
-
-  useEffect(() => {
-    localStorage.setItem('favourites', JSON.stringify(favourites))
-  },[favourites])
-
   return (
     <EpisodeContext.Provider 
       value={{ 
@@ -50,7 +41,6 @@ export const EpisodeProvider: React.FC<{ children: React.ReactNode }> = ({ child
         selectedPodcast,setSelectedPodcast,
         selectedSeason, setSelectedSeason,
         selectedEpisode, setSelectedEpisode,
-        favourites,setFavourites,
         modalOpen,setModalOpen,
         }}>
       {children}
