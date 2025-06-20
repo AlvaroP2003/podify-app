@@ -20,23 +20,37 @@ export default function Library() {
         }, [playLists])
 
 
-        const createPlaylist = () => {
-        }
-
+        const displayedPlaylists = playLists.map((list,index) => (
+            <div 
+                key={index}
+                className="cursor-pointer border-1 bg-neutral-800 border-neutral-700 w-[250px] h-[250px] flex flex-col justify-center items-center gap-2 rounded-lg hover:bg-neutral-700 transform transition hover:-translate-y-1"
+                >
+                <div>
+                    {}
+                </div>
+                <h1>{list.name}</h1>
+            </div>
+        ))
 
 
     return (
         <section className="p-10">
-            {modalOpen && <PlaylistModal setModalOpen={setModalOpen}/>}
+            {modalOpen && setPlaylists &&
+             <PlaylistModal
+                setModalOpen={setModalOpen}
+                playLists={playLists}
+                setPlaylists={setPlaylists}
+                />}
             <h1 className="text-2xl">Your Library</h1>
 
-            <div className="p-10">
+            <div className="p-10 flex gap-5">
                 <div 
                     onClick={() => {setModalOpen(true)}}
-                    className="cursor-pointer border-1 bg-neutral-800 border-neutral-700 w-[250px] h-[250px] flex flex-col justify-center items-center gap-2 rounded-lg transform transition hover:-translate-y-1">
+                    className="cursor-pointer border-1 bg-neutral-800 border-neutral-700 w-[250px] h-[250px] flex flex-col justify-center items-center gap-2 rounded-lg hover:bg-neutral-700 transform transition hover:-translate-y-1">
                     <Plus size={50} strokeWidth={1.5}/>
                     <h1 className="text-md font-semibold">Create Paylist</h1>
                 </div>
+                {displayedPlaylists}
             </div>
         </section>
     )

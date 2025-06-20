@@ -33,7 +33,7 @@ import toast from "react-hot-toast"
 
       const displayedFavourites = favourites.map((cast, index) => {
     const image =
-      cast?.podcast?.seasons?.[cast.season]?.image || "/fallback-image.png";
+      cast?.podcast?.seasons?.[cast.season -1]?.image || "/fallback-image.png";
 
     return (
       <div
