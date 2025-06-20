@@ -4,11 +4,14 @@ import { Plus,EllipsisVertical, SquarePen,Trash, Disc3 } from "lucide-react"
 import { toast } from "react-hot-toast"
 
 import PlaylistModal from "../components/playListModal"
+import PlaylistDetail from "../components/PlaylistDetail"
 
 export default function Library() {
 
     const [modalOpen,setModalOpen] = useState(false)
     const [openMenuIndex,setOpenMenuIndex] = useState(null)
+    
+    const [selectedPlayList,setSelectedPlaylist] = useState(null)
 
     const menuRefs = useRef([])
 
@@ -58,11 +61,14 @@ export default function Library() {
 
 
         const displayedPlaylists = playLists && playLists.map((list,index) => (
-            <div 
+            <div
+                onClick={() => {
+                    setSelectedPlaylist(list)
+                }}
                 key={index}
-                className="cursor-pointer bg-neutral-800 w-[250px] h-[300px] p-5 flex flex-col justify-center items-center gap-5 rounded-lg hover:bg-neutral-700 transform transition hover:-translate-y-1"
+                className="cursor-pointer bg-neutral-800 w-[250px] h-[300px] p-5 flex flex-col justify-center items-center gap-5 rounded-lg border-2 border-neutral-800 hover:border-amber-300 transform transition hover:-translate-y-1"
                 >
-                <div className={`relative ${list.episodes.length > 1? 'grid grid-cols-2 grid-rows-2' : 'flex items-center justify-center'} gap-1 rounded-lg flex-2 overflow-hidden w-full`}>
+                <div className={`relative ${list.episodes.length > 1 ? 'grid grid-cols-2 grid-rows-2' : 'flex items-center justify-center'} gap-1 rounded-lg flex-2 overflow-hidden w-full`}>
                     {list.episodes.length === 0 ? 
                     <div className="flex justify-center items-center w-full h-full">
                         <Disc3 size={100} strokeWidth={1} stroke="gray"/>
@@ -78,11 +84,13 @@ export default function Library() {
                     <h1 className="text-lg">{list.name}</h1>
                     <div className="relative">
                         <EllipsisVertical
-                            onClick={() => setOpenMenuIndex(openMenuIndex === index ? null : index)}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setOpenMenuIndex(openMenuIndex === index ? null : index)}}
                             size={17}/>
                         {openMenuIndex === index &&
                          <div 
-                            rel={(el) => (menuRefs.current[index] = el )}
+                            ref={(el) => (menuRefs.current[index] = el )}
                             className="absolute -right-45 top-[50%] transform -translate-y-[50%] bg-neutral-700 flex flex-col rounded">
                             <button 
                                 className="cursor-pointer flex justify-between items-center gap-5 text-neutral-200 px-5 py-2.5 rounded transition-all hover:bg-neutral-600 hover:text-amber-300">Edit Playlist <SquarePen size={17}/></button>
@@ -99,6 +107,11 @@ export default function Library() {
 
     return (
         <section className="p-10">
+            {selectedPlayList && 
+                <PlaylistDetail 
+                    selectedPlayList={selectedPlayList}
+                    setSelectedPlaylist={setSelectedPlaylist}
+                    />}
             {modalOpen && setPlaylists &&
              <PlaylistModal
                 setModalOpen={setModalOpen}
@@ -110,9 +123,9 @@ export default function Library() {
             <div className="p-10 flex gap-5">
                 <div 
                     onClick={() => {setModalOpen(true)}}
-                    className="cursor-pointer border-1 bg-neutral-800 border-neutral-700 w-[250px] h-[300px] flex flex-col justify-center items-center gap-2 rounded-lg hover:bg-neutral-700 transform transition hover:-translate-y-1">
+                    className="cursor-pointer text-neutral-600 border-3 border-neutral-600 w-[250px] h-[300px] flex flex-col justify-center items-center gap-2 rounded-lg hover:border-amber-300 hover:text-amber-300 transform transition hover:-translate-y-1">
                     <Plus size={50} strokeWidth={1.5}/>
-                    <h1 className="text-md font-semibold">Create Paylist</h1>
+                    <h1 className="text-md font-semibold">Create Playlist</h1>
                 </div>
                 {displayedPlaylists}
             </div>
