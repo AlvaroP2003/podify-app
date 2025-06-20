@@ -55,7 +55,7 @@ export default function Sidebar() {
                             className="max-h-5 max-w-5 min-h-5 min-w-5"
                             strokeWidth={1}
                             stroke={isActive ? "" : "gray"}
-                            fill={isActive ? "#e5e5e5" : "none"}
+                            fill={isActive ? "white" : "none"}
                         />
                         {sidebarOpen ? <p>Playlists</p> : null}
                         </>

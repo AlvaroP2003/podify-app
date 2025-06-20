@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useEpisode } from "./EpisodeContext";
-import { SkipBack, Play, Pause, SkipForward, EllipsisVertical,CirclePlus, CircleCheck, LocateFixed } from "lucide-react";
+import { SkipBack, Play, Pause, SkipForward, EllipsisVertical,CirclePlus, CircleCheck, LocateFixed, Turtle } from "lucide-react";
+import AddToPLaylist from "./AddToPlaylists";
 
 export default function AudioPlayer() {
     const { 
@@ -21,6 +22,9 @@ export default function AudioPlayer() {
     const [progress, setProgress] = useState(0);
     const [duration, setDuration] = useState(0);
     const audioRef = useRef<HTMLAudioElement>(null);
+
+
+    const [playlistModal,setPlaylistModal] = useState(false)
 
 
    
@@ -79,66 +83,74 @@ const sameCast = (podcast, season, episode) => {
     };
 
     return (
+        <>
+        {playlistModal && <AddToPLaylist setPlaylistModal={setPlaylistModal}/>}
         <div
-        onClick={() => {
-            setSelectedPodcast(currentPodcast)
-            setSelectedSeason(currentSeason)
-            setSelectedEpisode(currentEpisode)
-            setModalOpen(true)
-        }}
-        className="fixed bottom-0 left-0 right-0 bg-neutral-900 px-4 py-2.5 z-100 h-[15vh] border-t-2 border-neutral-800">
-            <audio
-                ref={audioRef}
-                src={audioSrc}
-                onTimeUpdate={handleTimeUpdate}
-                onLoadedMetadata={handleLoadedMetadata}
-                onPause={() => setIsPlaying(false)}
-                onPlay={() => setIsPlaying(true)}
-            />
-            <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                    <img 
-                        src={seasonImage}
-                        alt="Season Art"
-                        className="w-20 mr-4 rounded object-cover"
-                    />
-                    <div className="flex flex-col gap-1">
-                        <h3 className="text-lg font-medium text-neutral-200 max-w-80">{currentEpisode?.title}</h3>
-                        <p className="text-md text-neutral-400">{currentPodcast?.title}</p>
+            onClick={() => {
+                setSelectedPodcast(currentPodcast)
+                setSelectedSeason(currentSeason)
+                setSelectedEpisode(currentEpisode)
+                setModalOpen(true)
+            }}
+            className="fixed bottom-0 left-0 right-0 bg-neutral-900 px-4 py-2.5 z-100 h-[15vh] border-t-2 border-neutral-800">
+                <audio
+                    ref={audioRef}
+                    src={audioSrc}
+                    onTimeUpdate={handleTimeUpdate}
+                    onLoadedMetadata={handleLoadedMetadata}
+                    onPause={() => setIsPlaying(false)}
+                    onPlay={() => setIsPlaying(true)}
+                />
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                        <img 
+                            src={seasonImage}
+                            alt="Season Art"
+                            className="w-20 mr-4 rounded object-cover"
+                        />
+                        <div className="flex flex-col gap-1">
+                            <h3 className="text-lg font-medium text-neutral-200 max-w-80">{currentEpisode?.title}</h3>
+                            <p className="text-md text-neutral-400">{currentPodcast?.title}</p>
+                        </div>
+                    </div>
+                    <div className="absolute left-[50%] top-[25%] transform -translate-x-[50%] flex items-center space-x-4">
+                        <button className="text-white p-2 rounded hover:bg-neutral-800 cursor-pointer">
+                            <SkipBack size={20} />
+                        </button>
+                        <button
+                            className="text-white p-2 rounded-full bg-amber-300 hover:bg-amber-200 cursor-pointer"
+                            onClick={e => {
+                                e.stopPropagation()
+                                handlePlayPause()
+                            }}
+                        >
+                            {isPlaying ? <Pause size={20} stroke="text-neutral-800" fill="text-neutral-800" /> : <Play size={20} stroke="text-neutral-800" fill="text-neutral-800" />}
+                        </button>
+                        <button className="text-white p-2 rounded hover:bg-neutral-800 cursor-pointer">
+                            <SkipForward size={20} />
+                        </button>
+                    </div>
+
+                    <div 
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            setPlaylistModal(true)
+                        }}
+                        className="cursor-pointer flex items-center justify-center rounded-full mr-10 hover:bg-neutral-800 w-10 h-10">
+                            <CirclePlus/>
                     </div>
                 </div>
-                <div className="absolute left-[50%] top-[25%] transform -translate-x-[50%] flex items-center space-x-4">
-                    <button className="text-white p-2 rounded hover:bg-neutral-800 cursor-pointer">
-                        <SkipBack size={20} />
-                    </button>
-                    <button
-                        className="text-white p-2 rounded-full bg-amber-300 hover:bg-amber-200 cursor-pointer"
-                        onClick={e => {
-                            e.stopPropagation()
-                            handlePlayPause()
-                        }}
-                    >
-                        {isPlaying ? <Pause size={20} stroke="text-neutral-800" fill="text-neutral-800" /> : <Play size={20} stroke="text-neutral-800" fill="text-neutral-800" />}
-                    </button>
-                    <button className="text-white p-2 rounded hover:bg-neutral-800 cursor-pointer">
-                        <SkipForward size={20} />
-                    </button>
-                </div>
-
-                <div className="cursor-pointer flex items-center justify-center rounded-full mr-10 hover:bg-neutral-800 w-10 h-10">
-                    <CirclePlus/>
-                </div>
-            </div>
-            {/* Seekable Progress Bar */}
-            <div
-                className="w-full h-2 bg-neutral-700 rounded mt-4 overflow-hidden cursor-pointer"
-                onClick={handleProgressBarClick}
-            >
+                {/* Seekable Progress Bar */}
                 <div
-                    className="h-full bg-amber-300 transition-all"
-                    style={{ width: `${progress}%` }}
-                />
+                    className="w-full h-2 bg-neutral-700 rounded mt-4 overflow-hidden cursor-pointer"
+                    onClick={handleProgressBarClick}
+                >
+                    <div
+                        className="h-full bg-amber-300 transition-all"
+                        style={{ width: `${progress}%` }}
+                    />
+                </div>
             </div>
-        </div>
+        </>
     );
 }
