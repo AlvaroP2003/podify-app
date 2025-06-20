@@ -1,4 +1,5 @@
 import { useEffect,useState } from "react"
+import { toast } from "react-hot-toast";
 
 export default function PlaylistModal({setModalOpen,playLists,setPlaylists}) {
 
@@ -7,19 +8,32 @@ export default function PlaylistModal({setModalOpen,playLists,setPlaylists}) {
 
     const handleChange = (e) => setInputValue(e.target.value)
     
-           const createPlaylist = (name) => {
-                if (!name.trim()) return;
 
-                setPlaylists(prev => {
-                    const updated = [...prev, { name, episodes: [] }];
-                    localStorage.setItem("playlists", JSON.stringify(updated));
-                    return updated;
-                });
+    // Funciton to create a new playlist
+    const createPlaylist = (name) => {
+        if (!name.trim()) return;
 
-                console.log('playlist created');
-                setModalOpen(false);
-                setInputValue('');
-                };
+        // Check if a playlist with the same name already exists (case-insensitive)
+        const duplicate = playLists.some(
+            (list) => list.name.toLowerCase() === name.trim().toLowerCase()
+        );
+
+        if (duplicate) {
+            toast.error('Cannot have duplicate playlist names')
+            return;
+        }
+
+        setPlaylists((prev) => {
+            const updated = [...prev, { name: name.trim(), episodes: [] }];
+            localStorage.setItem("playlists", JSON.stringify(updated));
+            return updated;
+        });
+
+        console.log("playlist created");
+        setModalOpen(false);
+        setInputValue("");
+        };
+
 
             
     return (
