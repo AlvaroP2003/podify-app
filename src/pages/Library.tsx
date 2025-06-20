@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Plus,EllipsisVertical, SquarePen,Trash } from "lucide-react"
 
 import { toast } from "react-hot-toast"
@@ -8,6 +8,26 @@ import PlaylistModal from "../components/playListModal"
 export default function Library() {
 
     const [modalOpen,setModalOpen] = useState(false)
+    const [openMenuIndex,setOpenMenuIndex] = useState(null)
+
+    const menuRefs = useRef([])
+
+    // Closes submenu if clicked outside
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (
+            openMenuIndex !== null &&
+            menuRefs.current[openMenuIndex] &&
+            !menuRefs.current[openMenuIndex].contains(e.target)
+            ) {
+            setOpenMenuIndex(null);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+        }, [openMenuIndex]);
+
 
      // Favourites State
         const [playLists, setPlaylists] = useState([])
@@ -45,13 +65,19 @@ export default function Library() {
                 <div className="flex justify-between w-full">
                     <h1>{list.name}</h1>
                     <div className="relative">
-                        <div className="absolute -right-45 top-[50%] transform -translate-y-[50%] bg-neutral-700 flex flex-col rounded">
+                        <EllipsisVertical
+                            onClick={() => setOpenMenuIndex(openMenuIndex === index ? null : index)}
+                            size={20}/>
+                        {openMenuIndex === index &&
+                         <div 
+                            rel={(el) => (menuRefs.current[index] = el )}
+                            className="absolute -right-45 top-[50%] transform -translate-y-[50%] bg-neutral-700 flex flex-col rounded">
                             <button className="flex justify-between items-center gap-5 text-neutral-200 px-5 py-2.5 rounded transition-all hover:bg-neutral-600 hover:text-amber-300">Edit Playlist <SquarePen size={17}/></button>
                             <button 
                             onClick={() => {handleDelete(list.name)}}
                             className="flex justify-between items-center gap-5 text-neutral-200 px-5 py-2.5 rounded transition-all hover:bg-neutral-600 hover:text-red-500">Delete Playlist <Trash size={17}/></button>
                         </div>
-                        <EllipsisVertical size={20}/>
+                        }
                     </div>
                 </div>
             </div>
