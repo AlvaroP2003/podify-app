@@ -1,6 +1,7 @@
 import { useEffect,useState } from "react"
 import { useEpisode } from "./EpisodeContext"
 import { toast } from "react-hot-toast"
+import { Disc3 } from "lucide-react"
 
 export default function AddToPLaylist ({setPlaylistModal}) {
 
@@ -47,7 +48,6 @@ const addToPlaylist = (index, podcast, season, episode) => {
         } else {
             toast(`Episode already in "${existingPlaylist.name}"`);
             console.log('Episode already im playlist');
-            
         }
 
         localStorage.setItem("playlists", JSON.stringify(updated));
@@ -55,16 +55,24 @@ const addToPlaylist = (index, podcast, season, episode) => {
     });
 };
 
-
-
         const displayedPlaylists = playLists.map((list,index) => (
             <div 
                 key={index}
-                onClick={() => {addToPlaylist(index,currentPodcast,currentSeason,currentEpisode)}}
-                className="flex flex-col gap-2.5 hover:bg-neutral-800 p-2.5 rounded"
+                onClick={(e) => {
+                    e.stopPropagation()
+                    addToPlaylist(index,currentPodcast,currentSeason,currentEpisode)}}
+                className="cursor-pointer flex flex-col gap-2.5 hover:bg-neutral-800 p-2.5 rounded w-[200px] bg-neutral-900 border-1 border-neutral-800"
                 >
-                <div className="min-w-[150px] min-h-[150px] border-1 rounded">
-                    <img src="#"/>
+                <div className={`relative ${list.episodes.length > 1 ? 'grid grid-cols-2 grid-rows-2' : 'flex items-center justify-center'} gap-1 rounded-lg flex-2 overflow-hidden w-full`}>
+                    {list.episodes.length === 0 ? 
+                    <div className="flex justify-center items-center w-full h-full">
+                        <Disc3 size={100} strokeWidth={1} stroke="gray"/>
+                    </div>
+                    : list.episodes.slice(0,4).map((episode,index) => (
+                        <img 
+                            className="w-full h-full rounded"
+                            key={index} src={episode.podcast.seasons[episode.season -1].image}/>
+                    ))}
                 </div>
                 <h1 className="text-neutral-300 text-lg">{list.name}</h1>
             </div>
@@ -74,9 +82,9 @@ const addToPlaylist = (index, podcast, season, episode) => {
     return (
         <div 
             onClick={() => {setPlaylistModal(false)}}
-            className="absolute inset-0 bg-black/50 flex justify-center items-center">
-            <div className="bg-neutral-900 rounded-lg w-[750px] h-[500px] p-10">
-                <h1 className="text-2xl font-semibold text-center">Choose a Playlist</h1>
+            className="absolute inset-0 bg-black/70 flex justify-center items-center">
+            <div className="bg-neutral-900/80 backdrop-blur-lg border-1 border-neutral-700 rounded-lg w-[750px] h-[500px] p-5">
+                <h1 className="text-2xl font-semibold text-center">Add to Playlist</h1>
                 <div className="flex gap-1 p-10">
                     {displayedPlaylists}
                 </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react"
-import { Plus,EllipsisVertical, SquarePen,Trash } from "lucide-react"
+import { Plus,EllipsisVertical, SquarePen,Trash, Disc3 } from "lucide-react"
 
 import { toast } from "react-hot-toast"
 
@@ -60,28 +60,35 @@ export default function Library() {
         const displayedPlaylists = playLists && playLists.map((list,index) => (
             <div 
                 key={index}
-                className="cursor-pointer border-1 bg-neutral-800 border-neutral-700 w-[300px] h-[300px] p-5 flex flex-col justify-center items-center gap-5 rounded-lg hover:bg-neutral-700 transform transition hover:-translate-y-1"
+                className="cursor-pointer bg-neutral-800 w-[250px] h-[300px] p-5 flex flex-col justify-center items-center gap-5 rounded-lg hover:bg-neutral-700 transform transition hover:-translate-y-1"
                 >
-                <div className="relative grid grid-cols-2 grid-rows-2 border-1 w-full rounded-lg flex-2">
-                    {list.episodes.map((episode) => (
-                        <img src={episode.podcast.seasons[episode.season].image}/>
+                <div className={`relative ${list.episodes.length > 1? 'grid grid-cols-2 grid-rows-2' : 'flex items-center justify-center'} gap-1 rounded-lg flex-2 overflow-hidden w-full`}>
+                    {list.episodes.length === 0 ? 
+                    <div className="flex justify-center items-center w-full h-full">
+                        <Disc3 size={100} strokeWidth={1} stroke="gray"/>
+                    </div>
+                    : list.episodes.slice(0,4).map((episode,index) => (
+                        <img 
+                            className="w-full h-full rounded"
+                            key={index} src={episode.podcast.seasons[episode.season -1].image}/>
                     ))}
                 </div>
 
-                <div className="flex justify-between w-full">
-                    <h1>{list.name}</h1>
+                <div className="flex justify-between items-center w-full text-neutral-200">
+                    <h1 className="text-lg">{list.name}</h1>
                     <div className="relative">
                         <EllipsisVertical
                             onClick={() => setOpenMenuIndex(openMenuIndex === index ? null : index)}
-                            size={20}/>
+                            size={17}/>
                         {openMenuIndex === index &&
                          <div 
                             rel={(el) => (menuRefs.current[index] = el )}
                             className="absolute -right-45 top-[50%] transform -translate-y-[50%] bg-neutral-700 flex flex-col rounded">
-                            <button className="flex justify-between items-center gap-5 text-neutral-200 px-5 py-2.5 rounded transition-all hover:bg-neutral-600 hover:text-amber-300">Edit Playlist <SquarePen size={17}/></button>
                             <button 
-                            onClick={() => {handleDelete(list.name)}}
-                            className="flex justify-between items-center gap-5 text-neutral-200 px-5 py-2.5 rounded transition-all hover:bg-neutral-600 hover:text-red-500">Delete Playlist <Trash size={17}/></button>
+                                className="cursor-pointer flex justify-between items-center gap-5 text-neutral-200 px-5 py-2.5 rounded transition-all hover:bg-neutral-600 hover:text-amber-300">Edit Playlist <SquarePen size={17}/></button>
+                            <button 
+                                onClick={() => {handleDelete(list.name)}}
+                                className="cursor-pointer flex justify-between items-center gap-5 text-neutral-200 px-5 py-2.5 rounded transition-all hover:bg-neutral-600 hover:text-red-500">Delete Playlist <Trash size={17}/></button>
                         </div>
                         }
                     </div>
@@ -103,7 +110,7 @@ export default function Library() {
             <div className="p-10 flex gap-5">
                 <div 
                     onClick={() => {setModalOpen(true)}}
-                    className="cursor-pointer border-1 bg-neutral-800 border-neutral-700 w-[300px] h-[300px] flex flex-col justify-center items-center gap-2 rounded-lg hover:bg-neutral-700 transform transition hover:-translate-y-1">
+                    className="cursor-pointer border-1 bg-neutral-800 border-neutral-700 w-[250px] h-[300px] flex flex-col justify-center items-center gap-2 rounded-lg hover:bg-neutral-700 transform transition hover:-translate-y-1">
                     <Plus size={50} strokeWidth={1.5}/>
                     <h1 className="text-md font-semibold">Create Paylist</h1>
                 </div>
