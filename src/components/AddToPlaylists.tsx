@@ -1,6 +1,10 @@
 import { useEffect,useState } from "react"
+import { useEpisode } from "./EpisodeContext"
+import { toast } from "react-hot-toast"
 
 export default function AddToPLaylist ({setPlaylistModal}) {
+
+    const {currentPodcast,currentSeason,currentEpisode} = useEpisode()
 
       // Stored Playlists
             const [playLists, setPlaylists] = useState([])
@@ -15,10 +19,48 @@ export default function AddToPLaylist ({setPlaylistModal}) {
             }, [playLists])
 
 
+const addToPlaylist = (index, podcast, season, episode) => {
+    setPlaylists((prev) => {
+        const updated = [...prev];
+        const existingPlaylist = updated[index];
+
+        if (!existingPlaylist) {
+            toast.error(`Playlist not found at index ${index}`);
+            return prev;
+        }
+
+        const newEpisode = { podcast, season, episode };
+
+        const isDuplicate = existingPlaylist.episodes.some(
+            ep =>
+                ep.podcast.id === podcast.id &&
+                ep.season === season &&
+                ep.episode.episode === episode.episode &&
+                ep.episode.title === episode.episode.title
+        );
+
+        if (!isDuplicate) {
+            existingPlaylist.episodes.push(newEpisode);
+            toast.success(`Added episode to "${existingPlaylist.name}"`);
+            console.log(`Added episode to ${existingPlaylist.name}`);
+            
+        } else {
+            toast(`Episode already in "${existingPlaylist.name}"`);
+            console.log('Episode already im playlist');
+            
+        }
+
+        localStorage.setItem("playlists", JSON.stringify(updated));
+        return updated;
+    });
+};
+
+
+
         const displayedPlaylists = playLists.map((list,index) => (
             <div 
                 key={index}
-                onClick={() => {addToPLaylist()}}
+                onClick={() => {addToPlaylist(index,currentPodcast,currentSeason,currentEpisode)}}
                 className="flex flex-col gap-2.5 hover:bg-neutral-800 p-2.5 rounded"
                 >
                 <div className="min-w-[150px] min-h-[150px] border-1 rounded">

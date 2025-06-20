@@ -29,7 +29,7 @@ export default function Library() {
         }, [openMenuIndex]);
 
 
-     // Favourites State
+     // Stored Playlists
         const [playLists, setPlaylists] = useState([])
          
          useEffect(() => {
@@ -40,6 +40,10 @@ export default function Library() {
         useEffect(() => {
             localStorage.setItem('playlists', JSON.stringify(playLists))
         }, [playLists])
+
+        useEffect(() => {
+            console.log(playLists);
+        },[playLists])
 
 
         // Delete Playlsit Function
@@ -53,13 +57,15 @@ export default function Library() {
          
 
 
-        const displayedPlaylists = playLists.map((list,index) => (
+        const displayedPlaylists = playLists && playLists.map((list,index) => (
             <div 
                 key={index}
-                className=" cursor-pointer border-1 bg-neutral-800 border-neutral-700 w-[300px] h-[300px] p-5 flex flex-col justify-center items-center gap-5 rounded-lg hover:bg-neutral-700 transform transition hover:-translate-y-1"
+                className="cursor-pointer border-1 bg-neutral-800 border-neutral-700 w-[300px] h-[300px] p-5 flex flex-col justify-center items-center gap-5 rounded-lg hover:bg-neutral-700 transform transition hover:-translate-y-1"
                 >
-                <div className="grid grid-cols-2 grid-rows-2 border-1 w-full rounded-lg flex-2">
-                   
+                <div className="relative grid grid-cols-2 grid-rows-2 border-1 w-full rounded-lg flex-2">
+                    {list.episodes.map((episode) => (
+                        <img src={episode.podcast.seasons[episode.season].image}/>
+                    ))}
                 </div>
 
                 <div className="flex justify-between w-full">
