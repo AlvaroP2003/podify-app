@@ -7,7 +7,6 @@ import Favourites from "./pages/Favourites"
 import PodcastDetail from "./pages/PodcastDetail"
 import { EpisodeProvider } from "./components/EpisodeContext"
 import { Toaster } from "react-hot-toast"
-import UserDetails from "./pages/User"
 
 function App() {
     return (
@@ -44,7 +43,6 @@ function App() {
                             <Route path="favourites" element={<Favourites/>}></Route>
                             <Route path=":id" element={<PodcastDetail/>}></Route>
                         </Route>
-                        <Route path="user" element={<UserDetails/>}></Route>
                     </Routes>
                 </EpisodeProvider>
             </BrowserRouter>
