@@ -32,7 +32,7 @@ export default function Library() {
         }, [openMenuIndex]);
 
 
-     // Stored Playlists
+        // Stored Playlists
         const [playLists, setPlaylists] = useState([])
          
          useEffect(() => {
@@ -54,7 +54,6 @@ export default function Library() {
             const updatedPlaylists = playLists.filter(list => list.name !== playListName);
 
              toast.error('Deleted playlist')
-
              setPlaylists(updatedPlaylists)
         }
          

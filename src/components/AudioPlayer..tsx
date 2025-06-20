@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useEpisode } from "./EpisodeContext";
-import { SkipBack, Play, Pause, SkipForward, EllipsisVertical,CirclePlus, CircleCheck, LocateFixed, Turtle } from "lucide-react";
+import { SkipBack, Play, Pause, SkipForward,CirclePlus, CircleCheck, } from "lucide-react";
 import AddToPLaylist from "./AddToPlaylists";
 
 export default function AudioPlayer() {
@@ -26,17 +26,27 @@ export default function AudioPlayer() {
 
     const [playlistModal,setPlaylistModal] = useState(false)
 
+    // Stored Playlists
+        const [playLists, setPlaylists] = useState([])
+         
+         useEffect(() => {
+            const storedPlay = localStorage.getItem('playlists')
+            if(storedPlay) setPlaylists(JSON.parse(storedPlay))
+        },[])
+    
 
-   
-const sameCast = (podcast, season, episode) => {
-  return (
-    podcast?.id === currentPodcast?.id &&
-    Number(season) === Number(currentSeason) &&
-    episode?.episode === currentEpisode?.episode &&
-    episode?.title === currentEpisode?.title // extra safeguard
-  );  
-};
+    // Funciton to check if the current and selected cast are the same
+    const sameCast = (podcast, season, episode) => {
+    return (
+        podcast?.id === currentPodcast?.id &&
+        Number(season) === Number(currentSeason) &&
+        episode?.episode === currentEpisode?.episode &&
+        episode?.title === currentEpisode?.title // extra safeguard
+    );  
+    };
 
+
+    // Debug log
     useEffect(() => {
         console.log('Podcast', selectedPodcast?.id === currentPodcast?.id);
         console.log('Season', Number(selectedSeason) === Number(currentSeason));

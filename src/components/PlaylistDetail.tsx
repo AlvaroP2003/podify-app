@@ -61,7 +61,7 @@ export default function PlaylistDetail({selectedPlayList,setSelectedPlaylist}) {
                 <h1 className="text-3xl font-semibold text-neutral-200">
                         {selectedPlayList.name}
                     </h1>
-                <div>
+                <div className="h-[300px] overflow-y-scroll">
                     {displayedEpisodes}
                 </div>
             </div>
