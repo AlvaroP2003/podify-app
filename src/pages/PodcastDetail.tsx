@@ -5,7 +5,6 @@ import Loading from "../components/Loading";
 
 import { ArrowLeftFromLine,Play } from "lucide-react"
 import EpisodeModal from "../components/EpisodeModal";
-import AudioPlayer from "../components/AudioPlayer.";
 
  export default function PodcastDetail() {
     const {

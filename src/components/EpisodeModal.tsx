@@ -4,8 +4,15 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 export default function EpisodeModal() {
+    
     const {
-        selectedPodcast,selectedSeason,selectedEpisode,setModalOpen,
+    currentPodcast,setCurrentPodcast,
+    currentSeason,setCurrentSeason,
+    currentEpisode,setCurrentEpisode,
+    selectedPodcast,setSelectedPodcast,
+    selectedSeason, setSelectedSeason,
+    selectedEpisode, setSelectedEpisode,
+    modalOpen,setModalOpen,
     } = useEpisode()
 
     const seasonImage = selectedPodcast?.seasons?.[selectedSeason - 1]?.image;
@@ -70,7 +77,7 @@ export default function EpisodeModal() {
             onClick={() =>
                 setModalOpen(false)}
             className={`
-                absolute inset-0 z-40
+                absolute inset-0 z-100
                 bg-black/70
                 flex justify-center items-center
                 transition-opacity duration-300
@@ -122,7 +129,13 @@ export default function EpisodeModal() {
                                 </button>
 
                                   <button 
-                                        className="cursor-pointer flex justify-center items-center bg-amber-300 hover:bg-amber-200 min-h-10 min-w-10 rounded-full">
+                                   onClick={e => {
+                                        e.stopPropagation();
+                                        setCurrentPodcast(selectedPodcast)
+                                        setCurrentSeason(selectedSeason)
+                                        setCurrentEpisode(selectedEpisode); // Just play the episode
+                                    }}
+                                    className="cursor-pointer flex justify-center items-center bg-amber-300 hover:bg-amber-200 min-h-10 min-w-10 rounded-full">
                                     <Play fill="neutral-400" stroke="neutral-400"/>
                                 </button>
                         </div>

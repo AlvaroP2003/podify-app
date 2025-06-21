@@ -53,7 +53,7 @@ export default function Library() {
         const handleDelete = (playListName) => {
             const updatedPlaylists = playLists.filter(list => list.name !== playListName);
 
-             toast.error('Deleted playlist')
+             toast.error(`Deleted ${playListName}`)
              setPlaylists(updatedPlaylists)
         }
          
@@ -63,6 +63,7 @@ export default function Library() {
             <div
                 onClick={() => {
                     setSelectedPlaylist(list)
+                    console.log(selectedPlayList);
                 }}
                 key={index}
                 className="cursor-pointer bg-neutral-800 w-[250px] h-[300px] p-5 flex flex-col justify-center items-center gap-5 rounded-lg border-2 border-neutral-800 hover:border-amber-300 transform transition hover:-translate-y-1"
@@ -94,7 +95,10 @@ export default function Library() {
                             <button 
                                 className="cursor-pointer flex justify-between items-center gap-5 text-neutral-200 px-5 py-2.5 rounded transition-all hover:bg-neutral-600 hover:text-amber-300">Edit Playlist <SquarePen size={17}/></button>
                             <button 
-                                onClick={() => {handleDelete(list.name)}}
+                                onClick={(e) => {
+                                    e.stopPropagation()
+                                    handleDelete(list.name)
+                                }}
                                 className="cursor-pointer flex justify-between items-center gap-5 text-neutral-200 px-5 py-2.5 rounded transition-all hover:bg-neutral-600 hover:text-red-500">Delete Playlist <Trash size={17}/></button>
                         </div>
                         }
