@@ -25,6 +25,7 @@ export default function PlaylistDetail({selectedPlayList,setSelectedPlaylist}) {
             })
     }
 
+
     const {
         currentPodcast,setCurrentPodcast,
         currentSeason,setCurrentSeason,

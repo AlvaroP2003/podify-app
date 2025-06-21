@@ -44,12 +44,24 @@ export default function Library() {
             localStorage.setItem('playlists', JSON.stringify(playLists))
         }, [playLists])
 
+
+        // Use effect
         useEffect(() => {
-            console.log(playLists);
-        },[playLists])
+        if (selectedPlayList) {
+            setPlaylists(prev => {
+            const updated = prev.map(playlist =>
+                playlist.name === selectedPlayList.name ? selectedPlayList : playlist
+            );
+
+            // Update local storage
+            localStorage.setItem('playlists', JSON.stringify(updated));
+            return updated;
+            });
+        }
+        }, [selectedPlayList]);
 
 
-        // Delete Playlsit Function
+        // Delete PLaylist Function
         const handleDelete = (playListName) => {
             const updatedPlaylists = playLists.filter(list => list.name !== playListName);
 
