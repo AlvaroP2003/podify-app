@@ -23,6 +23,8 @@ export default function PlaylistDetail({selectedPlayList,setSelectedPlaylist}) {
                 ...selectedPlayList,
                 episodes: updatedPlaylist
             })
+
+
     }
 
 
@@ -108,7 +110,7 @@ export default function PlaylistDetail({selectedPlayList,setSelectedPlaylist}) {
         >
             <div className="flex flex-col gap-3 border-1 border-neutral-700 bg-neutral-900/50 backdrop-blur-2xl rounded-lg p-5 max-w-[800px] min-w-[800px]">
 
-            <div className={`relative ${selectedPlayList?.episodes?.length > 1 ? 'grid grid-cols-2 grid-rows-2' : 'flex items-center justify-center'} gap-1 rounded-lg overflow-hidden w-[200px] border-red-500`}>
+            <div className={`relative ${selectedPlayList?.episodes?.length > 1 ? 'grid grid-cols-2 grid-rows-2' : 'flex items-center justify-center'} border-2 border-neutral-800 gap-1 rounded-lg overflow-hidden max-w-[200px] min-w-[200px] min-h-[200px]`}>
 
                 {selectedPlayList?.episodes?.length === 0 ? 
                 <div className="flex justify-center items-center w-full h-full">
