@@ -37,7 +37,7 @@ const addToPlaylist = (index, podcast, season, episode) => {
                 ep.podcast.id === podcast.id &&
                 ep.season === season &&
                 ep.episode.episode === episode.episode &&
-                ep.episode.title === episode.episode.title
+                ep.episode.title === episode.title
         );
 
         if (!isDuplicate) {
@@ -46,7 +46,7 @@ const addToPlaylist = (index, podcast, season, episode) => {
             console.log(`Added episode to ${existingPlaylist.name}`);
             
         } else {
-            toast(`Episode already in "${existingPlaylist.name}"`);
+            toast.error(`Episode already in ${existingPlaylist.name} playlist`);
             console.log('Episode already im playlist');
         }
 
