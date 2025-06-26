@@ -68,7 +68,7 @@ import EpisodeModal from "../components/EpisodeModal"
           setSelectedEpisode(cast.episode)
           setModalOpen(true)
           }}
-        className="flex justify-between items-center hover:bg-neutral-800 p-3 w-full border-b border-neutral-700 transition-all rounded"
+        className="flex justify-between items-center hover:bg-neutral-800 p-2 w-full border-b border-neutral-700 transition-all rounded"
       >
         <div className="flex gap-5 items-center">
           <button
@@ -82,10 +82,10 @@ import EpisodeModal from "../components/EpisodeModal"
                 >
               {isPlaying ? <Pause size={20} stroke="text-neutral-800" fill="text-neutral-800" /> : <Play size={20} stroke="text-neutral-800" fill="text-neutral-800" />}
           </button>
-          <img className="w-[100px] rounded" src={image} alt="Season artwork" />
+          <img className="w-[75px] lg:w-[100px] rounded" src={image} alt="Season artwork" />
           <div className="flex flex-col justify-center gap-1">
-            <h1 className={`text-xl font-semibold ${sameCast(cast.podcast,cast.season,cast.episode) ? 'text-amber-300' : 'text-neutral-200'}`}>{cast.episode?.title || "Untitled"}</h1>
-            <h2 className="text-lg text-neutral-400">{cast.podcast?.title || "Unknown Podcast"}</h2>
+            <h1 className={`text-md lg:text-xl font-semibold ${sameCast(cast.podcast,cast.season,cast.episode) ? 'text-amber-300' : 'text-neutral-200'}`}>{cast.episode?.title || "Untitled"}</h1>
+            <h2 className="text-sm lg:text-lg text-neutral-400">{cast.podcast?.title || "Unknown Podcast"}</h2>
             <span className="flex gap-2 text-sm text-neutral-400">
               <h3>S {cast.season ?? "?"}</h3>
               <h3>E {cast.episode?.episode ?? "?"}</h3>

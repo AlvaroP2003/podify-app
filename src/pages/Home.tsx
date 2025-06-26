@@ -156,7 +156,7 @@ const podcastData = useMemo(() => {
           {error && <p className="text-red-600">Error: {error}</p>}
 
           {!loading && !error && (
-            <div className="relative grid grid-cols-5 gap-1">{displayedData}</div>
+            <div className="relative grid grid-cols-2 lg:grid-cols-5 gap-1 p-1 lg:p-0">{displayedData}</div>
           )}
       </section>
     </>

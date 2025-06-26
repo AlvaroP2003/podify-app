@@ -43,8 +43,8 @@ export default function SearchSort(
 
     return (
         <div>
-            <div className="p-10 flex justify-between">
-                 <h1 className="text-2xl">{typefilter ? typefilter : 'All Podcasts'}</h1>
+            <div className="p-10 flex justify-between items-center" >
+                 <h1 className="text-xl lg:text-2xl">{typefilter ? typefilter : 'All Podcasts'}</h1>
 
             <div className="flex">
                 <div className={`relative flex items-center overflow-hidden transition-all ${searchOpen ? 'w-[300px]' : 'w-[50px]'}`}>
@@ -90,13 +90,13 @@ export default function SearchSort(
             </div>
            
 
-                <div className="flex gap-5 p-5">
+                <div className="flex gap-5 p-5 w-[100vw] overflow-scroll">
                    {genreData.flat().map((genre, index) => (
                     <div
                         onClick={() => {                            
                             handleFilterChange('type', genre.title)}
                         }
-                        className={`cursor-pointer flex gap-2.5 items-center whitespace-nowrap border-2 px-6 py-3 rounded-full transition-all ${genre.title === typefilter ? 'border-amber-300 text-amber-300 font-medium hover:bg-amber-300 hover:text-neutral-800'  : 'bg-neutral-800 border-neutral-800 hover:bg-neutral-700 hover:border-neutral-700'}`}
+                        className={`text-sm lg:text-md cursor-pointer flex gap-2.5 items-center whitespace-nowrap border-2 px-6 py-3 rounded-full transition-all ${genre.title === typefilter ? 'border-amber-300 text-amber-300 font-medium hover:bg-amber-300 hover:text-neutral-800'  : 'bg-neutral-800 border-neutral-800 hover:bg-neutral-700 hover:border-neutral-700'}`}
                         key={index}
                         >{genre.title}
                         {genre.title === typefilter ?
