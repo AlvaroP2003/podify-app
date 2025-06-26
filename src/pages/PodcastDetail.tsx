@@ -6,6 +6,9 @@ import Loading from "../components/Loading";
 import { ArrowLeftFromLine,Play } from "lucide-react"
 import EpisodeModal from "../components/EpisodeModal";
 
+
+import sameCast from "../utils/sameCast";
+
  export default function PodcastDetail() {
     const {
         currentPodcast,setCurrentPodcast,
@@ -49,15 +52,6 @@ import EpisodeModal from "../components/EpisodeModal";
 
     },[])
 
-
-const sameCast = (podcast, season, episode) => {
-  return (
-    podcast?.id === currentPodcast?.id &&
-    Number(season) === Number(currentSeason) &&
-    episode?.episode === currentEpisode?.episode &&
-    episode?.title === currentEpisode?.title // extra safeguard
-  );
-};
 
     return (
         <>
@@ -136,7 +130,7 @@ const sameCast = (podcast, season, episode) => {
                                 </div>
 
                                 <div className="flex flex-col justify-center flex-1">
-                                    <h3 className={`text-lg font-semibold mb-1 ${sameCast(selectedPodcast,selectedSeason,episode) ? 'text-amber-300' : 'text-neutral-300'}`}>{episode.title}</h3>
+                                    <h3 className={`text-lg font-semibold mb-1 ${sameCast(selectedPodcast,selectedSeason,episode,currentPodcast,currentSeason,currentEpisode) ? 'text-amber-300' : 'text-neutral-300'}`}>{episode.title}</h3>
                                     <p className="text-neutral-400 text-sm mb-2 line-clamp-3">{episode.description}</p>
                                     <div className="flex gap-2 text-sm text-neutral-500 mt-auto">
                                         <span>{`S${selectedSeason}`}</span>
