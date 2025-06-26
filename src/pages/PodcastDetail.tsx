@@ -6,8 +6,9 @@ import Loading from "../components/Loading";
 import { ArrowLeftFromLine,Play } from "lucide-react"
 import EpisodeModal from "../components/EpisodeModal";
 
-
+// Utils and Types
 import sameCast from "../utils/sameCast";
+import type { Podcast } from "../types/interfaces";
 
  export default function PodcastDetail() {
     const {
@@ -21,7 +22,7 @@ import sameCast from "../utils/sameCast";
     } = useEpisode()
 
     const {id} = useParams()    
-    const [podcast,setPodcast] = useState({})
+    const [podcast,setPodcast] = useState<Podcast>({})
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState(null)
 
@@ -51,6 +52,11 @@ import sameCast from "../utils/sameCast";
         fetchData()
 
     },[])
+
+
+    useEffect(() => {
+        console.log(podcast);
+    },[podcast])
 
 
     return (

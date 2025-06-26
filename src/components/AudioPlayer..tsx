@@ -46,16 +46,6 @@ export default function AudioPlayer() {
     };
 
 
-    // Debug log
-    useEffect(() => {
-        console.log('Podcast', selectedPodcast?.id === currentPodcast?.id);
-        console.log('Season', Number(selectedSeason) === Number(currentSeason));
-        console.log('Episode', selectedEpisode?.episode === currentEpisode?.episode);
-        console.log('Title', selectedEpisode?.title === currentPodcast?.title);
-
-        
-    },[currentPodcast, currentSeason, currentEpisode]);
-
     const handlePlayPause = () => {
         if (!sameCast(selectedPodcast,selectedSeason,selectedEpisode)) {
             audioRef.current.currentTime = 0

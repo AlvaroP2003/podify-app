@@ -3,12 +3,14 @@ import { useEpisode } from "./EpisodeContext"
 import { toast } from "react-hot-toast"
 import { Disc3 } from "lucide-react"
 
+import type { Playlist, Podcast, Season, Episode } from "../types/interfaces"
+
 export default function AddToPLaylist ({setPlaylistModal}) {
 
     const {currentPodcast,currentSeason,currentEpisode} = useEpisode()
 
       // Stored Playlists
-            const [playLists, setPlaylists] = useState([])
+            const [playLists, setPlaylists] = useState<Playlist>([])
              
              useEffect(() => {
                 const storedPlay = localStorage.getItem('playlists')

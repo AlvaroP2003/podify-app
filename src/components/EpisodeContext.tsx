@@ -1,30 +1,20 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import Favourites from "../pages/Favourites";
+import React, { createContext, useContext, useState } from "react";
 
-export interface Episode {
-  // Define your episode properties here
-  id: string;
-  title: string;
+import type { Podcast, Episode } from "../types/interfaces";
 
-  // Add more fields as needed
-}
 
 const EpisodeContext = createContext<any>(undefined);
 
 export const EpisodeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
-  useEffect(() => {
-    console.log("EpisodeProvider mounted");
-  },[])
-
   // Playing State
-  const [currentPodcast, setCurrentPodcast] = useState<string | null>(null);
+  const [currentPodcast, setCurrentPodcast] = useState<Podcast | null>(null);
   const [currentSeason, setCurrentSeason] = useState<number | null>(1);
   const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(null);
 
 
   // Viewing State
-  const [selectedPodcast,setSelectedPodcast] = useState<Object | null>(null)
+  const [selectedPodcast,setSelectedPodcast] = useState<Podcast | null>(null)
   const [selectedSeason, setSelectedSeason] = useState<number | null>(1);
   const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
 

@@ -7,17 +7,11 @@ import SearchSort from "../components/SearchSort"
 import { useEpisode } from "../components/EpisodeContext"
 import { SearchX } from "lucide-react"
 
+import type { PodcastItem } from "../types/interfaces"
+
 type SortValue = 'letter' | 'date'
 type UpdateValue = 'old_new' | 'new_old'
 type LetterSort = 'a_z' | 'z_a'
-
-type PodcastItem = {
-  id: string
-  title: string
-  genre:string[]
-  image: string
-  updated: string
-}
 
 export default function Home() {
   const {currentPodcast, setCurrentPodcast, currentEpisode} =  useEpisode()
