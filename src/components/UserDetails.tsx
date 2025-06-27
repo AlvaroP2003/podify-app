@@ -52,11 +52,11 @@ export default function UserDetails({modalOpen,setModalOpen}: {modalOpen: boolea
                 resetAccount={resetAccount}
                 />}
 
-            <div className={`flex flex-col gap-10 fixed top-0 w-[25%] h-full bg-neutral-900 z-50 transition-all p-10 ${modalOpen ? 'right-0' : 'right-[-25%]'}`}>
+            <div className={`flex flex-col gap-10 fixed top-0 w-[50%] lg:w-[25%] h-full bg-neutral-900 z-50 transition-all p-5 lg:p-10 ${modalOpen ? 'right-0' : 'right-[-25%]'}`}>
 
                 <div className="flex flex-col  items-center gap-2.5">
-                    <div className="flex justify-center items-center bg-amber-300 w-20 h-20 rounded-full">
-                        <User size={50} strokeWidth={1} stroke="black"/>
+                    <div className="flex justify-center items-center bg-amber-300 w-15 h-15 rounded-full">
+                        <User size={40} strokeWidth={1} stroke="black"/>
                     </div>
                     <h1 className="text-2xl text-neutral-200">User Name</h1>
                 </div>

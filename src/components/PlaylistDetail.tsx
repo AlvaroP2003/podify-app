@@ -68,11 +68,11 @@ export default function PlaylistDetail({selectedPlayList,setSelectedPlaylist}) {
                     >
                         {isPlaying ? <Pause size={20} stroke="text-neutral-800" fill="text-neutral-800" /> : <Play size={20} stroke="text-neutral-800" fill="text-neutral-800" />}
                 </button>
-                <div className="flex gap-5">
-                    <img className="w-[80px] rounded" src={image} alt="Season artwork" />
+                <div className="flex items-center gap-5">
+                    <img className="w-[80px] h-[80px] rounded" src={image} alt="Season artwork" />
                         <div className="flex flex-col justify-center gap-1">
-                            <h1 className="text-md font-semibold">{item.episode?.title || "Untitled"}</h1>
-                            <h2 className="text-sm text-neutral-400">{item.podcast?.title || "Unknown Podcast"}</h2>
+                            <h1 className="text-sm font-semibold">{item.episode?.title || "Untitled"}</h1>
+                            <h2 className="text-xs text-neutral-400">{item.podcast?.title || "Unknown Podcast"}</h2>
                             <span className="flex gap-2 text-xs text-neutral-400">
                                 <h3>S {item.season ?? "?"}</h3>
                                 <h3>E {item.episode?.episode ?? "?"}</h3>
@@ -108,7 +108,7 @@ export default function PlaylistDetail({selectedPlayList,setSelectedPlaylist}) {
             onClick={() => {setSelectedPlaylist(null)}}
             className="absolute inset-0 bg-black/60 flex items-center justify-center z-50"
         >
-            <div className="flex flex-col gap-3 border-1 border-neutral-700 bg-neutral-900/50 backdrop-blur-2xl rounded-lg p-5 max-w-[800px] min-w-[800px]">
+            <div className="flex flex-col gap-3 border-1 border-neutral-700 bg-neutral-900/50 backdrop-blur-2xl rounded-lg p-5 lg:max-w-[800px] lg:min-w-[800px]">
 
             <div className={`relative ${selectedPlayList?.episodes?.length > 1 ? 'grid grid-cols-2 grid-rows-2' : 'flex items-center justify-center'} border-2 border-neutral-800 gap-1 rounded-lg overflow-hidden max-w-[200px] min-w-[200px] min-h-[200px]`}>
 
@@ -118,7 +118,7 @@ export default function PlaylistDetail({selectedPlayList,setSelectedPlaylist}) {
                 </div>
                 : selectedPlayList?.episodes?.slice(0,4).map((episode,index) => (
                     <img 
-                        className="h-full rounded w-full"
+                        className="rounded w-full"
                         key={index} src={episode.podcast.seasons[episode.season -1].image}/>
                 ))}
 
