@@ -64,7 +64,7 @@ import type { Podcast } from "../types/interfaces";
         {selectedEpisode && modalOpen ? <EpisodeModal/> : null}
         {loading ? <Loading/> :
         <section
-         className="p-10 flex justify-between overflow-y-scroll w-full h-screen"
+         className="p-10 flex flex-col justify-between lg:flex-row overflow-y-scroll w-full lg:h-screen"
         >
 
             <div className="flex flex-2 flex-col gap-10">

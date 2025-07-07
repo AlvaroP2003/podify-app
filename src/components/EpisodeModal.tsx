@@ -96,7 +96,7 @@ export default function EpisodeModal() {
                 `}
             >
                 {/* Modal content */}
-                <div className="relative z-10 lg:flex-col gap-5 text-neutral-300">
+                <div className="relative z-10 flex flex-col lg:flex-row gap-5">
                     <div className="relative lg:max-w-[45%] lg:min-w-[45%]">
                     <img 
                         className="rounded"
