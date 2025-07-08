@@ -35,6 +35,15 @@ export default function AudioPlayer() {
         },[])
     
 
+    // Add this state to track completed episodes
+    const [completedEpisodes, setCompletedEpisodes] = useState([]);
+
+    // Load completed episodes from localStorage on mount
+    useEffect(() => {
+        const storedCompleted = localStorage.getItem('completedEpisodes');
+        if (storedCompleted) setCompletedEpisodes(JSON.parse(storedCompleted));
+    }, []);
+
     // Funciton to check if the current and selected cast are the same
     const sameCast = (podcast, season, episode) => {
     return (
@@ -45,6 +54,33 @@ export default function AudioPlayer() {
     );  
     };
 
+    // Function to save completed episode
+    const saveCompletedEpisode = () => {
+        if (!currentPodcast || !currentSeason || !currentEpisode) return;
+        
+        const completedEpisode = {
+            podcast: currentPodcast,
+            season: currentSeason,
+            episode: currentEpisode,
+            completedAt: new Date().toISOString()
+        };
+        
+        // Check if this episode is already marked as completed
+        const isAlreadyCompleted = completedEpisodes.some(completed => 
+            completed.podcast.id === currentPodcast.id &&
+            completed.season === currentSeason &&
+            completed.episode.episode === currentEpisode.episode &&
+            completed.episode.title === currentEpisode.title
+        );
+        
+        if (!isAlreadyCompleted) {
+            const updatedCompleted = [...completedEpisodes, completedEpisode];
+            setCompletedEpisodes(updatedCompleted);
+            localStorage.setItem('completedEpisodes', JSON.stringify(updatedCompleted));
+            console.log('Added completed episode:', completedEpisode);
+            
+        }
+    };
 
     const handlePlayPause = () => {
         if (!sameCast(selectedPodcast,selectedSeason,selectedEpisode)) {
@@ -100,6 +136,7 @@ export default function AudioPlayer() {
                     onLoadedMetadata={handleLoadedMetadata}
                     onPause={() => setIsPlaying(false)}
                     onPlay={() => setIsPlaying(true)}
+                    onEnded={saveCompletedEpisode} // Add this line
                 />
                 <div className="flex items-center justify-between">
                     <div className="flex items-center">
