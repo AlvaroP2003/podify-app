@@ -20,6 +20,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const [completedEpisodes, setCompletedEpisodes] = useState()
+
 
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [sortValue,setSortValue] = useState<SortValue>('date')
@@ -29,6 +31,8 @@ export default function Home() {
   const typeFilter = searchParams.get('type')
 
 
+
+  // Fetching data from the API
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -52,25 +56,44 @@ export default function Home() {
   }, []);
 
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const requests = [];
+  // Fetching genre data from the API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const requests = [];
 
-      for (let count = 1; count < 10; count++) {
-        requests.push(fetch(`https://podcast-api.netlify.app/genre/${count}`).then(res => res.json()));
+        for (let count = 1; count < 10; count++) {
+          requests.push(fetch(`https://podcast-api.netlify.app/genre/${count}`).then(res => res.json()));
+        }
+
+        const genreRes = await Promise.all(requests);
+        setGenreData(genreRes);
+      } catch (error) {
+        console.error('Failed to fetch genres:', error);
+        // handle error as needed
       }
+    };
 
-      const genreRes = await Promise.all(requests);
-      setGenreData(genreRes);
-    } catch (error) {
-      console.error('Failed to fetch genres:', error);
-      // handle error as needed
+    fetchData();
+  }, []);
+
+
+  useEffect(() => {
+    // Load completed episodes from localStorage on mount
+    const storedCompleted = localStorage.getItem('completedEpisodes');
+    if (storedCompleted) {
+      setCompletedEpisodes(JSON.parse(storedCompleted));
     }
-  };
+  },[])
 
-  fetchData();
-}, []);
+
+  const displayedCompletedEpisodes = completedEpisodes?.map((episode, index) => (
+    <div key={index} className="p-4 bg-gray-100 rounded mb-2">
+      <img src={episode.podcast?.seasons?.[season -1].image}/>
+      <h3 className="text-lg font-semibold">{episode.podcast.title}</h3>
+      <p className="text-sm text-gray-600">Season: {episode.season}, Episode: {episode.episode.title}</p>
+    </div>
+  )) || null;
 
 
   // Combined data for data and genre
@@ -150,6 +173,8 @@ const podcastData = useMemo(() => {
             typefilter = {typeFilter}
             setSearchParams = {setSearchParams}
           />
+
+          {displayedCompletedEpisodes}
 
           {loading && <Loading />}
 
