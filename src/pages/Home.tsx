@@ -88,10 +88,15 @@ export default function Home() {
 
 
   const displayedCompletedEpisodes = completedEpisodes?.map((episode, index) => (
-    <div key={index} className="p-4 bg-gray-100 rounded mb-2">
-      <img src={episode.podcast?.seasons?.[season -1].image}/>
-      <h3 className="text-lg font-semibold">{episode.podcast.title}</h3>
-      <p className="text-sm text-gray-600">Season: {episode.season}, Episode: {episode.episode.title}</p>
+    <div key={index} className="cursor-pointer flex flex-col gap-2 w-[200px] p-4 rounded-md hover:bg-neutral-800 transition-all">
+      <div className="relative">
+        <img src={episode.podcast?.seasons?.[ episode.season -1].image} className="rounded"/>
+        <span className="absolute bottom-0 px-4 py-2 flex justify-between w-full text-sm font-medium text-neutral-300 bg-gradient-to-t from-black to-transparent">
+          <p>S:{episode.season} </p>
+          <p>E:{episode.episode.episode} </p>     
+        </span>
+      </div>
+      <h3 className="text-md font-medium text-neutral-300">{episode.episode.title}</h3>
     </div>
   )) || null;
 
@@ -174,7 +179,14 @@ const podcastData = useMemo(() => {
             setSearchParams = {setSearchParams}
           />
 
-          {displayedCompletedEpisodes}
+          {displayedCompletedEpisodes?.length > 0 ? 
+            <div className="flex flex-col py-5 gap-2.5">
+              <h1 className="text-2xl ml-10">Watch Again</h1>
+                <div className="flex gap-1">
+                  {displayedCompletedEpisodes}
+                </div>
+              </div> 
+            : null}
 
           {loading && <Loading />}
 

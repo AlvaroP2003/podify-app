@@ -90,7 +90,7 @@ export default function SearchSort(
             </div>
            
 
-                <div className="flex gap-5 py-2.5 px-5 lg:p-5 w-[100vw] overflow-scroll">
+                <div className="flex gap-5 py-2.5 px-5 lg:p-5 w-[100vw] overflow-scroll lg:overflow-auto">
                    {genreData.flat().map((genre, index) => (
                     <div
                         onClick={() => {                            

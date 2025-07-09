@@ -33,10 +33,24 @@ export default function UserDetails({modalOpen,setModalOpen}: {modalOpen: boolea
         }, [playLists])
 
 
+        // Completed Episodes State
+        const [completedEpisodes, setCompletedEpisodes] = useState([])
+
+        useEffect(() => {
+            const storedCompleted = localStorage.getItem('completedEpisodes')
+            if(storedCompleted) setCompletedEpisodes(JSON.parse(storedCompleted))
+        },[])
+    
+        useEffect(() => {
+            localStorage.setItem('completedEpisodes', JSON.stringify(completedEpisodes))
+        }, [completedEpisodes])
+
+
         // Function to clear local storage
         const resetAccount = () => {
             setFavourites([])
             setPlaylists([])
+            setCompletedEpisodes([]) // Add this line
             setOpenModal(false)
             toast.success('Account Reset')
         }
@@ -68,7 +82,7 @@ export default function UserDetails({modalOpen,setModalOpen}: {modalOpen: boolea
 
                         <div className="flex justify-between text-neutral-400">
                             <h2>Episodes Watched</h2>
-                            <p>{favourites.length}</p>
+                            <p>{completedEpisodes.length}</p>
                         </div>
 
                         <div className="flex justify-between text-neutral-400">
