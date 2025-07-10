@@ -1,4 +1,4 @@
-import { FolderSearch, Play, Pause } from "lucide-react"
+import { FolderSearch, Play, Pause, Trash2 } from "lucide-react"
 import { useState,useEffect } from "react"
 import toast from "react-hot-toast"
 import { useEpisode } from "../components/EpisodeContext"
@@ -68,25 +68,29 @@ import EpisodeModal from "../components/EpisodeModal"
           setSelectedEpisode(cast.episode)
           setModalOpen(true)
           }}
-        className="flex justify-between items-center hover:bg-neutral-800 p-2 w-full border-b border-neutral-700 transition-all rounded"
+        className="flex justify-between items-center hover:bg-neutral-800 p-2.5 lg:p-5 w-full border-b border-neutral-700 transition-all rounded"
       >
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-3 lg:gap-5 items-center flex-1 min-w-0">
           <button
-            className="text-white p-2 rounded-full bg-amber-300 hover:bg-amber-200 cursor-pointer"
+            className="text-white p-2 rounded-full bg-amber-300 hover:bg-amber-200 cursor-pointer flex-shrink-0"
               onClick={e => {
                 e.stopPropagation();
                 setCurrentPodcast(cast.podcast)
                 setCurrentSeason(cast.season)
-                setCurrentEpisode(cast.episode); // Just play the episode
+                setCurrentEpisode(cast.episode);
                 }}
                 >
               {isPlaying ? <Pause size={20} stroke="text-neutral-800" fill="text-neutral-800" /> : <Play size={20} stroke="text-neutral-800" fill="text-neutral-800" />}
           </button>
-          <img className="w-[75px] lg:w-[100px] rounded" src={image} alt="Season artwork" />
-          <div className="flex flex-col justify-center gap-1">
-            <h1 className={`text-md lg:text-xl font-semibold ${sameCast(cast.podcast,cast.season,cast.episode) ? 'text-amber-300' : 'text-neutral-200'}`}>{cast.episode?.title || "Untitled"}</h1>
-            <h2 className="text-sm lg:text-lg text-neutral-400">{cast.podcast?.title || "Unknown Podcast"}</h2>
-            <span className="flex gap-2 text-sm text-neutral-400">
+          <img className="w-[60px] lg:w-[100px] rounded flex-shrink-0" src={image} alt="Season artwork" />
+          <div className="flex flex-col justify-center gap-1 min-w-0 flex-1">
+            <h1 className={`text-sm lg:text-xl font-semibold lg:whitespace-nowrap overflow-hidden ${sameCast(cast.podcast,cast.season,cast.episode) ? 'text-amber-300' : 'text-neutral-200'}`}>
+              <span className="inline-block lg:inline animate-marquee lg:animate-none">
+                {cast.episode?.title || "Untitled"}
+              </span>
+            </h1>
+            <h2 className="text-xs lg:text-lg text-neutral-400 truncate">{cast.podcast?.title || "Unknown Podcast"}</h2>
+            <span className="flex gap-2 text-xs lg:text-sm text-neutral-400">
               <h3>S {cast.season ?? "?"}</h3>
               <h3>E {cast.episode?.episode ?? "?"}</h3>
             </span>
@@ -98,9 +102,10 @@ import EpisodeModal from "../components/EpisodeModal"
             e.stopPropagation()
             removeFavourite(cast.podcast, cast.season, cast.episode)
           }}
-          className="bg-neutral-700 w-[100px] h-[40px] rounded-full hover:bg-red-500 cursor-pointer transition-all"
+          className="bg-neutral-700 p-2 lg:w-[100px] lg:h-[40px] rounded-full hover:bg-red-500 cursor-pointer transition-all flex-shrink-0 flex items-center justify-center ml-2"
         >
-          Remove
+          <Trash2 size={16} className="lg:hidden" />
+          <span className="hidden lg:block">Remove</span>
         </button>
       </div>
 
@@ -109,7 +114,7 @@ import EpisodeModal from "../components/EpisodeModal"
   });
 
   return (
-    <section className="p-10 w-full">
+    <section className="p-5 lg:p-10 w-full">
       <h1 className="text-2xl">Favourites</h1>
       <div className="flex flex-col py-10">
         {favourites.length === 0 ? (
