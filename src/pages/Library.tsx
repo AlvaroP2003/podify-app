@@ -103,7 +103,7 @@ export default function Library() {
                         {openMenuIndex === index &&
                          <div 
                             ref={(el) => (menuRefs.current[index] = el )}
-                            className="absolute -right-45 top-[50%] transform -translate-y-[50%] bg-neutral-700 flex flex-col rounded">
+                            className="absolute -left-45 top-[50%] transform -translate-y-[50%] bg-neutral-700 flex flex-col rounded">
                             <button 
                                 className="cursor-pointer flex justify-between items-center gap-5 text-neutral-200 px-5 py-2.5 rounded transition-all hover:bg-neutral-600 hover:text-amber-300">Edit Playlist <SquarePen size={17}/></button>
                             <button 
