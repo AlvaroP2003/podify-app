@@ -5,7 +5,7 @@ export default function ConfirmModal({setOpenModal,resetAccount}) {
         <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-60 ">
             <div className="flex flex-col items-center gap-10 bg-neutral-900 border-2 border-neutral-800 p-10 rounded-lg">
                     <h1 className="text-2xl text-neutral-200">Are you sure you want to reset your account</h1>
-                    <p className="text-neutral-300">This will clear your local favourites and playlists permanently</p>
+                    <p className="text-neutral-300">This will permanently clear your local storage</p>
 
                 <div className="flex gap-15">
                     <button 

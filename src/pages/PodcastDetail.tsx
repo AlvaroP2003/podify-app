@@ -64,7 +64,7 @@ import type { Podcast } from "../types/interfaces";
         {selectedEpisode && modalOpen ? <EpisodeModal/> : null}
         {loading ? <Loading/> :
         <section
-         className="p-10 flex flex-col justify-between lg:flex-row overflow-y-scroll w-full lg:h-screen"
+         className="p-10 flex flex-col gap-10 justify-between lg:flex-row overflow-y-scroll w-full lg:h-screen"
         >
 
             <div className="flex flex-2 flex-col gap-10">
@@ -72,8 +72,8 @@ import type { Podcast } from "../types/interfaces";
                     <ArrowLeftFromLine size={20}/> Back to podcasts
                 </NavLink>
 
-                <div className="flex gap-10">
-                    <img src={podcast.image} className="rounded w-[400px]"/>
+                <div className="flex flex-col lg:flex-row gap-10">
+                    <img src={podcast.image} className="rounded w-full lg:w-[400px] lg:h-[400px]"/>
 
                     <div className="flex flex-col gap-2 max-w-[500px]">
                         <h1 className="text-2xl font-semibold">{podcast.title}</h1>
