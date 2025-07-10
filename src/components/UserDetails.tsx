@@ -66,31 +66,31 @@ export default function UserDetails({modalOpen,setModalOpen}: {modalOpen: boolea
                 resetAccount={resetAccount}
                 />}
 
-            <div className={`flex flex-col gap-10 fixed top-0 w-[50%] lg:w-[25%] h-full bg-neutral-900 z-50 transition-all p-5 lg:p-10 ${modalOpen ? 'right-0' : 'right-[-25%]'}`}>
+            <div className={`flex flex-col gap-5 lg:gap-10 fixed top-0 w-[50%] lg:w-[25%] h-full bg-neutral-900 z-50 transition-all p-5 lg:p-10 ${modalOpen ? 'right-0' : 'right-[-25%]'}`}>
 
                 <div className="flex flex-col  items-center gap-2.5">
                     <div className="flex justify-center items-center bg-amber-300 w-15 h-15 rounded-full">
                         <User size={40} strokeWidth={1} stroke="black"/>
                     </div>
-                    <h1 className="text-2xl text-neutral-200">User Name</h1>
+                    <h1 className="text-lg lg:text-xl text-neutral-200">User Name</h1>
                 </div>
 
-                <div className="bg-neutral-800 p-5 rounded">
-                    <h1 className="text-lg mb-4 font-semibold text-neutral-200">Statistics</h1>
+                <div className="bg-neutral-800 p-3 lg:p-5 rounded">
+                    <h1 className="text-md lg:text-lg mb-4 font-semibold text-neutral-200">Statistics</h1>
 
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-1.5 lg:gap-2.5">
 
-                        <div className="flex justify-between text-neutral-400">
+                        <div className="flex justify-between text-neutral-400 text-sm lg:text-md">
                             <h2>Episodes Watched</h2>
                             <p>{completedEpisodes.length}</p>
                         </div>
 
-                        <div className="flex justify-between text-neutral-400">
+                        <div className="flex justify-between text-neutral-400 text-sm lg:text-md">
                             <h2>Total Favourites</h2>
                             <p>{favourites.length}</p>
                         </div>
 
-                        <div className="flex justify-between text-neutral-400">
+                        <div className="flex justify-between text-neutral-400 text-sm lg:text-md">
                             <h2>Total Playlists</h2>
                             <p>{playLists.length}</p>
                         </div>
