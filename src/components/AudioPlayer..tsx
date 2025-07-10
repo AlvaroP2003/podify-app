@@ -128,7 +128,7 @@ export default function AudioPlayer() {
                 setSelectedEpisode(currentEpisode)
                 setModalOpen(true)
             }}
-            className="fixed bottom-0 left-0 right-0 bg-neutral-900 px-4 py-2.5 z-100 h-[15vh] border-t-2 border-neutral-800">
+            className="fixed bottom-[8vh] lg:bottom-0 left-0 right-0 bg-neutral-900 p-2 lg:px-4 lg:py-2.5 z-100 border-t-2 border-neutral-800">
                 <audio
                     ref={audioRef}
                     src={audioSrc}
@@ -143,15 +143,16 @@ export default function AudioPlayer() {
                         <img 
                             src={seasonImage}
                             alt="Season Art"
-                            className="w-20 mr-4 rounded object-cover"
+                            className="w-15 lg:w-20 mr-4 rounded object-cover"
                         />
                         <div className="flex flex-col gap-1">
-                            <h3 className="text-lg font-medium text-neutral-200 max-w-80">{currentEpisode?.title}</h3>
-                            <p className="text-md text-neutral-400">{currentPodcast?.title}</p>
+                            <h3 className="text-md lg:text-lg font-medium text-neutral-200 max-w-80">{currentEpisode?.title}</h3>
+                            <p className="text-sm lg:text-md text-neutral-400">{currentPodcast?.title}</p>
                         </div>
                     </div>
-                    <div className="absolute left-[50%] top-[25%] transform -translate-x-[50%] flex items-center space-x-4">
-                        <button className="text-white p-2 rounded hover:bg-neutral-800 cursor-pointer">
+
+                    <div className="lg:absolute lg:left-[50%] lg:top-[25%] transform lg:-translate-x-[50%] flex items-center space-x-4">
+                        <button className="hidden lg:block text-white p-2 rounded hover:bg-neutral-800 cursor-pointer">
                             <SkipBack size={20} />
                         </button>
                         <button
@@ -163,7 +164,7 @@ export default function AudioPlayer() {
                         >
                             {isPlaying ? <Pause size={20} stroke="text-neutral-800" fill="text-neutral-800" /> : <Play size={20} stroke="text-neutral-800" fill="text-neutral-800" />}
                         </button>
-                        <button className="text-white p-2 rounded hover:bg-neutral-800 cursor-pointer">
+                        <button className="hidden lg:block text-white p-2 rounded hover:bg-neutral-800 cursor-pointer">
                             <SkipForward size={20} />
                         </button>
                     </div>
@@ -173,7 +174,7 @@ export default function AudioPlayer() {
                             e.stopPropagation()
                             setPlaylistModal(true)
                         }}
-                        className="cursor-pointer flex items-center justify-center rounded-full mr-10 hover:bg-neutral-800 w-10 h-10">
+                        className="cursor-pointer flex items-center justify-center rounded-full lg:mr-10 hover:bg-neutral-800 w-10 h-10">
                             <CirclePlus/>
                     </div>
                 </div>
