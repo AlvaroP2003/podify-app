@@ -95,11 +95,6 @@ export default function PlaylistDetail({selectedPlayList,setSelectedPlaylist}) {
     );
 })
 
-    useEffect(() => {
-        console.log(selectedPlayList);
-    },[selectedPlayList])
-
-
     return (
         <>
         {selectedEpisode && modalOpen && <EpisodeModal/>}

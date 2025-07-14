@@ -88,7 +88,7 @@ export default function Home() {
 
 
   const displayedCompletedEpisodes = completedEpisodes?.map((episode, index) => (
-    <div key={index} className="cursor-pointer flex flex-col gap-2 w-[200px] p-4 rounded-md hover:bg-neutral-800 transition-all">
+    <div key={index} className="cursor-pointer flex flex-col gap-2 w-[150px] lg:w-[200px] p-2.5 rounded-md hover:bg-neutral-800 transition-all">
       <div className="relative">
         <img src={episode.podcast?.seasons?.[ episode.season -1].image} className="rounded"/>
         <span className="absolute bottom-0 px-4 py-2 flex justify-between w-full text-sm font-medium text-neutral-300 bg-gradient-to-t from-black to-transparent">
@@ -96,7 +96,7 @@ export default function Home() {
           <p>E:{episode.episode.episode} </p>     
         </span>
       </div>
-      <h3 className="text-md font-medium text-neutral-300">{episode.episode.title}</h3>
+      <h3 className="text-sm font-medium text-neutral-400 line-clamp-2">{episode.episode.title}</h3>
     </div>
   )) || null;
 
@@ -180,8 +180,8 @@ const podcastData = useMemo(() => {
           />
 
           {displayedCompletedEpisodes?.length > 0 ? 
-            <div className="flex flex-col py-5 gap-2.5">
-              <h1 className="text-2xl ml-10">Watch Again</h1>
+            <div className="flex flex-col p-5 lg:px-10 lg:py-7.5 gap-2.5">
+              <h1 className="text-2xl">Watch Again</h1>
                 <div className="flex gap-1">
                   {displayedCompletedEpisodes}
                 </div>

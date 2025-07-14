@@ -19,7 +19,7 @@ export default function Sidebar() {
                     onClick={() => setSidebarOpen(!sidebarOpen)}/>
             </div>
 
-            <ul className="flex flex-col gap-1">
+            <ul className="flex flex-col gap-.5">
              <NavLink
                     to="/"
                     className={({ isActive }) =>
